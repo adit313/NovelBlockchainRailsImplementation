@@ -1,0 +1,1 @@
+This repository serves as a proof of concept of our novel blockchain coded in rails
