@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1.5
+  destination: MyString
+  transaction_hash: MyString
+  sender: MyString
+  sender_public_key: MyString
+  sender_signiture: MyString
+  tx_fee: 1.5
+  status: MyString
+  nonce: 1
+  block: one
+
+two:
+  amount: 1.5
+  destination: MyString
+  transaction_hash: MyString
+  sender: MyString
+  sender_public_key: MyString
+  sender_signiture: MyString
+  tx_fee: 1.5
+  status: MyString
+  nonce: 1
+  block: two
