@@ -4,7 +4,8 @@ class UnconfirmedTransaction < ApplicationRecord
     #   verify it isn't already known
     #   verify it's transaction hash, sender, nonce and information
     #   see if it matches a transaction hash in an open block
-    #       if it does append the information and clear the transaction, aka verify funds and update the global state
+    #       if it does append the information and clear the transaction,
+    #       verify funds, run smart contracts and update the global state
     #       send the block to the commit node network
     #   if it doesn't hold it in temporary memory and check for future matches
 
