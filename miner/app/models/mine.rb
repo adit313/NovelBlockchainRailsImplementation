@@ -3,11 +3,11 @@ class Mine < ApplicationRecord
     #check to see if there are transactions
     if UnconfirmedTransaction.all.count > 0
       #if there are, select which ones to incorporate into a new block
-      proposed_block_transactions = UnconfirmedTransaction.limit(MAX_BLOCK_TRANSACTIONS - 1).order("tx_fee desc")
+      proposed_block_transactions = UnconfirmedTransaction.limit(MAX_BLOCK_TRANSACTIONS - 1).order(tx_fee: :desc, transaction_hash: :desc)
       #add up fees and append coinbase transation with all fees using miner public address key
       total_fees = proposed_block_transactions.pluck(:tx_fee).sum
 
-      transaction_hash = "coinbase"
+      transaction_hash = "0000000000000000000000000000000000000000000000000000000000000000"
       digest = OpenSSL::Digest::SHA256.new
       signature = COMMIT_NODE_KEY.sign(digest, transaction_hash)
 

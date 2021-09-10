@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_09_015647) do
+ActiveRecord::Schema.define(version: 2021_09_10_160239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "account_id"
+    t.float "confirmed_balance"
+    t.integer "highest_nonce"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "blocks", force: :cascade do |t|
     t.string "block_hash"
@@ -22,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_015647) do
     t.string "solution_hash"
     t.string "prev_block_hash"
     t.integer "nonce"
+    t.integer "difficulty"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -32,7 +41,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_015647) do
     t.string "transaction_hash"
     t.string "sender"
     t.string "sender_public_key"
-    t.string "sender_signiture"
+    t.string "sender_signature"
     t.float "tx_fee"
     t.string "status"
     t.integer "nonce"
@@ -43,10 +52,13 @@ ActiveRecord::Schema.define(version: 2021_09_09_015647) do
   end
 
   create_table "unconfirmed_transactions", force: :cascade do |t|
+    t.float "amount"
+    t.string "destination"
     t.string "transaction_hash"
     t.string "sender"
     t.string "sender_public_key"
     t.string "sender_signiture"
+    t.integer "nonce"
     t.float "tx_fee"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

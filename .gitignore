@@ -11,6 +11,10 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 
+/clearing/tmp/*
+/commit/tmp/*
+/mining/tmp/*
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
