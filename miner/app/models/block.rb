@@ -14,7 +14,7 @@ class Block < ApplicationRecord
     }
   end
 
-  def Self.find_height(block)
+  def self.find_height(block)
     prev_block = Block.find_by(block_hash: block.previous_block_hash)
     if prev_block.block_height
       block_height = prev_block.block_height + 1
@@ -27,7 +27,7 @@ class Block < ApplicationRecord
     end
   end
 
-  def Self.received_newly_mined_block
+  def self.received_newly_mined_block
     #add block to database
     #delete unconfirmed_transactions with the same hash from memory
   end
