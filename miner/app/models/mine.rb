@@ -3,20 +3,28 @@ class Mine < ApplicationRecord
     #check to see if there are transactions
     if UnconfirmedTransaction.all.count > 0
       #if there are, select which ones to incorporate into a new block
-      proposed_block_transactions = UnconfirmedTransaction.limit(MAX_BLOCK_TRANSACTIONS - 1).order(tx_fee: :desc, transaction_hash: :desc)
+      proposed_block_transactions = UnconfirmedTransaction.limit(MAX_BLOCK_TRANSACTIONS - 2).order(tx_fee: :desc, transaction_hash: :desc)
       #add up fees and append coinbase transation with all fees using miner public address key
-      total_fees = proposed_block_transactions.pluck(:tx_fee).sum
+      total_fees = proposed_block_transactions.pluck(:tx_fee).sum / 2
 
-      transaction_hash = "0000000000000000000000000000000000000000000000000000000000000000"
+      sender = "0000000000000000000000000000000000000000000000000000000000000000"
       digest = OpenSSL::Digest::SHA256.new
+      transaction_hash = Digest::SHA256.hexdigest(total_fees.to_s + COMMIT_NODE_ADDRESS.to_s + 1.to_s + sender.to_s + COMMIT_NODE_KEY.public_key.to_s.to_s + 0.to_s)
       signature = COMMIT_NODE_KEY.sign(digest, transaction_hash)
 
-      coinbase_transaction = UnconfirmedTransaction.new(transaction_hash: transaction_hash,
-                                                        sender: COMMIT_NODE_ADDRESS,
+      coinbase_transaction = UnconfirmedTransaction.new(amount: total_fees,
+                                                        destination: COMMIT_NODE_ADDRESS,
+                                                        nonce: 1,
+                                                        sender: sender,
                                                         sender_public_key: COMMIT_NODE_KEY.public_key.to_s,
                                                         sender_signature: signature,
+                                                        transaction_hash: transaction_hash,
                                                         tx_fee: 0)
       proposed_block_transactions.unshift(coinbase_transaction)
+      #assign transaction index
+      proposed_block_transactions.each_with_index { |txn, index|
+        txn.update(transaction_index: index)
+      }
       #calculate merkle hash
       merkle_tree_hash = Mine.compute_transaction_merkle_tree(proposed_block_transactions.order(:transaction_index).pluck(:transaction_hash))
       #calclate solution hash

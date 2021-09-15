@@ -7,7 +7,7 @@ class CreateOpenBlocks < ActiveRecord::Migration[6.0]
       t.string :prev_block_hash
       t.integer :nonce
       t.integer :difficulty
-
+      t.integer :cleared_transactions
       t.timestamps
     end
   end

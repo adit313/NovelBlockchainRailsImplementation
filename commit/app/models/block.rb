@@ -27,10 +27,90 @@ class Block < ApplicationRecord
   end
 
   def self.validate_new_cleared_block(json_input)
+    if json_input.is_a?(String)
+      begin
+        parse_input = JSON.parse(json_input)
+      rescue
+        return "JSON is not Valid"
+      end
+    else
+      return "Block inputed was not a JSON String"
+    end
+
+    #check to ensure block exists in memory and is open
+    current_block = OpenBlock.find_by(block_hash: json_input["block_hash"])
+    if !current_block
+      return "Could not locate open block with this block hash"
+    end
+
     #check to see if the block from the clearing node is valid
-    #check to see if block is more cleared than current block and not closed
-    #conflict resolution
+    block_test = Block.generic_block_check(json_input)
+    return block_test if block_test
+
+    #check transactions
+    if json_input["transactions"].length != current_block.open_transactions.length
+      return "The posted block did not match the transactions of the "
+    end
+    txn_test = Block.block_unappended_transaction_test(json_input)
+    return txn_test if txn_test
+
+    #check merkle tree
+    merkle_check = Block.merkle_check(json_input)
+    if merkle_check != parse_input["merkle_hash"]
+      return "Block merkle root did not match transaction merkle root"
+    end
+
+    # check to see if block is more cleared than current block and not closed
+
+    # need to develop better logic about transaction verification in the event of a
+    # malicious clearing node, current solution is for commit network to independently
+    # verify transaction and assess a penalty to that node
+    # This functionality has not yet been implemented in this version
+
+    post_cleared_transactions = 0
+
+    json_input["transactions"].each { |txn|
+      if txn.transaction_index != 0
+        if txn.status == "Pre-Cleared"
+          calculated_hash = Digest::SHA256.hexdigest(txn["amount"].to_s + txn["destination"].to_s + txn["nonce"].to_s + txn["sender"].to_s + txn["sender_public_key"].to_s + txn["tx_fee"].to_s)
+          if calculated_hash != txn["transaction_hash"]
+            return "A transaction hash did not match the SHA256 hex Hash of (amount + destination + nonce + sender + sender_public_key + tx_fee)"
+          else
+            post_cleared_transactions += 1
+          end
+        end
+      end
+    }
+
     #if yes, replace block
+    if post_cleared_transactions > current_block.cleared_transactions
+      #delete the old block and the old transactions
+      current_block.destroy
+
+      #Create a newly cleared blocks to verify future cleared blocks against.
+      new_open_block = OpenBlock.create(block_hash: parse_input["block_hash"],
+                                        commit_hash: nil,
+                                        merkle_hash: parse_input["merkle_hash"],
+                                        solution_hash: parse_input["solution_hash"],
+                                        prev_block_hash: parse_input["prev_block_hash"],
+                                        nonce: parse_input["nonce"],
+                                        difficulty: parse_input["difficulty"],
+                                        clear_transactions: post_cleared_transactions)
+
+      #append the new block with it's block hash to the chain with all transactions set to "waiting"
+      parse_input["transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
+        OpenTransaction.create(amount: new_txn["amount"],
+                               destination: new_txn["destination"],
+                               transaction_hash: new_txn["transaction_hash"],
+                               sender: new_txn["sender"],
+                               sender_public_key: new_txn["sender_public_key"],
+                               sender_signature: new_txn["sender_signature"],
+                               tx_fee: new_txn["tx_fee"],
+                               status: new_txn["tx_fee"],
+                               nonce: new_txn["nonce"],
+                               block_id: new_open_block.id)
+      }
+    end
   end
 
   def self.commit_new_block(parse_input)
@@ -78,6 +158,33 @@ class Block < ApplicationRecord
         block_id: new_block.id,
       )
     }
+
+    #Open a new temporary block as well to verify newly cleared blocks against.
+    new_open_block = OpenBlock.create(block_hash: new_block_hash,
+                                      commit_hash: nil,
+                                      merkle_hash: parse_input["merkle_hash"],
+                                      solution_hash: parse_input["solution_hash"],
+                                      prev_block_hash: parse_input["prev_block_hash"],
+                                      nonce: parse_input["nonce"],
+                                      difficulty: parse_input["difficulty"],
+                                      clear_transactions: 0)
+
+    #append the new block with it's block hash to the chain with all transactions set to "waiting"
+    parse_input["transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
+      OpenTransaction.create(
+        amount: new_txn["amount"],
+        destination: new_txn["destination"],
+        transaction_hash: new_txn["transaction_hash"],
+        sender: new_txn["sender"],
+        sender_public_key: new_txn["sender_public_key"],
+        sender_signature: new_txn["sender_signature"],
+        tx_fee: new_txn["tx_fee"],
+        status: "waiting",
+        nonce: new_txn["nonce"],
+        block_id: new_open_block.id,
+      )
+    }
+
     #delete the temporary block in memory
     open_block.destroy
 
@@ -96,23 +203,23 @@ class Block < ApplicationRecord
     end
 
     if !parse_input["merkle_hash"] || parse_input["merkle_hash"].length != 64
-      return "All transactions must have a valid merkle_hash"
+      return "All blocks must have a valid merkle_hash"
     end
 
     if !parse_input["solution_hash"] || parse_input["solution_hash"].length != 64
-      return "All transactions must have a valid solution hash"
+      return "All blocks must have a valid solution hash"
     end
 
     if !parse_input["prev_block_hash"] || parse_input["prev_block_hash"].length != 64
-      return "All transactions must have a valid previous block hash"
+      return "All blocks must have a valid previous block hash"
     end
 
     if !parse_input["nonce"] || parse_input["nonce"].to_i <= 0
-      return "All transactions must have a valid nonce"
+      return "All blocks must have a valid nonce"
     end
 
     if !parse_input["difficulty"] || parse_input["difficulty"].to_i <= 0
-      return "All transactions must have a valid difficulty"
+      return "All blocks must have a valid difficulty"
     end
 
     calculated_hash = Digest::SHA256.hexdigest(parse_input["nonce"].to_s + parse_input["merkle_hash"].to_s + parse_input["prev_block_hash"].to_s)
@@ -150,16 +257,34 @@ class Block < ApplicationRecord
     if block_transactions.class != Array
       return "Transactions were not properly formatted as an array"
     end
-    block_transactions.each { |txn|
-      txn_test = ConfirmedTransaction.generic_transaction_check(txn.to_json)
-      if txn_test
-        return txn_test
-      end
+    coinbase_transaction_count = 0
+    coinbase_amount_to_verify = 0
+    total_fees = 0
 
-      if !txn["transaction_index"]
-        return "All transactions must have an index"
+    block_transactions.each { |txn|
+      total_fees += txn.tx_fee
+      if txn.sender == "0000000000000000000000000000000000000000000000000000000000000000"
+        ConfirmedTransaction.coinbase_transaction_check(txn.to_json)
+        coinbase_transaction_count += 1
+        coinbase_amount_to_verify += txn.amount
+      else
+        txn_test = ConfirmedTransaction.generic_transaction_check(txn.to_json)
+        if txn_test
+          return txn_test
+        end
+
+        if !txn["transaction_index"]
+          return "All transactions must have an index"
+        end
       end
     }
+    if coinbase_transaction_count > 2
+      return "There are only 2 coinbase transactions in a valid block"
+    end
+
+    if coinbase_amount_to_verify > total_fees
+      return "This block has a higher coinbase transaction amount than its transaction fee total"
+    end
   end
 
   def merkle_check(json_input)
