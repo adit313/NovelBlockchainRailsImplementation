@@ -1,6 +1,6 @@
-class CreateConfirmedTransactions < ActiveRecord::Migration[6.0]
+class CreateOpenTransactions < ActiveRecord::Migration[6.0]
   def change
-    create_table :confirmed_transactions do |t|
+    create_table :open_transactions do |t|
       t.float :amount
       t.string :destination
       t.string :transaction_hash
@@ -11,7 +11,7 @@ class CreateConfirmedTransactions < ActiveRecord::Migration[6.0]
       t.string :status
       t.integer :nonce
       t.integer :transaction_index
-      t.references :block, null: false, foreign_key: true
+      t.references :open_block, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -8,6 +8,7 @@ class CreateUnconfirmedTransactions < ActiveRecord::Migration[6.0]
       t.string :sender_public_key
       t.string :sender_signature
       t.integer :nonce
+      t.integer :transaction_index
       t.float :tx_fee
 
       t.timestamps

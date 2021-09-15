@@ -10,6 +10,7 @@ class CreateConfirmedTransactions < ActiveRecord::Migration[6.0]
       t.float :tx_fee
       t.string :status
       t.integer :nonce
+      t.integer :transaction_index
       t.references :block, null: false, foreign_key: true
 
       t.timestamps

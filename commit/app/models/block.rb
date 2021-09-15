@@ -1,107 +1,7 @@
 class Block < ApplicationRecord
   has_many :confirmed_transactions
 
-  def self.validate_new_mined_block
-    #check to see if the block from the mining node is valid
-    #check that block headers are valid
-    #check merkle tree
-    #check transactions
-    #if valid, perform the commit process
-    Block.commit_new_block()
-  end
-
-  def self.validate_new_cleared_block
-    #check to see if the block from the clearing node is valid
-    #check to see if block is more cleared than current block and not closed
-    #conflict resolution
-    #if yes, replace block
-  end
-
-  def self.commit_new_block
-    #fail all waiting transactions in block at the end of it's window
-    #write the commit hash for the recently cleared and closed block
-    #use that commit hash and the solution hash of the newly mined block to write the block hash of the new block
-    #append the new block with it's block hash to the chain with all transactions set to "waiting"
-    #broadcast the new blocks to all networks
-  end
-
-  def self.validate_new_transaction(json_input)
-
-    #check for transaction formatting
-    #perform generic validation tests
-    test = generic_transaction_check(json_input)
-    if test
-      return test
-    end
-
-    #   see if it matches a transaction hash in temporary memory TO-DO
-
-    #   otherwise check the sender's balance and if sufficient, route it to the miner
-    sender_account = Account.find_by(account_id: parse_input["sender"])
-
-    if parse_input["nonce"] <= sender_account.highest_nonce
-      return "Invalid nonce, all transactions must be in increasing nonce order"
-    end
-
-    tx_fee_withholding = parse_input["txn_fee"].to_f
-    #If transaction has a destination and amount details, you won't need to withhold a potential penalty for not disclosing
-    withholding_required = parse_input["destination"] && parse_input["amount"] ? tx_fee_withholding : (tx_fee_withholding + PENALTY_WITHHOLDING_REQUIRED)
-
-    if !sender_balance.balance || sender_account.balance < withholding_required
-      return "The user doesn't have enough balance to initiate this transaction"
-    end
-
-    #otherwise transaction is valid and good to BROADCAST to other commit nodes/mining nodes
-  end
-
-  def self.validate_appended_information_transaction(json_input)
-
-    #perform generic validation tests
-    test = generic_transaction_check(json_input)
-    if test
-      return test
-    end
-
-    #verify that the transaction has plain-text data,
-    if !parse_input["destination"] || !parse_input["amount"] || !parse_input["nonce"]
-      return "All append requests must have verifiable transaction details to be appended"
-    end
-
-    #verify that the transaction amount is greater than 0,
-    if parse_input["amount"] >= 0
-      return "All transactions must have a positive amount "
-    end
-
-    #   verify the transaction hash, sender, nonce and information
-    calculated_hash = Digest::SHA256.hexdigest(parse_input["amount"].to_s + parse_input["destination"].to_s + parse_input["nonce"].to_s + parse_input["sender"].to_s + parse_input["sender_public_key"].to_s + parse_input["txn_fee"].to_s)
-    if calculated_hash != parse_input["transaction_hash"]
-      return "The hash did not match the SHA256 hex Hash of (amount + destination + nonce + sender + sender_public_key + tx_fee)"
-    end
-
-    #   see if it matches a transaction hash in an open block
-    open_transactions = []
-    Block.where(commit_hash: nil).each { |block|
-      block.confirmed_transactions.each { |txn|
-        open_transactions << txn
-      }
-    }
-
-    #find that transaction to see if it's already been appended
-    referenced_confirmed_transaction = open_transactions.find_by(transaction_hash: parse_input["transaction_hash"])
-    if referenced_confirmed_transaction
-      if !referenced_confirmed_transaction.destination || !referenced_confirmed_transaction.amount || !referenced_confirmed_transaction.nonce
-        referenced_confirmed_transaction.update(destination: parse_input["destination"], amount: parse_input["amount"], nonce: parse_input["nonce"])
-        #BROADCAST to other commit nodes/clearing nodes
-        return "Transaction was found, appended and broadcast to other nodes"
-      end
-    else
-      #   if the transacion can't be found, forward to the miners
-      #BROADCAST TO MINERS
-      return "Transaction was not found on this commit nodes chain"
-    end
-  end
-
-  def generic_transaction_check(json_input)
+  def self.validate_new_mined_block(json_input)
     if json_input.is_a?(String)
       begin
         parse_input = JSON.parse(json_input)
@@ -109,40 +9,169 @@ class Block < ApplicationRecord
         return "JSON is not Valid"
       end
     else
-      return "Transaction inputed was not a JSON String"
+      return "Block inputed was not a JSON String"
+    end
+    #check to see if the block from the mining node is valid
+    block_test = Block.generic_block_check(json_input)
+    return block_test if block_test
+    #check transactions
+    txn_test = Block.block_unappended_transaction_test(json_input)
+    return txn_test if txn_test
+    #check merkle tree
+    merkle_check = Block.merkle_check(json_input)
+    if merkle_check != parse_input["merkle_hash"]
+      return "Block merkle root did not match transaction merkle root"
+    end
+    #if valid, perform the commit process
+    Block.commit_new_block(parse_input)
+  end
+
+  def self.validate_new_cleared_block(json_input)
+    #check to see if the block from the clearing node is valid
+    #check to see if block is more cleared than current block and not closed
+    #conflict resolution
+    #if yes, replace block
+  end
+
+  def self.commit_new_block(parse_input)
+    #get the block that needs to be closed
+    replace_block = Block.where(commit_hash: nil).sort(:block_height).first
+
+    #get open block that has transactions appended from memory
+    open_block = OpenBlock.find_by(block_hash: replace_block.block_hash)
+
+    #close the open_block
+    open_block.close
+
+    #update all the transaction
+    temp_open_transactions = open_block.open_transactions.order(:transaction_index)
+    replace_block.confirmed_transactions.order(:transaction_index).each_with_index { |txn_to_replace, index|
+      replacement_transaction = temp_open_transactions[index]
+      txn_to_replace.update(replacement_transaction.attributes)
+    }
+
+    #Now that the block has updated transactions in it, we write the commit hash
+    replace_block.update(commit_hash: open_block.commit_hash)
+
+    #We now use that commit hash and the solution hash of the newly mined block to write the block hash of the new block
+    new_block_hash = Digest::SHA256.hexdigest(open_block.commit_hash + parse_input["solution_hash"])
+    new_block = Block.create(block_hash: new_block_hash,
+                             commit_hash: nil,
+                             merkle_hash: parse_input["merkle_hash"],
+                             solution_hash: parse_input["solution_hash"],
+                             prev_block_hash: parse_input["prev_block_hash"],
+                             nonce: parse_input["nonce"],
+                             difficulty: parse_input["difficulty"])
+
+    #append the new block with it's block hash to the chain with all transactions set to "waiting"
+    parse_input["transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
+      ConfirmedTransaction.create(
+        amount: new_txn["amount"],
+        destination: new_txn["destination"],
+        transaction_hash: new_txn["transaction_hash"],
+        sender: new_txn["sender"],
+        sender_public_key: new_txn["sender_public_key"],
+        sender_signature: new_txn["sender_signature"],
+        tx_fee: new_txn["tx_fee"],
+        status: "waiting",
+        nonce: new_txn["nonce"],
+        block_id: new_block.id,
+      )
+    }
+    #delete the temporary block in memory
+    open_block.destroy
+
+    #broadcast the new blocks to all networks
+  end
+
+  def self.generic_block_check(json_input)
+    if json_input.is_a?(String)
+      begin
+        parse_input = JSON.parse(json_input)
+      rescue
+        return "JSON is not Valid"
+      end
+    else
+      return "Block inputed was not a JSON String"
     end
 
-    if !parse_input["transaction_hash"] || parse_input["transaction_hash"].length != 64
-      return "All transactions must have a valid SHA256 transaction hash"
+    if !parse_input["merkle_hash"] || parse_input["merkle_hash"].length != 64
+      return "All transactions must have a valid merkle_hash"
     end
 
-    if !parse_input["sender"] || !parse_input["sender_public_key"] || !parse_input["sender_signature"]
-      return "All transactions must have a valid sender and attached signature"
+    if !parse_input["solution_hash"] || parse_input["solution_hash"].length != 64
+      return "All transactions must have a valid solution hash"
     end
 
-    if !parse_input["txn_fee"]
-      return "Transaction Fee is a required field"
+    if !parse_input["prev_block_hash"] || parse_input["prev_block_hash"].length != 64
+      return "All transactions must have a valid previous block hash"
     end
 
-    if parse_input["txn_fee"].to_f.to_s != parse_input["txn_fee"].to_s
-      return "Transaction Fee must be numeric"
+    if !parse_input["nonce"] || parse_input["nonce"].to_i <= 0
+      return "All transactions must have a valid nonce"
     end
 
-    #   verify the senders public key matches the address
-    if Digest::SHA256.hexdigest(parse_input["sender_public_key"].to_s) != parse_input["sender"]
-      return "Public key does not match sender's address"
+    if !parse_input["difficulty"] || parse_input["difficulty"].to_i <= 0
+      return "All transactions must have a valid difficulty"
     end
 
-    #verify it's signature
-    digest = OpenSSL::Digest::SHA256.new
-    begin
-      pub_key = OpenSSL::PKey::RSA.new(parse_input["sender_public_key"].to_s)
-    rescue
-      return "Could not verify sender's public key"
+    calculated_hash = Digest::SHA256.hexdigest(parse_input["nonce"].to_s + parse_input["merkle_hash"].to_s + parse_input["prev_block_hash"].to_s)
+
+    if calculated_hash != parse_input["solution_hash"]
+      return "The hash did not match the SHA256 hex hash of (merkle_hash + nonce + prev_block_hash)"
     end
 
-    if !pub_key.verify(digest, parse_input["sender_signature"].to_s, calculated_hash)
-      return "Could not verify the signature with the public key, signatures must be the transaction hash signed by the associated private key"
+    starting_zeros = ("0" * parse_input["difficulty"].to_i)
+    if !hash.start_with?(starting_zeros)
+      return "The solution hash did not satisfy the difficulty function"
     end
+  end
+
+  def self.compute_transaction_merkle_tree(transaction_hashes)
+    if transaction_hashes.empty?
+      return "0"
+    elsif transaction_hashes.length == 1
+      return transaction_hashes[0]
+    else
+      transaction_hashes << transaction_hashes[-1] if transaction_hashes.size % 2 != 0
+
+      new_hashes = []
+      transaction_hashes.each_slice(2) do |txn_hash|
+        hash = Digest::SHA256.hexdigest(txn_hash[0] + txn_hash[1])
+        new_hashes << hash
+      end
+      return compute_transaction_merkle_tree(new_hashes)
+    end
+  end
+
+  def self.block_unappended_transaction_test(json_input)
+    parse_input = JSON.parse(json_input)
+    block_transactions = parse_input["transactions"]
+    if block_transactions.class != Array
+      return "Transactions were not properly formatted as an array"
+    end
+    block_transactions.each { |txn|
+      txn_test = ConfirmedTransaction.generic_transaction_check(txn.to_json)
+      if txn_test
+        return txn_test
+      end
+
+      if !txn["transaction_index"]
+        return "All transactions must have an index"
+      end
+    }
+  end
+
+  def merkle_check(json_input)
+    parse_input = JSON.parse(json_input)
+    block_transactions = parse_input["transactions"]
+    if block_transactions.class != Array
+      return "Transactions were not properly formatted as an array"
+    end
+    hashes = []
+    block_transactions.sort_by { |k| k["transaction_index"] }.each { |txn|
+      hashes << txn["transaction_hash"]
+    }
+    return Block.compute_transaction_merkle_tree(hashes)
   end
 end

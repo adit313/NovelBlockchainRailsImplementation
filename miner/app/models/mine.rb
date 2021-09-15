@@ -18,7 +18,7 @@ class Mine < ApplicationRecord
                                                         tx_fee: 0)
       proposed_block_transactions.unshift(coinbase_transaction)
       #calculate merkle hash
-      merkle_tree_hash = Mine.compute_transaction_merkle_tree(proposed_block_transactions.pluck(:transaction_hash))
+      merkle_tree_hash = Mine.compute_transaction_merkle_tree(proposed_block_transactions.order(:transaction_index).pluck(:transaction_hash))
       #calclate solution hash
       prev_block_hash = Block.highest_block.block_hash
       block_result = Mine.compute_solution_hash(BLOCK_DIFFICULTY, merkle_tree_hash, prev_block_hash)
@@ -64,11 +64,11 @@ class Mine < ApplicationRecord
   end
 
   # a simple calculator to find the solution hash.
-  def self.compute_solution_hash(difficulty, merkle_hash, previous_block_hash)
+  def self.compute_solution_hash(difficulty, merkle_hash, prev_block_hash)
     starting_zeros = ("0" * difficulty)
     nonce = 0
     loop do
-      hash = Digest::SHA256.hexdigest(nonce.to_s + merkle_hash.to_s + previous_block_hash.to_s)
+      hash = Digest::SHA256.hexdigest(merkle_hash.to_s + nonce.to_s + prev_block_hash.to_s)
       if hash.start_with?(starting_zeros)
         return [nonce, hash]
       else

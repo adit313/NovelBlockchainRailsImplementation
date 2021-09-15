@@ -15,7 +15,7 @@ class Block < ApplicationRecord
   end
 
   def self.find_height(block)
-    prev_block = Block.find_by(block_hash: block.previous_block_hash)
+    prev_block = Block.find_by(block_hash: block.prev_block_hash)
     if prev_block.block_height
       block_height = prev_block.block_height + 1
       block.update(block_height: block_height)
