@@ -91,6 +91,7 @@ class Block < ApplicationRecord
         status: "waiting",
         nonce: new_txn["nonce"],
         block_id: new_block.id,
+        transaction_index: new_txn["transaction_index"],
       )
     }
 
@@ -123,8 +124,8 @@ class Block < ApplicationRecord
     open_block.destroy
 
     #update internal account database
-    accounts_to_update = (replace_block.confirmed_transactions.pluck(:destinations) + replace_block.confirmed_transactions.pluck(:sender)).uniq
-    Account.update_balances_in_new_block(accounts)
+    accounts_to_update = (replace_block.confirmed_transactions.pluck(:destination) + replace_block.confirmed_transactions.pluck(:sender)).uniq
+    Account.update_balances_in_new_block(accounts_to_update)
     #broadcast the new blocks to all networks
 
     #return message to sender
@@ -260,6 +261,19 @@ class Block < ApplicationRecord
     starting_zeros = ("0" * parse_input["difficulty"].to_i)
     if !parse_input["solution_hash"].start_with?(starting_zeros)
       return "The solution hash did not satisfy the difficulty function"
+    end
+
+    if parse_input["commit_hash"]
+      txn_hash_w_status = []
+      #fail all of the open transactions
+      parse_input["confirmed_transactions"].sort { |e| e["transaction_index"] }.each { |open_txn|
+        #SHA256 all the transactions along with their statuses
+        txn_hash_w_status << Digest::SHA256.hexdigest((open_txn.amount ? open_txn.amount.to_s : "") + (open_txn.destination ? open_txn.destination.to_s : "") + open_txn.nonce.to_s + open_txn.sender.to_s + open_txn.sender_public_key.to_s + open_txn.status.to_s + open_txn.tx_fee.to_s)
+      }
+      test_commit_hash = Block.compute_transaction_merkle_tree(txn_hash_w_status)
+      if parse_input["commit_hash"] != test_commit_hash
+        return "Block had a commit hash that didn't match the merkle root of the transactions appended with their statuses"
+      end
     end
   end
 

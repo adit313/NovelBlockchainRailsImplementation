@@ -1,5 +1,6 @@
 class ConfirmedTransaction < ApplicationRecord
   belongs_to :block
+  validates :transaction_hash, :sender, :sender_public_key, :sender_signature, :nonce, :block_id, :transaction_index, presence: true
 
   def self.validate_new_transaction(json_input)
     #check for transaction formatting
@@ -30,7 +31,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #otherwise transaction is valid and good to BROADCAST to other commit nodes/mining nodes
-    return "broadcast to other nodes"
+    return json_input
   end
 
   def self.validate_appended_information_transaction(json_input)
@@ -62,7 +63,9 @@ class ConfirmedTransaction < ApplicationRecord
     #   see if it matches a transaction hash in an open block
     open_transactions = []
     Block.where(commit_hash: nil).each { |block|
-      open_transactions + block.confirmed_transactions
+      block.confirmed_transactions.each { |txn|
+        open_transactions << txn
+      }
     }
 
     #find that transaction to see if it's already been appended

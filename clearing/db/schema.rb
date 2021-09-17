@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_09_10_160239) do
     t.string "merkle_hash"
     t.string "solution_hash"
     t.string "prev_block_hash"
+    t.integer "block_height"
     t.integer "nonce"
     t.integer "difficulty"
     t.datetime "created_at", precision: 6, null: false
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_09_10_160239) do
     t.float "tx_fee"
     t.string "status"
     t.integer "nonce"
+    t.integer "transaction_index"
     t.bigint "block_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -57,8 +59,9 @@ ActiveRecord::Schema.define(version: 2021_09_10_160239) do
     t.string "transaction_hash"
     t.string "sender"
     t.string "sender_public_key"
-    t.string "sender_signiture"
+    t.string "sender_signature"
     t.integer "nonce"
+    t.integer "transaction_index"
     t.float "tx_fee"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
