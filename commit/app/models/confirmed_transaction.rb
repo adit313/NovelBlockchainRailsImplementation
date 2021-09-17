@@ -8,11 +8,14 @@ class ConfirmedTransaction < ApplicationRecord
     if test
       return test
     end
-
+    parse_input = JSON.parse(json_input)
     #   see if it matches a transaction hash in temporary memory TO-DO
 
     #   otherwise check the sender's balance and if sufficient, route it to the miner
-    sender_account = Account.find_by(account_id: parse_input["sender"])
+    sender_account = Account.update_single_account_balances(parse_input["sender"])
+    if !sender_account
+      return "sender account could not be located in the blockchain"
+    end
 
     if parse_input["nonce"] <= sender_account.highest_nonce
       return "Invalid nonce, all transactions must be in increasing nonce order"
@@ -22,11 +25,12 @@ class ConfirmedTransaction < ApplicationRecord
     #If transaction has a destination and amount details, you won't need to withhold a potential penalty for not disclosing
     withholding_required = parse_input["destination"] && parse_input["amount"] ? tx_fee_withholding : (tx_fee_withholding + PENALTY_WITHHOLDING_REQUIRED)
 
-    if !sender_balance.balance || sender_account.balance < withholding_required
+    if !sender_account.confirmed_balance || sender_account.confirmed_balance < withholding_required
       return "The user doesn't have enough balance to initiate this transaction"
     end
 
     #otherwise transaction is valid and good to BROADCAST to other commit nodes/mining nodes
+    return "broadcast to other nodes"
   end
 
   def self.validate_appended_information_transaction(json_input)
@@ -36,6 +40,8 @@ class ConfirmedTransaction < ApplicationRecord
     if test
       return test
     end
+
+    parse_input = JSON.parse(json_input)
 
     #verify that the transaction has plain-text data,
     if !parse_input["destination"] || !parse_input["amount"] || !parse_input["nonce"]
@@ -56,13 +62,11 @@ class ConfirmedTransaction < ApplicationRecord
     #   see if it matches a transaction hash in an open block
     open_transactions = []
     Block.where(commit_hash: nil).each { |block|
-      block.confirmed_transactions.each { |txn|
-        open_transactions << txn
-      }
+      open_transactions + block.confirmed_transactions
     }
 
     #find that transaction to see if it's already been appended
-    referenced_confirmed_transaction = open_transactions.find_by(transaction_hash: parse_input["transaction_hash"])
+    referenced_confirmed_transaction = open_transactions.detect { |e| e.transaction_hash == parse_input["transaction_hash"] }
     if referenced_confirmed_transaction
       if !referenced_confirmed_transaction.destination || !referenced_confirmed_transaction.amount || !referenced_confirmed_transaction.nonce
         referenced_confirmed_transaction.update(destination: parse_input["destination"], amount: parse_input["amount"], nonce: parse_input["nonce"])

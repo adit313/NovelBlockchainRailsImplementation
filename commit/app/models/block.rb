@@ -122,6 +122,9 @@ class Block < ApplicationRecord
     #delete the temporary block in memory
     open_block.destroy
 
+    #update internal account database
+    accounts_to_update = (replace_block.confirmed_transactions.pluck(:destinations) + replace_block.confirmed_transactions.pluck(:sender)).uniq
+    Account.update_balances_in_new_block(accounts)
     #broadcast the new blocks to all networks
 
     #return message to sender
