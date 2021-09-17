@@ -46,13 +46,15 @@ ActiveRecord::Schema.define(version: 2021_09_09_015647) do
   end
 
   create_table "unconfirmed_transactions", force: :cascade do |t|
+    t.float "amount"
+    t.string "destination"
     t.string "transaction_hash"
     t.string "sender"
     t.string "sender_public_key"
     t.string "sender_signature"
     t.float "tx_fee"
     t.integer "nonce"
-    t.integer "expiration_block"
+    t.integer "transaction_index"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

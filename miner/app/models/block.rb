@@ -1,9 +1,15 @@
 class Block < ApplicationRecord
   has_many :confirmed_transactions
+  validates :block_hash, uniqueness: true
+  validates :block_hash, :solution_hash, :merkle_hash, :prev_block_hash, :nonce, :difficulty, presence: true
+  validates :block_hash, length: { is: 64 }
+  validates :merkle_hash, length: { is: 64 }
+  validates :solution_hash, length: { is: 64 }
+  validates :prev_block_hash, length: { is: 64 }
 
   def self.highest_block
     Block.calculate_block_height
-    Block.maximum(:block_height)
+    Block.order(block_height: :desc).first
   end
 
   def self.calculate_block_height

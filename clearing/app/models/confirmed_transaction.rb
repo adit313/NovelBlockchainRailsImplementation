@@ -39,14 +39,14 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #   verify the senders public key matches the address
-    if Digest::SHA256.hexdigest(parse_input["sender_public_key"].to_s) != parse_input["sender"]
+    if Digest::SHA256.base64digest(parse_input["sender_public_key"].to_s) != parse_input["sender"]
       return "Public key does not match sender's address"
     end
 
     #   verify the transaction hash, sender, nonce and information
     calculated_hash = Digest::SHA256.hexdigest(parse_input["amount"].to_s + parse_input["destination"].to_s + parse_input["nonce"].to_s + parse_input["sender"].to_s + parse_input["sender_public_key"].to_s + parse_input["tx_fee"].to_s)
     if calculated_hash != parse_input["transaction_hash"]
-      return "The hash did not match the SHA256 hex Hash of (amount + destination + nonce + sender + sender_public_key + tx_fee)"
+      return "The hash did not match the SHA256 hex Hash of (amount + destination + signed nonce + sender + sender_public_key + tx_fee)"
     end
 
     #verify it's signature
@@ -57,7 +57,7 @@ class ConfirmedTransaction < ApplicationRecord
       return "Could not verify sender's public key"
     end
 
-    if !pub_key.verify(digest, parse_input["sender_signature"].to_s, calculated_hash)
+    if !pub_key.verify(digest, [parse_input["sender_signature"]].pack("H*"), calculated_hash)
       return "Could not verify the signature with the public key, signatures must be the transaction hash signed by the associated private key"
     end
 
@@ -100,7 +100,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     all_of_senders_pay_to_transactions.each { |open_txn|
-      if open_txn.amount && open_txn.status == "Pre-Cleared"
+      if open_txn.amount && open_txn.status == "pre-cleared"
         sender_balance += open_txn.amount
       end
     }
@@ -114,13 +114,13 @@ class ConfirmedTransaction < ApplicationRecord
     all_of_senders_uncommitted_transactions.sort(:nonce).each { |open_txn|
       # smart contract execution here if destination is routed to a smart contract. TO-DO
       if open_txn.nonce != highest_nonce
-        open_txn.update(status: "Illegal Nonce")
+        open_txn.update(status: "illegal nonce")
       else
         if open_txn.amount && sender_balance > open_txn.amount
-          open_txn.update(status: "Pre-Cleared")
+          open_txn.update(status: "pre-cleared")
           destinations << open_txn.destination
         else
-          open_txn.update(status: "Insufficient Funds")
+          open_txn.update(status: "insufficient funds")
         end
       end
       highest_nonce += 1

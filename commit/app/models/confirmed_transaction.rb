@@ -104,7 +104,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #   verify the senders public key matches the address
-    if Digest::SHA256.hexdigest(parse_input["sender_public_key"].to_s) != parse_input["sender"]
+    if (Digest::SHA256.base64digest(parse_input["sender_public_key"].to_s) != parse_input["sender"])
       return "Public key does not match sender's address"
     end
 
@@ -116,12 +116,12 @@ class ConfirmedTransaction < ApplicationRecord
       return "Could not verify sender's public key"
     end
 
-    if !pub_key.verify(digest, parse_input["sender_signature"].to_s, parse_input["sender_signature"])
+    if !pub_key.verify(digest, [parse_input["sender_signature"]].pack("H*"), parse_input["transaction_hash"].to_s)
       return "Could not verify the signature with the public key, signatures must be the transaction hash signed by the associated private key"
     end
   end
 
-  def coinbase_transaction_check(json_input)
+  def self.coinbase_transaction_check(json_input)
     if json_input.is_a?(String)
       begin
         parse_input = JSON.parse(json_input)
@@ -161,7 +161,7 @@ class ConfirmedTransaction < ApplicationRecord
       return "Could not verify sender's public key"
     end
 
-    if !pub_key.verify(digest, parse_input["sender_signature"].to_s, parse_input["sender_signature"])
+    if !pub_key.verify(digest, [parse_input["sender_signature"]].pack("H*"), parse_input["transaction_hash"].to_s)
       return "Could not verify the signature with the public key, signatures must be the transaction hash signed by the associated private key"
     end
   end

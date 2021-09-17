@@ -6,6 +6,7 @@ class CreateBlocks < ActiveRecord::Migration[6.0]
       t.string :merkle_hash
       t.string :solution_hash
       t.string :prev_block_hash
+      t.integer :block_height
       t.integer :nonce
       t.integer :difficulty
 

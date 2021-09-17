@@ -1,5 +1,11 @@
 class Block < ApplicationRecord
   has_many :confirmed_transactions
+  validates :block_hash, uniqueness: true
+  validates :block_hash, :solution_hash, :merkle_hash, :prev_block_hash, :nonce, :difficulty, presence: true
+  validates :block_hash, length: { is: 64 }
+  validates :merkle_hash, length: { is: 64 }
+  validates :solution_hash, length: { is: 64 }
+  validates :prev_block_hash, length: { is: 64 }
 
   def self.validate_new_mined_block(json_input)
     if json_input.is_a?(String)
@@ -22,8 +28,104 @@ class Block < ApplicationRecord
     if merkle_check != parse_input["merkle_hash"]
       return "Block merkle root did not match transaction merkle root"
     end
+    #check to make sure this block is at the end of the chain
+    prev_block_hash = parse_input["prev_block_hash"].to_s
+
+    prev_block = nil
+
+    CLEARING_WINDOW.times do
+      prev_block = Block.find_by(block_hash: prev_block_hash)
+      if !prev_block
+        return "Previous block was not found on this node's chain"
+      end
+      if prev_block.commit_hash
+        return "This clearing window has already been closed"
+      end
+      prev_block_hash = prev_block.prev_block_hash
+    end
+
     #if valid, perform the commit process
-    Block.commit_new_block(parse_input)
+    Block.commit_new_block(parse_input, prev_block)
+  end
+
+  def self.commit_new_block(parse_input, replace_block) #replace_block is the block that needs to be closed
+
+    #get open block that has transactions appended from memory
+    open_block = OpenBlock.find_by(block_hash: replace_block.block_hash)
+
+    #close the open_block
+    commit_hash = open_block.close
+
+    #update all the transaction
+    temp_open_transactions = open_block.open_transactions.order(:transaction_index)
+    replace_block.confirmed_transactions.order(:transaction_index).each_with_index { |txn_to_replace, index|
+      replacement_transaction_info = temp_open_transactions[index].attributes
+      replacement_transaction_info.delete("open_block_id")
+      replacement_transaction_info.delete("id")
+      txn_to_replace.update(replacement_transaction_info)
+    }
+
+    #Now that the block has updated transactions in it, we write the commit hash
+    replace_block.update(commit_hash: commit_hash)
+
+    #We now use that commit hash and the solution hash of the newly mined block to write the block hash of the new block
+    new_block_hash = Digest::SHA256.hexdigest(commit_hash + parse_input["solution_hash"])
+    new_block = Block.create(block_hash: new_block_hash,
+                             commit_hash: nil,
+                             merkle_hash: parse_input["merkle_hash"],
+                             solution_hash: parse_input["solution_hash"],
+                             prev_block_hash: parse_input["prev_block_hash"],
+                             nonce: parse_input["nonce"],
+                             difficulty: parse_input["difficulty"])
+
+    #append the new block with it's block hash to the chain with all transactions set to "waiting"
+    parse_input["confirmed_transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
+      ConfirmedTransaction.create(
+        amount: new_txn["amount"],
+        destination: new_txn["destination"],
+        transaction_hash: new_txn["transaction_hash"],
+        sender: new_txn["sender"],
+        sender_public_key: new_txn["sender_public_key"],
+        sender_signature: new_txn["sender_signature"],
+        tx_fee: new_txn["tx_fee"],
+        status: "waiting",
+        nonce: new_txn["nonce"],
+        block_id: new_block.id,
+      )
+    }
+
+    #Open a new temporary block as well to verify newly cleared blocks against.
+    new_open_block = OpenBlock.create(block_hash: new_block_hash,
+                                      merkle_hash: parse_input["merkle_hash"],
+                                      solution_hash: parse_input["solution_hash"],
+                                      prev_block_hash: parse_input["prev_block_hash"],
+                                      nonce: parse_input["nonce"],
+                                      difficulty: parse_input["difficulty"],
+                                      cleared_transactions: 0)
+
+    #append the new block with it's block hash to the chain with all transactions set to "waiting"
+    parse_input["confirmed_transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
+      OpenTransaction.create(
+        amount: new_txn["amount"],
+        destination: new_txn["destination"],
+        transaction_hash: new_txn["transaction_hash"],
+        sender: new_txn["sender"],
+        sender_public_key: new_txn["sender_public_key"],
+        sender_signature: new_txn["sender_signature"],
+        tx_fee: new_txn["tx_fee"],
+        status: "waiting",
+        nonce: new_txn["nonce"],
+        open_block_id: new_open_block.id,
+      )
+    }
+
+    #delete the temporary block in memory
+    open_block.destroy
+
+    #broadcast the new blocks to all networks
+
+    #return message to sender
+    return "Block accepted"
   end
 
   def self.validate_new_cleared_block(json_input)
@@ -98,7 +200,7 @@ class Block < ApplicationRecord
                                         clear_transactions: post_cleared_transactions)
 
       #append the new block with it's block hash to the chain with all transactions set to "waiting"
-      parse_input["transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
+      parse_input["confirmed_transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
         OpenTransaction.create(amount: new_txn["amount"],
                                destination: new_txn["destination"],
                                transaction_hash: new_txn["transaction_hash"],
@@ -110,85 +212,9 @@ class Block < ApplicationRecord
                                nonce: new_txn["nonce"],
                                block_id: new_open_block.id)
       }
+
+      return "Replaced cleared block"
     end
-  end
-
-  def self.commit_new_block(parse_input)
-    #get the block that needs to be closed
-    replace_block = Block.where(commit_hash: nil).sort(:block_height).first
-
-    #get open block that has transactions appended from memory
-    open_block = OpenBlock.find_by(block_hash: replace_block.block_hash)
-
-    #close the open_block
-    open_block.close
-
-    #update all the transaction
-    temp_open_transactions = open_block.open_transactions.order(:transaction_index)
-    replace_block.confirmed_transactions.order(:transaction_index).each_with_index { |txn_to_replace, index|
-      replacement_transaction = temp_open_transactions[index]
-      txn_to_replace.update(replacement_transaction.attributes)
-    }
-
-    #Now that the block has updated transactions in it, we write the commit hash
-    replace_block.update(commit_hash: open_block.commit_hash)
-
-    #We now use that commit hash and the solution hash of the newly mined block to write the block hash of the new block
-    new_block_hash = Digest::SHA256.hexdigest(open_block.commit_hash + parse_input["solution_hash"])
-    new_block = Block.create(block_hash: new_block_hash,
-                             commit_hash: nil,
-                             merkle_hash: parse_input["merkle_hash"],
-                             solution_hash: parse_input["solution_hash"],
-                             prev_block_hash: parse_input["prev_block_hash"],
-                             nonce: parse_input["nonce"],
-                             difficulty: parse_input["difficulty"])
-
-    #append the new block with it's block hash to the chain with all transactions set to "waiting"
-    parse_input["transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
-      ConfirmedTransaction.create(
-        amount: new_txn["amount"],
-        destination: new_txn["destination"],
-        transaction_hash: new_txn["transaction_hash"],
-        sender: new_txn["sender"],
-        sender_public_key: new_txn["sender_public_key"],
-        sender_signature: new_txn["sender_signature"],
-        tx_fee: new_txn["tx_fee"],
-        status: "waiting",
-        nonce: new_txn["nonce"],
-        block_id: new_block.id,
-      )
-    }
-
-    #Open a new temporary block as well to verify newly cleared blocks against.
-    new_open_block = OpenBlock.create(block_hash: new_block_hash,
-                                      commit_hash: nil,
-                                      merkle_hash: parse_input["merkle_hash"],
-                                      solution_hash: parse_input["solution_hash"],
-                                      prev_block_hash: parse_input["prev_block_hash"],
-                                      nonce: parse_input["nonce"],
-                                      difficulty: parse_input["difficulty"],
-                                      clear_transactions: 0)
-
-    #append the new block with it's block hash to the chain with all transactions set to "waiting"
-    parse_input["transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
-      OpenTransaction.create(
-        amount: new_txn["amount"],
-        destination: new_txn["destination"],
-        transaction_hash: new_txn["transaction_hash"],
-        sender: new_txn["sender"],
-        sender_public_key: new_txn["sender_public_key"],
-        sender_signature: new_txn["sender_signature"],
-        tx_fee: new_txn["tx_fee"],
-        status: "waiting",
-        nonce: new_txn["nonce"],
-        block_id: new_open_block.id,
-      )
-    }
-
-    #delete the temporary block in memory
-    open_block.destroy
-
-    #broadcast the new blocks to all networks
   end
 
   def self.generic_block_check(json_input)
@@ -222,14 +248,14 @@ class Block < ApplicationRecord
       return "All blocks must have a valid difficulty"
     end
 
-    calculated_hash = Digest::SHA256.hexdigest(parse_input["nonce"].to_s + parse_input["merkle_hash"].to_s + parse_input["prev_block_hash"].to_s)
+    calculated_hash = Digest::SHA256.hexdigest(parse_input["merkle_hash"].to_s + parse_input["nonce"].to_s + parse_input["prev_block_hash"].to_s)
 
     if calculated_hash != parse_input["solution_hash"]
-      return "The hash did not match the SHA256 hex hash of (merkle_hash + nonce + prev_block_hash)"
+      return "The solution hash did not match the SHA256 hex hash of (merkle_hash + nonce + prev_block_hash)"
     end
 
     starting_zeros = ("0" * parse_input["difficulty"].to_i)
-    if !hash.start_with?(starting_zeros)
+    if !parse_input["solution_hash"].start_with?(starting_zeros)
       return "The solution hash did not satisfy the difficulty function"
     end
   end
@@ -253,7 +279,7 @@ class Block < ApplicationRecord
 
   def self.block_unappended_transaction_test(json_input)
     parse_input = JSON.parse(json_input)
-    block_transactions = parse_input["transactions"]
+    block_transactions = parse_input["confirmed_transactions"]
     if block_transactions.class != Array
       return "Transactions were not properly formatted as an array"
     end
@@ -262,11 +288,11 @@ class Block < ApplicationRecord
     total_fees = 0
 
     block_transactions.each { |txn|
-      total_fees += txn.tx_fee
-      if txn.sender == "0000000000000000000000000000000000000000000000000000000000000000"
+      total_fees += txn["tx_fee"]
+      if txn["sender"] == "0000000000000000000000000000000000000000000000000000000000000000"
         ConfirmedTransaction.coinbase_transaction_check(txn.to_json)
         coinbase_transaction_count += 1
-        coinbase_amount_to_verify += txn.amount
+        coinbase_amount_to_verify += txn["amount"]
       else
         txn_test = ConfirmedTransaction.generic_transaction_check(txn.to_json)
         if txn_test
@@ -287,9 +313,9 @@ class Block < ApplicationRecord
     end
   end
 
-  def merkle_check(json_input)
+  def self.merkle_check(json_input)
     parse_input = JSON.parse(json_input)
-    block_transactions = parse_input["transactions"]
+    block_transactions = parse_input["confirmed_transactions"]
     if block_transactions.class != Array
       return "Transactions were not properly formatted as an array"
     end
@@ -299,4 +325,33 @@ class Block < ApplicationRecord
     }
     return Block.compute_transaction_merkle_tree(hashes)
   end
+
+  def self.highest_block
+    Block.calculate_block_height
+    Block.order(block_height: :desc).first
+  end
+
+  def self.calculate_block_height
+    Block.all.each { |block|
+      if !block.block_height
+        Block.find_height(block)
+      end
+    }
+  end
+
+  def self.find_height(block)
+    prev_block = Block.find_by(block_hash: block.prev_block_hash)
+    if prev_block.block_height
+      block_height = prev_block.block_height + 1
+      block.update(block_height: block_height)
+      return block_height
+    else
+      block_height = Block.find_height(prev_block) + 1
+      block.update(block_height: block_height)
+      return block_height
+    end
+  end
 end
+
+#code to render block
+#Block.includes(:confirmed_transactions).find(1).to_json(:include => :confirmed_transactions)

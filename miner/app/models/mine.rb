@@ -3,14 +3,14 @@ class Mine < ApplicationRecord
     #check to see if there are transactions
     if UnconfirmedTransaction.all.count > 0
       #if there are, select which ones to incorporate into a new block
-      proposed_block_transactions = UnconfirmedTransaction.limit(MAX_BLOCK_TRANSACTIONS - 2).order(tx_fee: :desc, transaction_hash: :desc)
+      active_record_proposed_block_transactions = UnconfirmedTransaction.limit(MAX_BLOCK_TRANSACTIONS - 2).order(tx_fee: :desc, transaction_hash: :desc)
       #add up fees and append coinbase transation with all fees using miner public address key
-      total_fees = proposed_block_transactions.pluck(:tx_fee).sum / 2
+      total_fees = active_record_proposed_block_transactions.pluck(:tx_fee).sum / 2
 
       sender = "0000000000000000000000000000000000000000000000000000000000000000"
       digest = OpenSSL::Digest::SHA256.new
       transaction_hash = Digest::SHA256.hexdigest(total_fees.to_s + COMMIT_NODE_ADDRESS.to_s + 1.to_s + sender.to_s + COMMIT_NODE_KEY.public_key.to_s.to_s + 0.to_s)
-      signature = COMMIT_NODE_KEY.sign(digest, transaction_hash)
+      signature = COMMIT_NODE_KEY.sign(digest, transaction_hash).unpack("H*").first
 
       coinbase_transaction = UnconfirmedTransaction.new(amount: total_fees,
                                                         destination: COMMIT_NODE_ADDRESS,
@@ -19,14 +19,21 @@ class Mine < ApplicationRecord
                                                         sender_public_key: COMMIT_NODE_KEY.public_key.to_s,
                                                         sender_signature: signature,
                                                         transaction_hash: transaction_hash,
-                                                        tx_fee: 0)
-      proposed_block_transactions.unshift(coinbase_transaction)
+                                                        tx_fee: 0,
+                                                        transaction_index: 0)
+      proposed_block_transactions = active_record_proposed_block_transactions.order(tx_fee: :asc).to_a
+      proposed_block_transactions << coinbase_transaction
+      proposed_block_transactions.reverse!
       #assign transaction index
-      proposed_block_transactions.each_with_index { |txn, index|
-        txn.update(transaction_index: index)
+      index = 1
+      proposed_block_transactions.each { |txn|
+        if txn.sender != sender
+          txn.update(transaction_index: index)
+          index += 1
+        end
       }
       #calculate merkle hash
-      merkle_tree_hash = Mine.compute_transaction_merkle_tree(proposed_block_transactions.order(:transaction_index).pluck(:transaction_hash))
+      merkle_tree_hash = Mine.compute_transaction_merkle_tree(proposed_block_transactions.pluck(:transaction_hash))
       #calclate solution hash
       prev_block_hash = Block.highest_block.block_hash
       block_result = Mine.compute_solution_hash(BLOCK_DIFFICULTY, merkle_tree_hash, prev_block_hash)
@@ -36,14 +43,15 @@ class Mine < ApplicationRecord
                                     merkle_hash: merkle_tree_hash,
                                     prev_block_hash: prev_block_hash,
                                     nonce: (block_result[0]),
-                                    solution_hash: block_result[1])
+                                    solution_hash: block_result[1],
+                                    difficulty: BLOCK_DIFFICULTY)
       #and prepare the json to commit node network
       transmit_hash = newly_mined_block.attributes
       transactions_array = []
       proposed_block_transactions.each { |txn|
         transactions_array << txn.attributes
       }
-      transmit_hash["transactions"] = transactions_array
+      transmit_hash["confirmed_transactions"] = transactions_array
       #transmit to commit node network
       payload = transmit_hash.to_json
       #if successful
@@ -74,7 +82,7 @@ class Mine < ApplicationRecord
   # a simple calculator to find the solution hash.
   def self.compute_solution_hash(difficulty, merkle_hash, prev_block_hash)
     starting_zeros = ("0" * difficulty)
-    nonce = 0
+    nonce = 1
     loop do
       hash = Digest::SHA256.hexdigest(merkle_hash.to_s + nonce.to_s + prev_block_hash.to_s)
       if hash.start_with?(starting_zeros)

@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_09_14_205338) do
     t.string "merkle_hash"
     t.string "solution_hash"
     t.string "prev_block_hash"
+    t.integer "block_height"
     t.integer "nonce"
     t.integer "difficulty"
     t.datetime "created_at", precision: 6, null: false
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 2021_09_14_205338) do
     t.string "prev_block_hash"
     t.integer "nonce"
     t.integer "difficulty"
+    t.integer "cleared_transactions"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
