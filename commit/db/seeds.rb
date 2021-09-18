@@ -31,6 +31,7 @@ ConfirmedTransaction.create(
   tx_fee: 0,
   status: "cleared",
   nonce: 1,
+  transaction_index: 0,
   block_id: genesis.id,
 )
 
@@ -53,6 +54,7 @@ ConfirmedTransaction.create(
   tx_fee: 0,
   status: "pre-cleared",
   nonce: 2,
+  transaction_index: 0,
   block_id: new_block1.id,
 )
 
@@ -73,6 +75,7 @@ OpenTransaction.create(
   tx_fee: 0,
   status: "pre-cleared",
   nonce: 2,
+  transaction_index: 0,
   open_block_id: new_open_block1.id,
 )
 
@@ -95,6 +98,7 @@ ConfirmedTransaction.create(
   tx_fee: 0,
   status: "pre-cleared",
   nonce: 2,
+  transaction_index: 0,
   block_id: new_block2.id,
 )
 
@@ -115,5 +119,6 @@ OpenTransaction.create(
   tx_fee: 0,
   status: "pre-cleared",
   nonce: 3,
+  transaction_index: 0,
   open_block_id: new_open_block2.id,
 )

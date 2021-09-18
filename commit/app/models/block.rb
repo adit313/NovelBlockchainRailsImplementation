@@ -90,8 +90,8 @@ class Block < ApplicationRecord
         tx_fee: new_txn["tx_fee"],
         status: "waiting",
         nonce: new_txn["nonce"],
-        block_id: new_block.id,
         transaction_index: new_txn["transaction_index"],
+        block_id: new_block.id,
       )
     }
 
@@ -116,6 +116,7 @@ class Block < ApplicationRecord
         tx_fee: new_txn["tx_fee"],
         status: "waiting",
         nonce: new_txn["nonce"],
+        transaction_index: new_txn["transaction_index"],
         open_block_id: new_open_block.id,
       )
     }
@@ -212,8 +213,9 @@ class Block < ApplicationRecord
                                sender_public_key: new_txn["sender_public_key"],
                                sender_signature: new_txn["sender_signature"],
                                tx_fee: new_txn["tx_fee"],
-                               status: new_txn["tx_fee"],
+                               status: new_txn["status"],
                                nonce: new_txn["nonce"],
+                               transaction_index: new_txn["transaction_index"],
                                block_id: new_open_block.id)
       }
 
@@ -367,6 +369,105 @@ class Block < ApplicationRecord
       block.update(block_height: block_height)
       return block_height
     end
+  end
+
+  #################################
+  def self.validate_newly_received_block(json_input)
+    if json_input.is_a?(String)
+      begin
+        parse_input = JSON.parse(json_input)
+      rescue
+        return "JSON is not Valid"
+      end
+    else
+      return "Block inputed was not a JSON String"
+    end
+    #check to see if the block from the mining node is valid
+    block_test = Block.generic_block_check(json_input)
+    return block_test if block_test
+    #check transactions
+    txn_test = Block.block_unappended_transaction_test(json_input)
+    return txn_test if txn_test
+    #check merkle tree
+    merkle_check = Block.merkle_check(json_input)
+    if merkle_check != parse_input["merkle_hash"]
+      return "Block merkle root did not match transaction merkle root"
+    end
+
+    #check to make sure this block is at the end of the chain
+    prev_block_hash = parse_input["prev_block_hash"].to_s
+
+    prev_block = nil
+
+    CLEARING_WINDOW.times do
+      prev_block = Block.find_by(block_hash: prev_block_hash)
+      if !prev_block
+        return "Previous block was not found on this node's chain"
+      end
+      if prev_block.commit_hash
+        if parse_input["block_hash"] != Digest::SHA256.hexdigest(prev_block.commit_hash + parse_input["solution_hash"])
+          return "This block's block hash does not match this node's commit hash chains"
+        end
+      end
+      prev_block_hash = prev_block.prev_block_hash
+    end
+
+    #if valid, add to memory or update if on chain
+    pre_existing_block = Block.find_by(block_hash: parse_input["block_hash"], commit_hash: parse_input["commit_hash"])
+    if pre_existing_block
+      Block.update_block_from_json(parse_input, pre_existing_block)
+    else
+      pre_existing_block = Block.find_by(block_hash: parse_input["block_hash"])
+      if pre_existing_block && pre_existing_block.commit_hash == nil
+        Block.update_block_from_json(parse_input, pre_existing_block)
+      else
+        pre_existing_block = Block.new_block_from_json(parse_input)
+      end
+    end
+    accounts_to_update = (pre_existing_block.confirmed_transactions.pluck(:destination) + pre_existing_block.confirmed_transactions.pluck(:sender)).uniq
+    Account.update_balances_in_new_block(accounts_to_update)
+  end
+
+  def self.new_block_from_json(parse_input)
+    new_block = Block.create(block_hash: parse_input["block_hash"],
+                             commit_hash: parse_input["commit_hash"],
+                             merkle_hash: parse_input["merkle_hash"],
+                             solution_hash: parse_input["solution_hash"],
+                             prev_block_hash: parse_input["prev_block_hash"],
+                             nonce: parse_input["nonce"],
+                             difficulty: parse_input["difficulty"])
+
+    #append the new block with it's block hash to the chain with all transactions set to "waiting"
+    parse_input["confirmed_transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
+      ConfirmedTransaction.create(
+        amount: new_txn["amount"],
+        destination: new_txn["destination"],
+        transaction_hash: new_txn["transaction_hash"],
+        sender: new_txn["sender"],
+        sender_public_key: new_txn["sender_public_key"],
+        sender_signature: new_txn["sender_signature"],
+        tx_fee: new_txn["tx_fee"],
+        status: new_txn["status"],
+        nonce: new_txn["nonce"],
+        transaction_index: new_txn["transaction_index"],
+        block_id: new_block.id,
+      )
+    }
+    return new_block
+  end
+
+  def self.update_block_from_json(parse_input, block_to_replace)
+    #update block commit hash
+    block_to_replace.update(commit_hash: parse_input["commit_hash"])
+
+    #update all the transaction
+    temp_parsed_transactions = parse_input["confirmed_transactions"].sort { |e| e["transaction_index"] }
+
+    block_to_replace.confirmed_transactions.order(:transaction_index).each_with_index { |txn_to_replace, index|
+      replacement_transaction_info = temp_parsed_transactions[index]
+      replacement_transaction_info.delete("id")
+      txn_to_replace.update(replacement_transaction_info)
+    }
   end
 end
 

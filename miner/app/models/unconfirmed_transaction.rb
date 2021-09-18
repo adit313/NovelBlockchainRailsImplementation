@@ -43,7 +43,18 @@ class UnconfirmedTransaction < ApplicationRecord
     if !pub_key.verify(digest, [parse_input["sender_signature"]].pack("H*"), parse_input["transaction_hash"].to_s)
       return "Could not verify the signature with the public key, signatures must be the transaction hash signed by the associated private key"
     end
-    #if valid add it to the mempool
+    #if valid check to make sure it isn't in the mempool already or on chain
+    mempool_transaction_test = UnconfirmedTransaction.find_by(transaction_hash: parse_input["transaction_hash"])
+    if mempool_transaction_test
+      return "Transaction is already known and staged in the mempool for inclusion in a new block"
+    end
+
+    confirmed_transaction_test = ConfirmedTransaction.find_by(transaction_hash: parse_input["transaction_hash"])
+    if confirmed_transaction_test
+      return "Transaction is already on-chain"
+    end
+
+    #then add it to the mempool
     UnconfirmedTransaction.create(amount: parse_input["amount"],
                                   destination: parse_input["destination"],
                                   transaction_hash: parse_input["transaction_hash"],
@@ -53,10 +64,6 @@ class UnconfirmedTransaction < ApplicationRecord
                                   tx_fee: parse_input["tx_fee"],
                                   nonce: parse_input["nonce"])
     #and then propogate it to the network
-  end
-
-  def self.add_to_pool(transaction)
-    #create and save this transaction object
   end
 
   def self.propogate_transation(transaction)

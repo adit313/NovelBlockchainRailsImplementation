@@ -5,7 +5,7 @@ class Block < ApplicationRecord
     #remember to append a coinbase transaction for the clearing node
   end
 
-  def self.validate_new_received_block(json_input)
+  def self.validate_newly_received_block(json_input)
     if json_input.is_a?(String)
       begin
         parse_input = JSON.parse(json_input)
@@ -39,7 +39,7 @@ class Block < ApplicationRecord
       end
       if prev_block.commit_hash
         if parse_input["block_hash"] != Digest::SHA256.hexdigest(prev_block.commit_hash + parse_input["solution_hash"])
-          return "This block's block hash does not match this node's commit hash chains" ###############
+          return "This block's block hash does not match this node's commit hash chains"
         end
       end
       prev_block_hash = prev_block.prev_block_hash
@@ -54,9 +54,11 @@ class Block < ApplicationRecord
       if pre_existing_block && pre_existing_block.commit_hash == nil
         Block.update_block_from_json(parse_input, pre_existing_block)
       else
-        Block.new_block_from_json(parse_input)
+        pre_existing_block = Block.new_block_from_json(parse_input)
       end
     end
+    accounts_to_update = (pre_existing_block.confirmed_transactions.pluck(:destination) + pre_existing_block.confirmed_transactions.pluck(:sender)).uniq
+    Account.update_balances_in_new_block(accounts_to_update)
   end
 
   def self.new_block_from_json(parse_input)
@@ -80,9 +82,11 @@ class Block < ApplicationRecord
         tx_fee: new_txn["tx_fee"],
         status: new_txn["status"],
         nonce: new_txn["nonce"],
+        transaction_index: new_txn["transaction_index"],
         block_id: new_block.id,
       )
     }
+    return new_block
   end
 
   def self.update_block_from_json(parse_input, block_to_replace)
