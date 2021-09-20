@@ -18,6 +18,14 @@ class ConfirmedTransaction < ApplicationRecord
       return "All transactions must have a valid SHA256 transaction hash"
     end
 
+    if !parse_input["tx_fee"]
+      return "Transaction Fee is a required field"
+    end
+
+    if parse_input["tx_fee"].to_f.to_s != parse_input["tx_fee"].to_s
+      return "Transaction Fee must be numeric"
+    end
+
     if !parse_input["sender"] || !parse_input["sender_public_key"] || !parse_input["sender_signature"]
       return "All transactions must have a valid sender and attached signature"
     end
@@ -33,10 +41,8 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #Come back to this!!!!!
-    #   verify it isn't already known in the unconfirmed transaction pool
-    if ConfirmedTransaction.find_by(transaction_hash: parse_input["transaction_hash"])
-      return "All ready in memory, waiting to be appended"
-    end
+    #   verify it isn't already known in the temporary transaction pool
+    #   to_ implement later
 
     #   verify the senders public key matches the address
     if Digest::SHA256.base64digest(parse_input["sender_public_key"].to_s) != parse_input["sender"]
@@ -78,6 +84,7 @@ class ConfirmedTransaction < ApplicationRecord
       ConfirmedTransaction.clear_transactions(open_transactions, parse_input["sender"].to_s)
       #       send the block to the commit node network
       #       TRANSMIT BLOCK CODE
+      return "Transaction was matched"
     else
       #   if it doesn't hold it in temporary memory and check for future matches
       #   ADD UNMATCHED TRANSACTION STORAGE

@@ -64,6 +64,7 @@ class UnconfirmedTransaction < ApplicationRecord
                                   tx_fee: parse_input["tx_fee"],
                                   nonce: parse_input["nonce"])
     #and then propogate it to the network
+    return "Transaction was accepted"
   end
 
   def self.propogate_transation(transaction)

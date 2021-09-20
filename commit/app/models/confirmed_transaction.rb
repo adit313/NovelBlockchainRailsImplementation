@@ -34,7 +34,7 @@ class ConfirmedTransaction < ApplicationRecord
     return json_input
   end
 
-  def self.validate_appended_information_transaction(json_input)
+  def self.verify_and_append_transaction(json_input)
 
     #perform generic validation tests
     test = ConfirmedTransaction.generic_transaction_check(json_input)
@@ -98,16 +98,16 @@ class ConfirmedTransaction < ApplicationRecord
       return "All transactions must have a valid SHA256 transaction hash"
     end
 
-    if !parse_input["sender"] || !parse_input["sender_public_key"] || !parse_input["sender_signature"]
-      return "All transactions must have a valid sender and attached signature"
-    end
-
     if !parse_input["tx_fee"]
       return "Transaction Fee is a required field"
     end
 
     if parse_input["tx_fee"].to_f.to_s != parse_input["tx_fee"].to_s
       return "Transaction Fee must be numeric"
+    end
+
+    if !parse_input["sender"] || !parse_input["sender_public_key"] || !parse_input["sender_signature"]
+      return "All transactions must have a valid sender and attached signature"
     end
 
     #   verify the senders public key matches the address

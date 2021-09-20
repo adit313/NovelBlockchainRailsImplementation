@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get "/current_highest_block", to: "block#current_highest_block"
+  get "/current_highest_block", to: "main#current_highest_block"
 
-  get "/balance", to: "account#balance"
+  post "/new_transaction", to: "main#new_transaction"
 
-  get "/nonce", to: "account#nonce"
+  get "/account/:id", to: "main#account"
 
-  post "/new_transaction", to: "confirmed_transaction#new_transaction"
+  post "/append_information", to: "main#append_information"
 
-  post "/append_transaction", to: "confirmed_transaction#append_transaction"
+  post "/block", to: "main#new_block"
 
-  post "/block", to: "block#new_block"
+  post "/commit", to: "main#commit"
 
-  post "/commit", to: "block#commit"
+  post "/cleared_block", to: "main#cleared_block"
 
-  post "/clear_block", to: "block#new_clear"
+  get "/get_chain/:id", to: "main#get_chain"
 end

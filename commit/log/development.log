@@ -2447,3 +2447,271 @@ FOREIGN KEY ("open_block_id")
   [1m[36mConfirmedTransaction Load (0.3ms)[0m  [1m[34mSELECT "confirmed_transactions".* FROM "confirmed_transactions" WHERE "confirmed_transactions"."block_id" = $1[0m  [["block_id", 4]]
   [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
   [1m[36mConfirmedTransaction Load (0.3ms)[0m  [1m[34mSELECT "confirmed_transactions".* FROM "confirmed_transactions" WHERE "confirmed_transactions"."block_id" = $1[0m  [["block_id", 2]]
+  [1m[36mAccount Load (4.4ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mAccount Load (0.4ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts"[0m
+Started GET "/" for ::1 at 2021-09-20 15:07:42 -0400
+  [1m[35m (16.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/aditpatel/.rvm/gems/ruby-2.7.1/gems/railties-6.0.4.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/aditpatel/.rvm/gems/ruby-2.7.1/gems/railties-6.0.4.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 10.4ms | Allocations: 409)
+Completed 200 OK in 23ms (Views: 17.6ms | ActiveRecord: 0.0ms | Allocations: 2255)
+
+
+Started GET "/account/0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw=" for ::1 at 2021-09-20 15:07:48 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/account/0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="):
+  
+actionpack (6.0.4.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.4.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.4.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.4.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.4.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.4.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/account/3/JkGLd5Qw=" for ::1 at 2021-09-20 15:08:12 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/account/3/JkGLd5Qw="):
+  
+actionpack (6.0.4.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.4.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.4.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.4.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.4.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.4.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/account/3" for ::1 at 2021-09-20 15:08:14 -0400
+Processing by MainController#account as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mAccount Load (0.5ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" WHERE "accounts"."account_id" = $1 LIMIT $2[0m  [["account_id", "3"], ["LIMIT", 1]]
+  ↳ app/controllers/main_controller.rb:14:in `account'
+Completed 200 OK in 11ms (Views: 0.1ms | ActiveRecord: 3.7ms | Allocations: 2140)
+
+
+Started GET "/" for ::1 at 2021-09-20 15:10:41 -0400
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/aditpatel/.rvm/gems/ruby-2.7.1/gems/railties-6.0.4.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/aditpatel/.rvm/gems/ruby-2.7.1/gems/railties-6.0.4.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 7.5ms | Allocations: 295)
+Completed 200 OK in 13ms (Views: 10.2ms | ActiveRecord: 0.0ms | Allocations: 1538)
+
+
+Started GET "/get_chain" for ::1 at 2021-09-20 15:10:45 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/get_chain"):
+  
+actionpack (6.0.4.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.4.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.4.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.4.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.4.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.4.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/get_chain/1" for ::1 at 2021-09-20 15:10:49 -0400
+  
+AbstractController::ActionNotFound (The action 'get_chain' could not be found for MainController):
+  
+actionpack (6.0.4.1) lib/abstract_controller/base.rb:131:in `process'
+actionpack (6.0.4.1) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.0.4.1) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.0.4.1) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.0.4.1) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.0.4.1) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.4.1) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.4.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.4.1) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.4.1) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.4.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.4.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.4.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.4.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.4.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.4.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/get_chain/1" for ::1 at 2021-09-20 15:10:59 -0400
+Processing by MainController#get_chain as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBlock Load (3.5ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."block_height" BETWEEN $1 AND $2[0m  [["block_height", 1], ["block_height", 51]]
+  ↳ app/controllers/main_controller.rb:47:in `get_chain'
+Completed 200 OK in 28ms (Views: 0.1ms | ActiveRecord: 7.1ms | Allocations: 5030)
+
+
+  [1m[36mBlock Load (0.5ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mBlock Load (0.4ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks"[0m
+Started GET "/current_highest_block" for ::1 at 2021-09-20 15:11:40 -0400
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MainController#current_highest_block as HTML
+  [1m[36mBlock Load (0.8ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks"[0m
+  ↳ app/models/block.rb:354:in `calculate_block_height'
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["LIMIT", 1]]
+  ↳ app/models/block.rb:362:in `find_height'
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["LIMIT", 1]]
+  ↳ app/models/block.rb:362:in `find_height'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[36mBlock Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 AND "blocks"."id" != $2 LIMIT $3[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["id", 2], ["LIMIT", 1]]
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[36mBlock Update (5.4ms)[0m  [1m[33mUPDATE "blocks" SET "block_height" = $1, "updated_at" = $2 WHERE "blocks"."id" = $3[0m  [["block_height", 1], ["updated_at", "2021-09-20 19:11:40.390968"], ["id", 2]]
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[35m (2.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/block.rb:369:in `find_height'
+  [1m[36mBlock Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 AND "blocks"."id" != $2 LIMIT $3[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad2"], ["id", 3], ["LIMIT", 1]]
+  ↳ app/models/block.rb:369:in `find_height'
+  [1m[36mBlock Update (0.5ms)[0m  [1m[33mUPDATE "blocks" SET "block_height" = $1, "updated_at" = $2 WHERE "blocks"."id" = $3[0m  [["block_height", 2], ["updated_at", "2021-09-20 19:11:40.406294"], ["id", 3]]
+  ↳ app/models/block.rb:369:in `find_height'
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/block.rb:369:in `find_height'
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["LIMIT", 1]]
+  ↳ app/models/block.rb:362:in `find_height'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[36mBlock Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 AND "blocks"."id" != $2 LIMIT $3[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["id", 2], ["LIMIT", 1]]
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[36mBlock Update (3.3ms)[0m  [1m[33mUPDATE "blocks" SET "block_height" = $1, "updated_at" = $2 WHERE "blocks"."id" = $3[0m  [["block_height", 1], ["updated_at", "2021-09-20 19:11:40.412472"], ["id", 2]]
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad2"], ["LIMIT", 1]]
+  ↳ app/models/block.rb:362:in `find_height'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[36mBlock Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 AND "blocks"."id" != $2 LIMIT $3[0m  [["block_hash", "21aaf3d7681a6ba03978d6dddce6972ae0950b559a36f69efdb39b0d669b337c"], ["id", 4], ["LIMIT", 1]]
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[36mBlock Update (0.4ms)[0m  [1m[33mUPDATE "blocks" SET "block_height" = $1, "updated_at" = $2 WHERE "blocks"."id" = $3[0m  [["block_height", 3], ["updated_at", "2021-09-20 19:11:40.421477"], ["id", 4]]
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/block.rb:365:in `find_height'
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" ORDER BY "blocks"."block_height" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/models/block.rb:350:in `highest_block'
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/main_controller.rb:4:in `current_highest_block'
+  [1m[36mConfirmedTransaction Load (0.5ms)[0m  [1m[34mSELECT "confirmed_transactions".* FROM "confirmed_transactions" WHERE "confirmed_transactions"."block_id" = $1[0m  [["block_id", 4]]
+  ↳ app/controllers/main_controller.rb:4:in `current_highest_block'
+Completed 200 OK in 99ms (Views: 0.1ms | ActiveRecord: 31.9ms | Allocations: 40519)
+
+
+Started GET "/get_chain/1" for ::1 at 2021-09-20 15:11:43 -0400
+Processing by MainController#get_chain as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."block_height" BETWEEN $1 AND $2[0m  [["block_height", 1], ["block_height", 51]]
+  ↳ app/controllers/main_controller.rb:47:in `get_chain'
+  [1m[36mConfirmedTransaction Load (0.7ms)[0m  [1m[34mSELECT "confirmed_transactions".* FROM "confirmed_transactions" WHERE "confirmed_transactions"."block_id" IN ($1, $2, $3)[0m  [["block_id", 3], ["block_id", 2], ["block_id", 4]]
+  ↳ app/controllers/main_controller.rb:47:in `get_chain'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 1.0ms | Allocations: 3322)
+
+
+  [1m[36mAccount Load (1.3ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" ORDER BY "accounts"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mAccount Load (0.4ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" ORDER BY "accounts"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mAccount Load (0.4ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" ORDER BY "accounts"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mAccount Load (0.5ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" ORDER BY "accounts"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Started GET "/" for ::1 at 2021-09-20 15:20:25 -0400
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/aditpatel/.rvm/gems/ruby-2.7.1/gems/railties-6.0.4.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/aditpatel/.rvm/gems/ruby-2.7.1/gems/railties-6.0.4.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 7.8ms | Allocations: 295)
+Completed 200 OK in 14ms (Views: 10.7ms | ActiveRecord: 0.0ms | Allocations: 1538)
+
+
+Started GET "/0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD%2FJkGLd5Qw%3D" for ::1 at 2021-09-20 15:20:28 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD%2FJkGLd5Qw%3D"):
+  
+actionpack (6.0.4.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.4.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.4.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.4.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.4.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.4.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.4.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.4.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/account/0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD%2FJkGLd5Qw%3D" for ::1 at 2021-09-20 15:20:40 -0400
+Processing by MainController#account as HTML
+  Parameters: {"id"=>"0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="}
+  [1m[36mAccount Load (0.5ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" WHERE "accounts"."account_id" = $1 LIMIT $2[0m  [["account_id", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["LIMIT", 1]]
+  ↳ app/controllers/main_controller.rb:14:in `account'
+Completed 200 OK in 23ms (Views: 0.1ms | ActiveRecord: 10.4ms | Allocations: 5392)
+
+

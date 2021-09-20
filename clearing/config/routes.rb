@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get "/current_block", to: "block#current_block"
+  get "/current_block", to: "main#current_block"
 
-  get "/current_chain", to: "block#all_open_blocks"
+  get "/get_chain/:id", to: "main#get_chain"
 
-  post "/appended_information", to: "confirmed_transaction#append"
+  post "/append_information", to: "main#append_information"
 
-  post "/block", to: "block#new_block"
+  post "/block", to: "main#block"
 end
