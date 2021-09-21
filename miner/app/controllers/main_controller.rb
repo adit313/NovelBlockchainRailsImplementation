@@ -13,6 +13,7 @@ class MainController < ApplicationController
     end
     result = UnconfirmedTransaction.offset(skip_id).limit(50)
     render json: result.to_json
+    Mine.mine_next_block
   end
 
   def new_transaction
