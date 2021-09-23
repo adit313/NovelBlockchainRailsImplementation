@@ -69,7 +69,9 @@ class ConfirmedTransaction < ApplicationRecord
 
     #   see if it matches a transaction hash in an open block
     open_transactions = []
-    Block.where(commit_hash: nil).each { |block|
+    Block.calculate_block_height
+    blocks_to_check = Block.order(block_height: :desc).limit(CLEARING_WINDOW)
+    blocks_to_check.where(commit_hash: nil).each { |block|
       block.confirmed_transactions.each { |txn|
         open_transactions << txn
       }
@@ -82,7 +84,8 @@ class ConfirmedTransaction < ApplicationRecord
       referenced_confirmed_transaction.update(amount: parse_input["amount"].to_f, destination: parse_input["destination"].to_s)
       #       now we clear the transactions using this recursive function
       ConfirmedTransaction.clear_transactions(open_transactions, parse_input["sender"].to_s)
-      #       send the block to the commit node network
+      #       send these blocks to the commit node network
+      transmit_open_blocks(blocks_to_check)
       #       TRANSMIT BLOCK CODE
       return "Transaction was matched"
     else
@@ -90,6 +93,12 @@ class ConfirmedTransaction < ApplicationRecord
       #   ADD UNMATCHED TRANSACTION STORAGE
       return "Transaction was not found, it has been stored in temporary memory"
     end
+  end
+
+  def self.transmit_open_blocks(blocks)
+    payload = blocks.includes(:confirmed_transactions).to_json(:include => :confirmed_transactions)
+    #POST "/cleared_block" to commit.stardust.finance
+    Net::HTTP.post(URI("http://commit.stardust.finance/cleared_block"), payload, "Content-Type" => "application/json")
   end
 
   def self.clear_transactions(open_transactions, sender)

@@ -10,6 +10,24 @@ class MainController < ApplicationController
     render json: result.to_json
   end
 
+  def open_blocks
+    result = Block.includes(:confirmed_transactions).where(commit_hash: nil).to_json(:include => :confirmed_transactions)
+    render json: result.to_json
+  end
+
+  def open_transactions
+    open_blocks = Block.where(commit_hash: nil)
+    open_transactions = []
+    open_blocks.each { |block|
+      block.confirmed_transactions.each { |txn|
+        if !txn.amount || !txn.destination
+          open_transactions << txn
+        end
+      }
+    }
+    render json: open_transactions.to_json
+  end
+
   def append_information
     result = ConfirmedTransaction.verify_and_append_transaction(request.body.read)
     render json: result.to_json
@@ -18,7 +36,7 @@ class MainController < ApplicationController
   def block
     submitted_multiblock = JSON.parse(request.body.read)
     result = []
-    if submitted_multiblock.class = Array
+    if submitted_multiblock.class == Array
       submitted_multiblock.each { |block|
         result << Block.validate_newly_received_block(block.to_json)
       }

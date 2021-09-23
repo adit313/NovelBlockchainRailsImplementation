@@ -6,7 +6,7 @@ class MainController < ApplicationController
   end
 
   def new_transaction
-    result = UnconfirmedTransaction.verify_transaction(request.body.read)
+    result = ConfirmedTransaction.validate_new_transaction(request.body.read)
     render json: result.to_json
   end
 
@@ -23,7 +23,7 @@ class MainController < ApplicationController
   def block
     submitted_multiblock = JSON.parse(request.body.read)
     result = []
-    if submitted_multiblock.class = Array
+    if submitted_multiblock.class == Array
       submitted_multiblock.each { |block|
         result << Block.validate_newly_received_block(block.to_json)
       }
@@ -39,12 +39,21 @@ class MainController < ApplicationController
   end
 
   def cleared_block
-    result = Block.validate_new_cleared_block(request.body.read)
+    submitted_multiblock = JSON.parse(request.body.read)
+    result = []
+    if submitted_multiblock.class == Array
+      submitted_multiblock.each { |block|
+        result << Block.validate_new_cleared_block(request.body.read)
+      }
+    else
+      result << Block.validate_new_cleared_block(request.body.read)
+    end
     render json: result.to_json
   end
 
   def get_chain
-    result = Block.includes(:confirmed_transactions).where(block_height: (params[:id].to_i)..((params[:id].to_i + 50))).to_json(:include => :confirmed_transactions)
+    id_requested = params[:id] ? params[:id] : 0
+    result = Block.includes(:confirmed_transactions).where(block_height: (id_requested.to_i)..((id_requested.to_i + 50))).to_json(:include => :confirmed_transactions)
     render json: result.to_json
   end
 end

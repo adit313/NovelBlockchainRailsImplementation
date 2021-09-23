@@ -128,9 +128,21 @@ class Block < ApplicationRecord
     accounts_to_update = (replace_block.confirmed_transactions.pluck(:destination) + replace_block.confirmed_transactions.pluck(:sender)).uniq
     Account.update_balances_in_new_block(accounts_to_update)
     #broadcast the new blocks to all networks
-
+    transmit_new_blocks_to_network(replace_block, new_block)
     #return message to sender
     return "Block accepted"
+  end
+
+  def self.transmit_new_blocks_to_network(replace_block, new_block)
+    payload = [replace_block, new_block].to_json(:include => :confirmed_transactions)
+    #POST "/block" to other commit nodes
+    # Net::HTTP.post(URI("http://mining.stardust.finance/block"), payload, "Content-Type" => "application/json")
+
+    #POST "/block" to mining.stardust.finance
+    Net::HTTP.post(URI("http://mining.stardust.finance/block"), payload, "Content-Type" => "application/json")
+
+    #POST "/block" to clearing.stardust.finance
+    Net::HTTP.post(URI("http://clearing.stardust.finance/block"), payload, "Content-Type" => "application/json")
   end
 
   def self.validate_new_cleared_block(json_input)

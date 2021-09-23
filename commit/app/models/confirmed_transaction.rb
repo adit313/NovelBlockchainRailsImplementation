@@ -1,3 +1,5 @@
+require "net/http"
+
 class ConfirmedTransaction < ApplicationRecord
   belongs_to :block
   validates :transaction_hash, :sender, :sender_public_key, :sender_signature, :nonce, :block_id, :transaction_index, presence: true
@@ -30,8 +32,21 @@ class ConfirmedTransaction < ApplicationRecord
       return "The user doesn't have enough balance to initiate this transaction"
     end
 
+    if ConfirmedTransaction.find_by(transaction_hash: parse_input["transaction_hash"])
+      return "Transaction hash has already been added to the network"
+    end
+
     #otherwise transaction is valid and good to BROADCAST to other commit nodes/mining nodes
+    broadcast_transaction_to_other_commit_and_mining_nodes(json_input)
     return json_input
+  end
+
+  def broadcast_transaction_to_other_commit_and_mining_nodes(json_input)
+    #Broadcast POST "/new_transaction" to commit nodes
+    # Net::HTTP.post(URI("http://other_commit_node_addresses/append_information"), payload, "Content-Type" => "application/json")
+
+    #Broadcast POST "/new_transaction" to mining.stardust.finance
+    Net::HTTP.post(URI("http://mining.stardust.finance/new_transaction"), json_input, "Content-Type" => "application/json")
   end
 
   def self.verify_and_append_transaction(json_input)
@@ -74,13 +89,20 @@ class ConfirmedTransaction < ApplicationRecord
       if !referenced_confirmed_transaction.destination || !referenced_confirmed_transaction.amount || !referenced_confirmed_transaction.nonce
         referenced_confirmed_transaction.update(destination: parse_input["destination"], amount: parse_input["amount"], nonce: parse_input["nonce"])
         #BROADCAST to other commit nodes/clearing nodes
+        broadcast_transaction_to_other_commit_and_clearing_nodes(json_input)
         return "Transaction was found, appended and broadcast to other nodes"
       end
     else
-      #   if the transacion can't be found, forward to the miners
-      #BROADCAST TO MINERS
       return "Transaction was not found on this commit nodes chain"
     end
+  end
+
+  def self.broadcast_transaction_to_other_commit_and_clearing_nodes(json_input)
+    #POST "/append_information" to other commit nodes
+    # Net::HTTP.post(URI("http://other_commit_node_addresses/append_information"), payload, "Content-Type" => "application/json")
+
+    #POST "/append_information" to clearing.stardust.finance
+    Net::HTTP.post(URI("http://clearing.stardust.finance/append_information"), json_input, "Content-Type" => "application/json")
   end
 
   def self.generic_transaction_check(json_input)

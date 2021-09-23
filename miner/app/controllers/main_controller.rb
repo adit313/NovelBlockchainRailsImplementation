@@ -17,14 +17,22 @@ class MainController < ApplicationController
   end
 
   def new_transaction
-    result = UnconfirmedTransaction.verify_transaction(request.body.read)
+    submitted_multiblock = JSON.parse(request.body.read)
+    result = []
+    if submitted_multiblock.class == Array
+      submitted_multiblock.each { |block|
+        result << UnconfirmedTransaction.verify_transaction(request.body.read)
+      }
+    else
+      result << UnconfirmedTransaction.verify_transaction(request.body.read)
+    end
     render json: result.to_json
   end
 
   def block
     submitted_multiblock = JSON.parse(request.body.read)
     result = []
-    if submitted_multiblock.class = Array
+    if submitted_multiblock.class == Array
       submitted_multiblock.each { |block|
         result << Block.validate_newly_received_block(block.to_json)
       }

@@ -3,10 +3,10 @@ lock "~> 3.16.0"
 
 require "capistrano-db-tasks"
 
-set :application, "commit_node"
-set :repo_url, "git@Commit:adit313/CommitNode.git"
+set :application, "mining_node"
+set :repo_url, "git@Mining:adit313/MiningNode.git"
 
-set :deploy_to, "/home/deploy/commit_node"
+set :deploy_to, "/home/deploy/mining_node"
 set :branch, ENV["BRANCH"] if ENV["BRANCH"]
 
 set :linked_files, %w{config/database.yml config/master.key}

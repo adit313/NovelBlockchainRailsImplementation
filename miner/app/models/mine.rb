@@ -55,10 +55,16 @@ class Mine < ApplicationRecord
       #transmit to commit node network
       payload = transmit_hash.to_json
       #if successful
+      broadcast_to_commit_node_network(payload)
       #received_block.save and delete those transactions from the pool
     else
       sleep(10) #wait 10 seconds to see if new transactions post
     end
+  end
+
+  def self.broadcast_to_commit_node_network(payload)
+    #POST request to commit.stardust.finance
+    Net::HTTP.post(URI("http://commit.stardust.finance/commit"), payload, "Content-Type" => "application/json")
   end
 
   # a recursive function to find the merkle root of the transactions
