@@ -1,3 +1,5 @@
+require "net/http"
+
 class ConfirmedTransaction < ApplicationRecord
   belongs_to :block
 
@@ -102,15 +104,15 @@ class ConfirmedTransaction < ApplicationRecord
   end
 
   def self.clear_transactions(open_transactions, sender)
-    all_of_senders_uncommitted_transactions = open_transactions.find_by(sender: sender)
-    all_of_senders_pay_to_transactions = open_transactions.find_by(destination: sender)
+    all_of_senders_uncommitted_transactions = open_transactions.select { |e| e.sender == sender }
+    all_of_senders_pay_to_transactions = open_transactions.select { |e| e.sender == sender }
 
     account_details = Account.find_by(account_id: sender)
 
     highest_nonce = account_details.highest_nonce + 1
 
-    if account_details && account_details.committed_balance
-      sender_balance = account_details.committed_balance
+    if account_details && account_details.confirmed_balance
+      sender_balance = account_details.confirmed_balance
     else
       sender_balance = 0
     end
@@ -127,24 +129,30 @@ class ConfirmedTransaction < ApplicationRecord
 
     destinations = []
 
-    all_of_senders_uncommitted_transactions.sort(:nonce).each { |open_txn|
-      # smart contract execution here if destination is routed to a smart contract. TO-DO
-      if open_txn.nonce != highest_nonce
-        open_txn.update(status: "illegal nonce")
-      else
-        if open_txn.amount && sender_balance > open_txn.amount
-          open_txn.update(status: "pre-cleared")
-          destinations << open_txn.destination
+    if all_of_senders_uncommitted_transactions
+      all_of_senders_uncommitted_transactions.sort { |e| e.nonce }.each { |open_txn|
+        # smart contract execution here if destination is routed to a smart contract. TO-DO
+        if open_txn.nonce <= highest_nonce
+          open_txn.update(status: "illegal nonce")
         else
-          open_txn.update(status: "insufficient funds")
+          if open_txn.amount && sender_balance > open_txn.amount
+            open_txn.update(status: "pre-cleared")
+            destinations << open_txn.destination
+          else
+            open_txn.update(status: "insufficient funds")
+          end
         end
-      end
-      highest_nonce += 1
-    }
+        highest_nonce += 1
+      }
+    end
 
-    destinations.uniq!.each { |destination|
-      ConfirmedTransaction.clear_transactions(open_transactions, destination)
-    }
+    if destinations.length >= 1
+      destinations.uniq!.each { |destination|
+        if destination != sender
+          ConfirmedTransaction.clear_transactions(open_transactions, destination)
+        end
+      }
+    end
   end
 
   def self.generic_transaction_check(json_input)

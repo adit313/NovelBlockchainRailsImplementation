@@ -6,5 +6,5 @@ Rails.application.routes.draw do
 
   post "/new_transaction", to: "main#new_transaction"
 
-  post "/block", to: "main#new_block"
+  post "/block", to: "main#block"
 end

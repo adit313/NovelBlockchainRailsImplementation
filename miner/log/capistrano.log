@@ -1325,3 +1325,1995 @@ perl: warning: Please check that your locale settings:
   INFO [5e7bbb78] Running /usr/bin/env echo "Branch master (at 0bb7f26e6b2b3676ffe6145a09f2b1d86b3e58c2) deployed as release 20210923180216 by aditpatel" >> /home/deploy/mining_node/revisions.log as deploy@3.93.159.78
  DEBUG [5e7bbb78] Command: cd /home/deploy/mining_node/releases && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "Branch master (at 0bb7f26e6b2b3676ffe6145a09f2b1d86b3e58c2) deployed as release 20210923180216 by aditpatel" >> /home/deploy/mining_node/revisions.log )
   INFO [5e7bbb78] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-23 14:53:22 -0400 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [7cec66aa] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [7cec66aa] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [7cec66aa] Finished in 1.743 seconds with exit status 0 (successful).
+  INFO [e2f1db74] Running /usr/bin/env mkdir -p /tmp as deploy@3.93.159.78
+ DEBUG [e2f1db74] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /tmp )
+  INFO [e2f1db74] Finished in 0.067 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-881e27fadcc3dd99be77.sh 0.0%
+  INFO Uploading /tmp/git-ssh-881e27fadcc3dd99be77.sh 100.0%
+  INFO [e6db78a6] Running /usr/bin/env chmod 700 /tmp/git-ssh-881e27fadcc3dd99be77.sh as deploy@3.93.159.78
+ DEBUG [e6db78a6] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env chmod 700 /tmp/git-ssh-881e27fadcc3dd99be77.sh )
+  INFO [e6db78a6] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [651e4c99] Running /usr/bin/env git ls-remote git@Mining:adit313/MiningNode.git HEAD as deploy@3.93.159.78
+ DEBUG [651e4c99] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-881e27fadcc3dd99be77.sh" ; /usr/bin/env git ls-remote git@Mining:adit313/MiningNode.git HEAD )
+ DEBUG [651e4c99] 	4e06790658017e73f1a307ba54a01834a38f5f71	HEAD
+  INFO [651e4c99] Finished in 0.417 seconds with exit status 0 (successful).
+  INFO [9649fb93] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared /home/deploy/mining_node/releases as deploy@3.93.159.78
+ DEBUG [9649fb93] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared /home/deploy/mining_node/releases )
+  INFO [9649fb93] Finished in 0.104 seconds with exit status 0 (successful).
+  INFO [3d48964e] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared/log /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/shared/public/system as deploy@3.93.159.78
+ DEBUG [3d48964e] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared/log /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/shared/public/system )
+  INFO [3d48964e] Finished in 0.072 seconds with exit status 0 (successful).
+  INFO [a2b2098c] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared/config as deploy@3.93.159.78
+ DEBUG [a2b2098c] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared/config )
+  INFO [a2b2098c] Finished in 0.103 seconds with exit status 0 (successful).
+ DEBUG [f3c6740b] Running [ -f /home/deploy/mining_node/shared/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [f3c6740b] Command: [ -f /home/deploy/mining_node/shared/config/database.yml ]
+ DEBUG [f3c6740b] Finished in 0.056 seconds with exit status 0 (successful).
+ DEBUG [894ac080] Running [ -f /home/deploy/mining_node/shared/config/master.key ] as deploy@3.93.159.78
+ DEBUG [894ac080] Command: [ -f /home/deploy/mining_node/shared/config/master.key ]
+ DEBUG [894ac080] Finished in 0.099 seconds with exit status 0 (successful).
+ DEBUG [e12eae93] Running [ -f /home/deploy/mining_node/current/REVISION ] as deploy@3.93.159.78
+ DEBUG [e12eae93] Command: [ -f /home/deploy/mining_node/current/REVISION ]
+ DEBUG [e12eae93] Finished in 0.065 seconds with exit status 0 (successful).
+ DEBUG [fe39f8f5] Running /usr/bin/env cat /home/deploy/mining_node/current/REVISION 2>/dev/null as deploy@3.93.159.78
+ DEBUG [fe39f8f5] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env cat /home/deploy/mining_node/current/REVISION 2>/dev/null )
+ DEBUG [fe39f8f5] 	0bb7f26e6b2b3676ffe6145a09f2b1d86b3e58c2
+ DEBUG [fe39f8f5] Finished in 0.105 seconds with exit status 0 (successful).
+ DEBUG [df23e73e] Running [ -f /home/deploy/mining_node/repo/HEAD ] as deploy@3.93.159.78
+ DEBUG [df23e73e] Command: [ -f /home/deploy/mining_node/repo/HEAD ]
+ DEBUG [df23e73e] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/mining_node/repo
+ DEBUG [af1676ee] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [af1676ee] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [af1676ee] Finished in 0.095 seconds with exit status 0 (successful).
+  INFO [26f98e00] Running /usr/bin/env git remote set-url origin git@Mining:adit313/MiningNode.git as deploy@3.93.159.78
+ DEBUG [26f98e00] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-881e27fadcc3dd99be77.sh" ; /usr/bin/env git remote set-url origin git@Mining:adit313/MiningNode.git )
+  INFO [26f98e00] Finished in 0.067 seconds with exit status 0 (successful).
+  INFO [dbba7316] Running /usr/bin/env git remote update --prune as deploy@3.93.159.78
+ DEBUG [dbba7316] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-881e27fadcc3dd99be77.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [dbba7316] 	Fetching origin
+ DEBUG [dbba7316] 	From Mining:adit313/MiningNode
+   0bb7f26..4e06790  master     -> master
+  INFO [dbba7316] Finished in 0.585 seconds with exit status 0 (successful).
+ DEBUG [23ad0692] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [23ad0692] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [23ad0692] Finished in 0.100 seconds with exit status 0 (successful).
+  INFO [51b1beb1] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210923185326 as deploy@3.93.159.78
+ DEBUG [51b1beb1] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-881e27fadcc3dd99be77.sh" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210923185326 )
+  INFO [51b1beb1] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [eff92fdf] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/mining_node/releases/20210923185326 as deploy@3.93.159.78
+ DEBUG [eff92fdf] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-881e27fadcc3dd99be77.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/mining_node/releases/20210923185326 )
+  INFO [eff92fdf] Finished in 0.270 seconds with exit status 0 (successful).
+ DEBUG [4dd1e43b] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [4dd1e43b] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [4dd1e43b] Finished in 0.054 seconds with exit status 0 (successful).
+ DEBUG [a8e98cb3] Running /usr/bin/env git rev-list --max-count=1 master as deploy@3.93.159.78
+ DEBUG [a8e98cb3] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-881e27fadcc3dd99be77.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [a8e98cb3] 	4e06790658017e73f1a307ba54a01834a38f5f71
+ DEBUG [a8e98cb3] Finished in 0.101 seconds with exit status 0 (successful).
+ DEBUG [ce26b027] Running if test ! -d /home/deploy/mining_node/releases/20210923185326; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210923185326'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [ce26b027] Command: if test ! -d /home/deploy/mining_node/releases/20210923185326; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210923185326'" 1>&2; false; fi
+ DEBUG [ce26b027] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [d658e84d] Running /usr/bin/env echo "4e06790658017e73f1a307ba54a01834a38f5f71" > REVISION as deploy@3.93.159.78
+ DEBUG [d658e84d] Command: cd /home/deploy/mining_node/releases/20210923185326 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "4e06790658017e73f1a307ba54a01834a38f5f71" > REVISION )
+  INFO [d658e84d] Finished in 0.116 seconds with exit status 0 (successful).
+  INFO [47d9dd7c] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210923185326/config as deploy@3.93.159.78
+ DEBUG [47d9dd7c] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210923185326/config )
+  INFO [47d9dd7c] Finished in 0.067 seconds with exit status 0 (successful).
+ DEBUG [eaafef62] Running [ -L /home/deploy/mining_node/releases/20210923185326/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [eaafef62] Command: [ -L /home/deploy/mining_node/releases/20210923185326/config/database.yml ]
+ DEBUG [eaafef62] Finished in 0.114 seconds with exit status 1 (failed).
+ DEBUG [c9c2ee6b] Running [ -f /home/deploy/mining_node/releases/20210923185326/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [c9c2ee6b] Command: [ -f /home/deploy/mining_node/releases/20210923185326/config/database.yml ]
+ DEBUG [c9c2ee6b] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [00e3d404] Running /usr/bin/env rm /home/deploy/mining_node/releases/20210923185326/config/database.yml as deploy@3.93.159.78
+ DEBUG [00e3d404] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/mining_node/releases/20210923185326/config/database.yml )
+  INFO [00e3d404] Finished in 0.117 seconds with exit status 0 (successful).
+  INFO [85b001a3] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/config/database.yml /home/deploy/mining_node/releases/20210923185326/config/database.yml as deploy@3.93.159.78
+ DEBUG [85b001a3] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/config/database.yml /home/deploy/mining_node/releases/20210923185326/config/database.yml )
+  INFO [85b001a3] Finished in 0.056 seconds with exit status 0 (successful).
+ DEBUG [792582c2] Running [ -L /home/deploy/mining_node/releases/20210923185326/config/master.key ] as deploy@3.93.159.78
+ DEBUG [792582c2] Command: [ -L /home/deploy/mining_node/releases/20210923185326/config/master.key ]
+ DEBUG [792582c2] Finished in 0.099 seconds with exit status 1 (failed).
+ DEBUG [ac0d24da] Running [ -f /home/deploy/mining_node/releases/20210923185326/config/master.key ] as deploy@3.93.159.78
+ DEBUG [ac0d24da] Command: [ -f /home/deploy/mining_node/releases/20210923185326/config/master.key ]
+ DEBUG [ac0d24da] Finished in 0.054 seconds with exit status 0 (successful).
+  INFO [e35ff34f] Running /usr/bin/env rm /home/deploy/mining_node/releases/20210923185326/config/master.key as deploy@3.93.159.78
+ DEBUG [e35ff34f] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/mining_node/releases/20210923185326/config/master.key )
+  INFO [e35ff34f] Finished in 0.100 seconds with exit status 0 (successful).
+  INFO [1014819c] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/config/master.key /home/deploy/mining_node/releases/20210923185326/config/master.key as deploy@3.93.159.78
+ DEBUG [1014819c] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/config/master.key /home/deploy/mining_node/releases/20210923185326/config/master.key )
+  INFO [1014819c] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [4feb241e] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210923185326 /home/deploy/mining_node/releases/20210923185326/tmp /home/deploy/mining_node/releases/20210923185326/vendor /home/deploy/mining_node/releases/20210923185326/public as deploy@3.93.159.78
+ DEBUG [4feb241e] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210923185326 /home/deploy/mining_node/releases/20210923185326/tmp /home/deploy/mining_node/releases/20210923185326/vendor /home/deploy/mining_node/releases/20210923185326/public )
+  INFO [4feb241e] Finished in 0.099 seconds with exit status 0 (successful).
+ DEBUG [c574c333] Running [ -L /home/deploy/mining_node/releases/20210923185326/log ] as deploy@3.93.159.78
+ DEBUG [c574c333] Command: [ -L /home/deploy/mining_node/releases/20210923185326/log ]
+ DEBUG [c574c333] Finished in 0.055 seconds with exit status 1 (failed).
+ DEBUG [4053b35a] Running [ -d /home/deploy/mining_node/releases/20210923185326/log ] as deploy@3.93.159.78
+ DEBUG [4053b35a] Command: [ -d /home/deploy/mining_node/releases/20210923185326/log ]
+ DEBUG [4053b35a] Finished in 0.103 seconds with exit status 0 (successful).
+  INFO [e8c67a1a] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923185326/log as deploy@3.93.159.78
+ DEBUG [e8c67a1a] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923185326/log )
+  INFO [e8c67a1a] Finished in 0.066 seconds with exit status 0 (successful).
+  INFO [25c14fed] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/log /home/deploy/mining_node/releases/20210923185326/log as deploy@3.93.159.78
+ DEBUG [25c14fed] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/log /home/deploy/mining_node/releases/20210923185326/log )
+  INFO [25c14fed] Finished in 0.098 seconds with exit status 0 (successful).
+ DEBUG [4ceb736d] Running [ -L /home/deploy/mining_node/releases/20210923185326/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [4ceb736d] Command: [ -L /home/deploy/mining_node/releases/20210923185326/tmp/pids ]
+ DEBUG [4ceb736d] Finished in 0.055 seconds with exit status 1 (failed).
+ DEBUG [55eddb11] Running [ -d /home/deploy/mining_node/releases/20210923185326/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [55eddb11] Command: [ -d /home/deploy/mining_node/releases/20210923185326/tmp/pids ]
+ DEBUG [55eddb11] Finished in 0.102 seconds with exit status 0 (successful).
+  INFO [d63cc5ad] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923185326/tmp/pids as deploy@3.93.159.78
+ DEBUG [d63cc5ad] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923185326/tmp/pids )
+  INFO [d63cc5ad] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [c9861224] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/releases/20210923185326/tmp/pids as deploy@3.93.159.78
+ DEBUG [c9861224] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/releases/20210923185326/tmp/pids )
+  INFO [c9861224] Finished in 0.104 seconds with exit status 0 (successful).
+ DEBUG [d00125b7] Running [ -L /home/deploy/mining_node/releases/20210923185326/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [d00125b7] Command: [ -L /home/deploy/mining_node/releases/20210923185326/tmp/cache ]
+ DEBUG [d00125b7] Finished in 0.076 seconds with exit status 1 (failed).
+ DEBUG [f2a71bc3] Running [ -d /home/deploy/mining_node/releases/20210923185326/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [f2a71bc3] Command: [ -d /home/deploy/mining_node/releases/20210923185326/tmp/cache ]
+ DEBUG [f2a71bc3] Finished in 0.101 seconds with exit status 0 (successful).
+  INFO [494de917] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923185326/tmp/cache as deploy@3.93.159.78
+ DEBUG [494de917] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923185326/tmp/cache )
+  INFO [494de917] Finished in 0.086 seconds with exit status 0 (successful).
+  INFO [55654527] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/releases/20210923185326/tmp/cache as deploy@3.93.159.78
+ DEBUG [55654527] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/releases/20210923185326/tmp/cache )
+  INFO [55654527] Finished in 0.097 seconds with exit status 0 (successful).
+ DEBUG [b20c5b23] Running [ -L /home/deploy/mining_node/releases/20210923185326/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [b20c5b23] Command: [ -L /home/deploy/mining_node/releases/20210923185326/tmp/sockets ]
+ DEBUG [b20c5b23] Finished in 0.055 seconds with exit status 1 (failed).
+ DEBUG [3f8b40dd] Running [ -d /home/deploy/mining_node/releases/20210923185326/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [3f8b40dd] Command: [ -d /home/deploy/mining_node/releases/20210923185326/tmp/sockets ]
+ DEBUG [3f8b40dd] Finished in 0.124 seconds with exit status 1 (failed).
+  INFO [ade6b0c7] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/releases/20210923185326/tmp/sockets as deploy@3.93.159.78
+ DEBUG [ade6b0c7] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/releases/20210923185326/tmp/sockets )
+  INFO [ade6b0c7] Finished in 0.057 seconds with exit status 0 (successful).
+ DEBUG [8dae92b7] Running [ -L /home/deploy/mining_node/releases/20210923185326/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [8dae92b7] Command: [ -L /home/deploy/mining_node/releases/20210923185326/vendor/bundle ]
+ DEBUG [8dae92b7] Finished in 0.095 seconds with exit status 1 (failed).
+ DEBUG [e979a887] Running [ -d /home/deploy/mining_node/releases/20210923185326/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [e979a887] Command: [ -d /home/deploy/mining_node/releases/20210923185326/vendor/bundle ]
+ DEBUG [e979a887] Finished in 0.045 seconds with exit status 1 (failed).
+  INFO [0aa502d8] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/releases/20210923185326/vendor/bundle as deploy@3.93.159.78
+ DEBUG [0aa502d8] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/releases/20210923185326/vendor/bundle )
+  INFO [0aa502d8] Finished in 0.143 seconds with exit status 0 (successful).
+ DEBUG [e2d9e492] Running [ -L /home/deploy/mining_node/releases/20210923185326/public/system ] as deploy@3.93.159.78
+ DEBUG [e2d9e492] Command: [ -L /home/deploy/mining_node/releases/20210923185326/public/system ]
+ DEBUG [e2d9e492] Finished in 0.059 seconds with exit status 1 (failed).
+ DEBUG [53b8536e] Running [ -d /home/deploy/mining_node/releases/20210923185326/public/system ] as deploy@3.93.159.78
+ DEBUG [53b8536e] Command: [ -d /home/deploy/mining_node/releases/20210923185326/public/system ]
+ DEBUG [53b8536e] Finished in 0.103 seconds with exit status 1 (failed).
+  INFO [9c893dfe] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/public/system /home/deploy/mining_node/releases/20210923185326/public/system as deploy@3.93.159.78
+ DEBUG [9c893dfe] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/public/system /home/deploy/mining_node/releases/20210923185326/public/system )
+  INFO [9c893dfe] Finished in 0.069 seconds with exit status 0 (successful).
+ DEBUG [419a59ef] Running if test ! -d /home/deploy/mining_node/releases/20210923185326; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210923185326'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [419a59ef] Command: if test ! -d /home/deploy/mining_node/releases/20210923185326; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210923185326'" 1>&2; false; fi
+ DEBUG [419a59ef] Finished in 0.102 seconds with exit status 0 (successful).
+  INFO [978bbc92] Running $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true as deploy@3.93.159.78
+ DEBUG [978bbc92] Command: cd /home/deploy/mining_node/releases/20210923185326 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true )
+  INFO [978bbc92] Finished in 0.329 seconds with exit status 0 (successful).
+  INFO [2b1beba9] Running $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/mining_node/shared/bundle as deploy@3.93.159.78
+ DEBUG [2b1beba9] Command: cd /home/deploy/mining_node/releases/20210923185326 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/mining_node/shared/bundle )
+  INFO [2b1beba9] Finished in 0.298 seconds with exit status 0 (successful).
+  INFO [5d9814bc] Running $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test as deploy@3.93.159.78
+ DEBUG [5d9814bc] Command: cd /home/deploy/mining_node/releases/20210923185326 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test )
+  INFO [5d9814bc] Finished in 0.256 seconds with exit status 0 (successful).
+ DEBUG [4a053b6c] Running if test ! -d /home/deploy/mining_node/releases/20210923185326; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210923185326'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [4a053b6c] Command: if test ! -d /home/deploy/mining_node/releases/20210923185326; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210923185326'" 1>&2; false; fi
+ DEBUG [4a053b6c] Finished in 0.096 seconds with exit status 0 (successful).
+ DEBUG [36f1b4d4] Running $HOME/.rbenv/bin/rbenv exec bundle check as deploy@3.93.159.78
+ DEBUG [36f1b4d4] Command: cd /home/deploy/mining_node/releases/20210923185326 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle check )
+ DEBUG [36f1b4d4] 	The dependency tzinfo-data (>= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`.
+ DEBUG [36f1b4d4] 	The Gemfile's dependencies are satisfied
+ DEBUG [36f1b4d4] Finished in 0.412 seconds with exit status 0 (successful).
+  INFO The Gemfile's dependencies are satisfied, skipping installation
+  INFO [deploy:migrate] Run `rake db:migrate`
+ DEBUG [a4615ef3] Running if test ! -d /home/deploy/mining_node/releases/20210923185326; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210923185326'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [a4615ef3] Command: if test ! -d /home/deploy/mining_node/releases/20210923185326; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210923185326'" 1>&2; false; fi
+ DEBUG [a4615ef3] Finished in 0.097 seconds with exit status 0 (successful).
+  INFO [5b629e6f] Running $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate as deploy@3.93.159.78
+ DEBUG [5b629e6f] Command: cd /home/deploy/mining_node/releases/20210923185326 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate )
+  INFO [5b629e6f] Finished in 3.079 seconds with exit status 0 (successful).
+  INFO [28c701f4] Running /usr/bin/env ln -s /home/deploy/mining_node/releases/20210923185326 /home/deploy/mining_node/releases/current as deploy@3.93.159.78
+ DEBUG [28c701f4] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/releases/20210923185326 /home/deploy/mining_node/releases/current )
+  INFO [28c701f4] Finished in 0.358 seconds with exit status 0 (successful).
+  INFO [5aa75151] Running /usr/bin/env mv /home/deploy/mining_node/releases/current /home/deploy/mining_node as deploy@3.93.159.78
+ DEBUG [5aa75151] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mv /home/deploy/mining_node/releases/current /home/deploy/mining_node )
+  INFO [5aa75151] Finished in 0.191 seconds with exit status 0 (successful).
+  INFO [443d4385] Running /usr/bin/env touch /home/deploy/mining_node/releases/20210923185326/tmp/restart.txt as deploy@3.93.159.78
+ DEBUG [443d4385] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env touch /home/deploy/mining_node/releases/20210923185326/tmp/restart.txt )
+  INFO [443d4385] Finished in 0.322 seconds with exit status 0 (successful).
+ DEBUG [39df8008] Running /usr/bin/env ls -x /home/deploy/mining_node/releases as deploy@3.93.159.78
+ DEBUG [39df8008] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ls -x /home/deploy/mining_node/releases )
+ DEBUG [39df8008] 	20210922204413	20210923180141	20210923180216	20210923185326
+ DEBUG [39df8008] Finished in 0.180 seconds with exit status 0 (successful).
+  INFO Keeping 3 of 4 deployed releases on 3.93.159.78
+ DEBUG [3f9d71fc] Running [ -d /home/deploy/mining_node/current ] as deploy@3.93.159.78
+ DEBUG [3f9d71fc] Command: [ -d /home/deploy/mining_node/current ]
+ DEBUG [3f9d71fc] Finished in 0.221 seconds with exit status 0 (successful).
+ DEBUG [d092beb6] Running /usr/bin/env readlink /home/deploy/mining_node/current as deploy@3.93.159.78
+ DEBUG [d092beb6] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env readlink /home/deploy/mining_node/current )
+ DEBUG [d092beb6] 	/home/deploy/mining_node/releases/20210923185326
+ DEBUG [d092beb6] Finished in 0.180 seconds with exit status 0 (successful).
+  INFO [428f60b6] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210922204413 as deploy@3.93.159.78
+ DEBUG [428f60b6] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210922204413 )
+  INFO [428f60b6] Finished in 0.471 seconds with exit status 0 (successful).
+ DEBUG [5a179ec9] Running if test ! -d /home/deploy/mining_node/releases; then echo "Directory does not exist '/home/deploy/mining_node/releases'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [5a179ec9] Command: if test ! -d /home/deploy/mining_node/releases; then echo "Directory does not exist '/home/deploy/mining_node/releases'" 1>&2; false; fi
+ DEBUG [5a179ec9] Finished in 0.056 seconds with exit status 0 (successful).
+  INFO [4c931b6b] Running /usr/bin/env echo "Branch master (at 4e06790658017e73f1a307ba54a01834a38f5f71) deployed as release 20210923185326 by aditpatel" >> /home/deploy/mining_node/revisions.log as deploy@3.93.159.78
+ DEBUG [4c931b6b] Command: cd /home/deploy/mining_node/releases && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "Branch master (at 4e06790658017e73f1a307ba54a01834a38f5f71) deployed as release 20210923185326 by aditpatel" >> /home/deploy/mining_node/revisions.log )
+  INFO [4c931b6b] Finished in 0.097 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 12:24:10 -0400 cap production db:push
+  INFO ---------------------------------------------------------------------------
+ DEBUG [d76864af] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [d76864af] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [d76864af] Finished in 1.538 seconds with exit status 0 (successful).
+ DEBUG [8e70c873] Running if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [8e70c873] Command: if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi
+ DEBUG [8e70c873] Finished in 0.061 seconds with exit status 0 (successful).
+ DEBUG [0056edc4] Running $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null as deploy@3.93.159.78
+ DEBUG [0056edc4] Command: cd /home/deploy/mining_node/current && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null )
+ DEBUG [0056edc4] 	__CAPISTRANODB_CONFIG_BEGIN_FLAG__---
+:adapter: postgresql
+:encoding: unicode
+:pool: 5
+:database: mining_node_production
+:username: deploy
+:password: Rails.application.credentials.dig(:production, :db_password)
+__CAPISTRANODB_CONFIG_END_FLAG__
+ DEBUG [0056edc4] Finished in 3.636 seconds with exit status 0 (successful).
+ DEBUG Uploading miner_development_2021-09-24-122418.sql.gz 0.0%
+  INFO Uploading miner_development_2021-09-24-122418.sql.gz 100.0%
+  INFO [2a3da10b] Running cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-122418.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-122418.sql as deploy@3.93.159.78
+ DEBUG [2a3da10b] Command: cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-122418.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-122418.sql
+ DEBUG [2a3da10b] 	perl: warning: Setting locale failed.
+ DEBUG [2a3da10b] 	perl: warning: Please check that your locale settings:
+ DEBUG [2a3da10b] 		LANGUAGE = (unset),
+ DEBUG [2a3da10b] 		LC_ALL = (unset),
+ DEBUG [2a3da10b] 		LC_CTYPE = "UTF-8",
+ DEBUG [2a3da10b] 		LANG = "C.UTF-8"
+ DEBUG [2a3da10b] 	    are supported and installed on your system.
+ DEBUG [2a3da10b] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [2a3da10b] 	 pg_terminate_backend 
+----------------------
+(0 rows)
+
+ DEBUG [2a3da10b] 	perl: warning: Setting locale failed.
+ DEBUG [2a3da10b] 	perl: warning: Please check that your locale settings:
+ DEBUG [2a3da10b] 		LANGUAGE = (unset),
+ DEBUG [2a3da10b] 		LC_ALL = (unset),
+ DEBUG [2a3da10b] 		LC_CTYPE = "UTF-8",
+ DEBUG [2a3da10b] 		LANG = "C.UTF-8"
+ DEBUG [2a3da10b] 	    are supported and installed on your system.
+ DEBUG [2a3da10b] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [2a3da10b] 	perl: warning: Setting locale failed.
+ DEBUG [2a3da10b] 	perl: warning: Please check that your locale settings:
+ DEBUG [2a3da10b] 		LANGUAGE = (unset),
+ DEBUG [2a3da10b] 		LC_ALL = (unset),
+ DEBUG [2a3da10b] 		LC_CTYPE = "UTF-8",
+ DEBUG [2a3da10b] 		LANG = "C.UTF-8"
+ DEBUG [2a3da10b] 	    are supported and installed on your system.
+ DEBUG [2a3da10b] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [2a3da10b] 	perl: warning: Setting locale failed.
+ DEBUG [2a3da10b] 	perl: warning: Please check that your locale settings:
+ DEBUG [2a3da10b] 		LANGUAGE = (unset),
+ DEBUG [2a3da10b] 		LC_ALL = (unset),
+ DEBUG [2a3da10b] 		LC_CTYPE = "UTF-8",
+ DEBUG [2a3da10b] 		LANG = "C.UTF-8"
+ DEBUG [2a3da10b] 	    are supported and installed on your system.
+ DEBUG [2a3da10b] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	 set_config 
+------------
+ 
+(1 row)
+
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	SET
+ DEBUG [2a3da10b] 	CREATE TABLE
+ DEBUG [2a3da10b] 	CREATE TABLE
+ DEBUG [2a3da10b] 	CREATE SEQUENCE
+ DEBUG [2a3da10b] 	ALTER SEQUENCE
+ DEBUG [2a3da10b] 	CREATE TABLE
+ DEBUG [2a3da10b] 	CREATE SEQUENCE
+ DEBUG [2a3da10b] 	ALTER SEQUENCE
+ DEBUG [2a3da10b] 	CREATE TABLE
+ DEBUG [2a3da10b] 	CREATE TABLE
+ DEBUG [2a3da10b] 	CREATE SEQUENCE
+ DEBUG [2a3da10b] 	ALTER SEQUENCE
+ DEBUG [2a3da10b] 	ALTER TABLE
+ DEBUG [2a3da10b] 	ALTER TABLE
+ DEBUG [2a3da10b] 	ALTER TABLE
+ DEBUG [2a3da10b] 	COPY 2
+ DEBUG [2a3da10b] 	COPY 3
+ DEBUG [2a3da10b] 	COPY 3
+ DEBUG [2a3da10b] 	COPY 3
+ DEBUG [2a3da10b] 	COPY 0
+ DEBUG [2a3da10b] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [2a3da10b] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [2a3da10b] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [2a3da10b] 	ALTER TABLE
+ DEBUG [2a3da10b] 	ALTER TABLE
+ DEBUG [2a3da10b] 	ALTER TABLE
+ DEBUG [2a3da10b] 	ALTER TABLE
+ DEBUG [2a3da10b] 	ALTER TABLE
+ DEBUG [2a3da10b] 	CREATE INDEX
+ DEBUG [2a3da10b] 	ALTER TABLE
+  INFO [2a3da10b] Finished in 0.817 seconds with exit status 0 (successful).
+  INFO [daad1212] Running cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-122418.sql as deploy@3.93.159.78
+ DEBUG [daad1212] Command: cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-122418.sql
+  INFO [daad1212] Finished in 0.079 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 12:32:29 -0400 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [0fd437c4] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [0fd437c4] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [0fd437c4] Finished in 1.212 seconds with exit status 0 (successful).
+  INFO [8fe9edb4] Running /usr/bin/env mkdir -p /tmp as deploy@3.93.159.78
+ DEBUG [8fe9edb4] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /tmp )
+  INFO [8fe9edb4] Finished in 0.308 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-31078e33081e27b6c482.sh 0.0%
+  INFO Uploading /tmp/git-ssh-31078e33081e27b6c482.sh 100.0%
+  INFO [6c645bc3] Running /usr/bin/env chmod 700 /tmp/git-ssh-31078e33081e27b6c482.sh as deploy@3.93.159.78
+ DEBUG [6c645bc3] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env chmod 700 /tmp/git-ssh-31078e33081e27b6c482.sh )
+  INFO [6c645bc3] Finished in 0.328 seconds with exit status 0 (successful).
+  INFO [5aac3b36] Running /usr/bin/env git ls-remote git@Mining:adit313/MiningNode.git HEAD as deploy@3.93.159.78
+ DEBUG [5aac3b36] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-31078e33081e27b6c482.sh" ; /usr/bin/env git ls-remote git@Mining:adit313/MiningNode.git HEAD )
+ DEBUG [5aac3b36] 	7de4b30d5b0a06dfda09ac8728f5021e67391b41	HEAD
+  INFO [5aac3b36] Finished in 0.465 seconds with exit status 0 (successful).
+  INFO [bb902a0d] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared /home/deploy/mining_node/releases as deploy@3.93.159.78
+ DEBUG [bb902a0d] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared /home/deploy/mining_node/releases )
+  INFO [bb902a0d] Finished in 0.348 seconds with exit status 0 (successful).
+  INFO [1e570dc9] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared/log /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/shared/public/system as deploy@3.93.159.78
+ DEBUG [1e570dc9] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared/log /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/shared/public/system )
+  INFO [1e570dc9] Finished in 0.080 seconds with exit status 0 (successful).
+  INFO [48857845] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared/config as deploy@3.93.159.78
+ DEBUG [48857845] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared/config )
+  INFO [48857845] Finished in 0.108 seconds with exit status 0 (successful).
+ DEBUG [9049d965] Running [ -f /home/deploy/mining_node/shared/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [9049d965] Command: [ -f /home/deploy/mining_node/shared/config/database.yml ]
+ DEBUG [9049d965] Finished in 0.069 seconds with exit status 0 (successful).
+ DEBUG [df90b7fe] Running [ -f /home/deploy/mining_node/shared/config/master.key ] as deploy@3.93.159.78
+ DEBUG [df90b7fe] Command: [ -f /home/deploy/mining_node/shared/config/master.key ]
+ DEBUG [df90b7fe] Finished in 0.109 seconds with exit status 0 (successful).
+ DEBUG [e0141358] Running [ -f /home/deploy/mining_node/current/REVISION ] as deploy@3.93.159.78
+ DEBUG [e0141358] Command: [ -f /home/deploy/mining_node/current/REVISION ]
+ DEBUG [e0141358] Finished in 0.075 seconds with exit status 0 (successful).
+ DEBUG [a052472a] Running /usr/bin/env cat /home/deploy/mining_node/current/REVISION 2>/dev/null as deploy@3.93.159.78
+ DEBUG [a052472a] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env cat /home/deploy/mining_node/current/REVISION 2>/dev/null )
+ DEBUG [a052472a] 	4e06790658017e73f1a307ba54a01834a38f5f71
+ DEBUG [a052472a] Finished in 0.110 seconds with exit status 0 (successful).
+ DEBUG [99410615] Running [ -f /home/deploy/mining_node/repo/HEAD ] as deploy@3.93.159.78
+ DEBUG [99410615] Command: [ -f /home/deploy/mining_node/repo/HEAD ]
+ DEBUG [99410615] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/mining_node/repo
+ DEBUG [9f7ef6bd] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [9f7ef6bd] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [9f7ef6bd] Finished in 0.103 seconds with exit status 0 (successful).
+  INFO [01c06c2f] Running /usr/bin/env git remote set-url origin git@Mining:adit313/MiningNode.git as deploy@3.93.159.78
+ DEBUG [01c06c2f] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-31078e33081e27b6c482.sh" ; /usr/bin/env git remote set-url origin git@Mining:adit313/MiningNode.git )
+  INFO [01c06c2f] Finished in 0.083 seconds with exit status 0 (successful).
+  INFO [da34192a] Running /usr/bin/env git remote update --prune as deploy@3.93.159.78
+ DEBUG [da34192a] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-31078e33081e27b6c482.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [da34192a] 	Fetching origin
+ DEBUG [da34192a] 	From Mining:adit313/MiningNode
+   4e06790..7de4b30  master     -> master
+  INFO [da34192a] Finished in 0.803 seconds with exit status 0 (successful).
+ DEBUG [a86d296e] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [a86d296e] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [a86d296e] Finished in 0.103 seconds with exit status 0 (successful).
+  INFO [05a35d38] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924163233 as deploy@3.93.159.78
+ DEBUG [05a35d38] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-31078e33081e27b6c482.sh" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924163233 )
+  INFO [05a35d38] Finished in 0.075 seconds with exit status 0 (successful).
+  INFO [1d80529d] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/mining_node/releases/20210924163233 as deploy@3.93.159.78
+ DEBUG [1d80529d] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-31078e33081e27b6c482.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/mining_node/releases/20210924163233 )
+  INFO [1d80529d] Finished in 0.290 seconds with exit status 0 (successful).
+ DEBUG [fa41c4a6] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [fa41c4a6] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [fa41c4a6] Finished in 0.106 seconds with exit status 0 (successful).
+ DEBUG [3406f617] Running /usr/bin/env git rev-list --max-count=1 master as deploy@3.93.159.78
+ DEBUG [3406f617] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-31078e33081e27b6c482.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [3406f617] 	7de4b30d5b0a06dfda09ac8728f5021e67391b41
+ DEBUG [3406f617] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [f07a1df5] Running if test ! -d /home/deploy/mining_node/releases/20210924163233; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924163233'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [f07a1df5] Command: if test ! -d /home/deploy/mining_node/releases/20210924163233; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924163233'" 1>&2; false; fi
+ DEBUG [f07a1df5] Finished in 0.068 seconds with exit status 0 (successful).
+  INFO [39f2e49e] Running /usr/bin/env echo "7de4b30d5b0a06dfda09ac8728f5021e67391b41" > REVISION as deploy@3.93.159.78
+ DEBUG [39f2e49e] Command: cd /home/deploy/mining_node/releases/20210924163233 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "7de4b30d5b0a06dfda09ac8728f5021e67391b41" > REVISION )
+  INFO [39f2e49e] Finished in 0.107 seconds with exit status 0 (successful).
+  INFO [648a2e9a] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924163233/config as deploy@3.93.159.78
+ DEBUG [648a2e9a] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924163233/config )
+  INFO [648a2e9a] Finished in 0.061 seconds with exit status 0 (successful).
+ DEBUG [b781ab3b] Running [ -L /home/deploy/mining_node/releases/20210924163233/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [b781ab3b] Command: [ -L /home/deploy/mining_node/releases/20210924163233/config/database.yml ]
+ DEBUG [b781ab3b] Finished in 0.112 seconds with exit status 1 (failed).
+ DEBUG [ee704750] Running [ -f /home/deploy/mining_node/releases/20210924163233/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [ee704750] Command: [ -f /home/deploy/mining_node/releases/20210924163233/config/database.yml ]
+ DEBUG [ee704750] Finished in 0.069 seconds with exit status 0 (successful).
+  INFO [74c95fd8] Running /usr/bin/env rm /home/deploy/mining_node/releases/20210924163233/config/database.yml as deploy@3.93.159.78
+ DEBUG [74c95fd8] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/mining_node/releases/20210924163233/config/database.yml )
+  INFO [74c95fd8] Finished in 0.111 seconds with exit status 0 (successful).
+  INFO [ed97dabd] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/config/database.yml /home/deploy/mining_node/releases/20210924163233/config/database.yml as deploy@3.93.159.78
+ DEBUG [ed97dabd] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/config/database.yml /home/deploy/mining_node/releases/20210924163233/config/database.yml )
+  INFO [ed97dabd] Finished in 0.067 seconds with exit status 0 (successful).
+ DEBUG [ddda6b56] Running [ -L /home/deploy/mining_node/releases/20210924163233/config/master.key ] as deploy@3.93.159.78
+ DEBUG [ddda6b56] Command: [ -L /home/deploy/mining_node/releases/20210924163233/config/master.key ]
+ DEBUG [ddda6b56] Finished in 0.194 seconds with exit status 1 (failed).
+ DEBUG [2061640b] Running [ -f /home/deploy/mining_node/releases/20210924163233/config/master.key ] as deploy@3.93.159.78
+ DEBUG [2061640b] Command: [ -f /home/deploy/mining_node/releases/20210924163233/config/master.key ]
+ DEBUG [2061640b] Finished in 0.062 seconds with exit status 0 (successful).
+  INFO [0dff714a] Running /usr/bin/env rm /home/deploy/mining_node/releases/20210924163233/config/master.key as deploy@3.93.159.78
+ DEBUG [0dff714a] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/mining_node/releases/20210924163233/config/master.key )
+  INFO [0dff714a] Finished in 0.345 seconds with exit status 0 (successful).
+  INFO [1175b703] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/config/master.key /home/deploy/mining_node/releases/20210924163233/config/master.key as deploy@3.93.159.78
+ DEBUG [1175b703] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/config/master.key /home/deploy/mining_node/releases/20210924163233/config/master.key )
+  INFO [1175b703] Finished in 0.064 seconds with exit status 0 (successful).
+  INFO [7c695fc0] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924163233 /home/deploy/mining_node/releases/20210924163233/tmp /home/deploy/mining_node/releases/20210924163233/vendor /home/deploy/mining_node/releases/20210924163233/public as deploy@3.93.159.78
+ DEBUG [7c695fc0] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924163233 /home/deploy/mining_node/releases/20210924163233/tmp /home/deploy/mining_node/releases/20210924163233/vendor /home/deploy/mining_node/releases/20210924163233/public )
+  INFO [7c695fc0] Finished in 0.105 seconds with exit status 0 (successful).
+ DEBUG [6138f801] Running [ -L /home/deploy/mining_node/releases/20210924163233/log ] as deploy@3.93.159.78
+ DEBUG [6138f801] Command: [ -L /home/deploy/mining_node/releases/20210924163233/log ]
+ DEBUG [6138f801] Finished in 0.068 seconds with exit status 1 (failed).
+ DEBUG [596c2707] Running [ -d /home/deploy/mining_node/releases/20210924163233/log ] as deploy@3.93.159.78
+ DEBUG [596c2707] Command: [ -d /home/deploy/mining_node/releases/20210924163233/log ]
+ DEBUG [596c2707] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [8aba7623] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924163233/log as deploy@3.93.159.78
+ DEBUG [8aba7623] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924163233/log )
+  INFO [8aba7623] Finished in 0.074 seconds with exit status 0 (successful).
+  INFO [a7feb867] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/log /home/deploy/mining_node/releases/20210924163233/log as deploy@3.93.159.78
+ DEBUG [a7feb867] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/log /home/deploy/mining_node/releases/20210924163233/log )
+  INFO [a7feb867] Finished in 0.118 seconds with exit status 0 (successful).
+ DEBUG [f1046648] Running [ -L /home/deploy/mining_node/releases/20210924163233/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [f1046648] Command: [ -L /home/deploy/mining_node/releases/20210924163233/tmp/pids ]
+ DEBUG [f1046648] Finished in 0.062 seconds with exit status 1 (failed).
+ DEBUG [d9b244f6] Running [ -d /home/deploy/mining_node/releases/20210924163233/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [d9b244f6] Command: [ -d /home/deploy/mining_node/releases/20210924163233/tmp/pids ]
+ DEBUG [d9b244f6] Finished in 0.111 seconds with exit status 0 (successful).
+  INFO [b484e454] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924163233/tmp/pids as deploy@3.93.159.78
+ DEBUG [b484e454] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924163233/tmp/pids )
+  INFO [b484e454] Finished in 0.290 seconds with exit status 0 (successful).
+  INFO [6283d3a8] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/releases/20210924163233/tmp/pids as deploy@3.93.159.78
+ DEBUG [6283d3a8] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/releases/20210924163233/tmp/pids )
+  INFO [6283d3a8] Finished in 0.067 seconds with exit status 0 (successful).
+ DEBUG [9b2cee9f] Running [ -L /home/deploy/mining_node/releases/20210924163233/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [9b2cee9f] Command: [ -L /home/deploy/mining_node/releases/20210924163233/tmp/cache ]
+ DEBUG [9b2cee9f] Finished in 0.109 seconds with exit status 1 (failed).
+ DEBUG [eb55cafe] Running [ -d /home/deploy/mining_node/releases/20210924163233/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [eb55cafe] Command: [ -d /home/deploy/mining_node/releases/20210924163233/tmp/cache ]
+ DEBUG [eb55cafe] Finished in 0.068 seconds with exit status 0 (successful).
+  INFO [0174bc8f] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924163233/tmp/cache as deploy@3.93.159.78
+ DEBUG [0174bc8f] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924163233/tmp/cache )
+  INFO [0174bc8f] Finished in 0.132 seconds with exit status 0 (successful).
+  INFO [dd6091af] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/releases/20210924163233/tmp/cache as deploy@3.93.159.78
+ DEBUG [dd6091af] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/releases/20210924163233/tmp/cache )
+  INFO [dd6091af] Finished in 0.072 seconds with exit status 0 (successful).
+ DEBUG [fbbbbb13] Running [ -L /home/deploy/mining_node/releases/20210924163233/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [fbbbbb13] Command: [ -L /home/deploy/mining_node/releases/20210924163233/tmp/sockets ]
+ DEBUG [fbbbbb13] Finished in 0.107 seconds with exit status 1 (failed).
+ DEBUG [d34ce806] Running [ -d /home/deploy/mining_node/releases/20210924163233/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [d34ce806] Command: [ -d /home/deploy/mining_node/releases/20210924163233/tmp/sockets ]
+ DEBUG [d34ce806] Finished in 0.066 seconds with exit status 1 (failed).
+  INFO [3f6fddcf] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/releases/20210924163233/tmp/sockets as deploy@3.93.159.78
+ DEBUG [3f6fddcf] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/releases/20210924163233/tmp/sockets )
+  INFO [3f6fddcf] Finished in 0.108 seconds with exit status 0 (successful).
+ DEBUG [3094b791] Running [ -L /home/deploy/mining_node/releases/20210924163233/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [3094b791] Command: [ -L /home/deploy/mining_node/releases/20210924163233/vendor/bundle ]
+ DEBUG [3094b791] Finished in 0.063 seconds with exit status 1 (failed).
+ DEBUG [7dc7722b] Running [ -d /home/deploy/mining_node/releases/20210924163233/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [7dc7722b] Command: [ -d /home/deploy/mining_node/releases/20210924163233/vendor/bundle ]
+ DEBUG [7dc7722b] Finished in 0.104 seconds with exit status 1 (failed).
+  INFO [89316425] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/releases/20210924163233/vendor/bundle as deploy@3.93.159.78
+ DEBUG [89316425] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/releases/20210924163233/vendor/bundle )
+  INFO [89316425] Finished in 0.074 seconds with exit status 0 (successful).
+ DEBUG [c2c97815] Running [ -L /home/deploy/mining_node/releases/20210924163233/public/system ] as deploy@3.93.159.78
+ DEBUG [c2c97815] Command: [ -L /home/deploy/mining_node/releases/20210924163233/public/system ]
+ DEBUG [c2c97815] Finished in 0.103 seconds with exit status 1 (failed).
+ DEBUG [6bc671a7] Running [ -d /home/deploy/mining_node/releases/20210924163233/public/system ] as deploy@3.93.159.78
+ DEBUG [6bc671a7] Command: [ -d /home/deploy/mining_node/releases/20210924163233/public/system ]
+ DEBUG [6bc671a7] Finished in 0.062 seconds with exit status 1 (failed).
+  INFO [52f56ff0] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/public/system /home/deploy/mining_node/releases/20210924163233/public/system as deploy@3.93.159.78
+ DEBUG [52f56ff0] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/public/system /home/deploy/mining_node/releases/20210924163233/public/system )
+  INFO [52f56ff0] Finished in 0.107 seconds with exit status 0 (successful).
+ DEBUG [c1db2c70] Running if test ! -d /home/deploy/mining_node/releases/20210924163233; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924163233'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [c1db2c70] Command: if test ! -d /home/deploy/mining_node/releases/20210924163233; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924163233'" 1>&2; false; fi
+ DEBUG [c1db2c70] Finished in 0.075 seconds with exit status 0 (successful).
+  INFO [e8e5d1b4] Running $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true as deploy@3.93.159.78
+ DEBUG [e8e5d1b4] Command: cd /home/deploy/mining_node/releases/20210924163233 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true )
+  INFO [e8e5d1b4] Finished in 0.332 seconds with exit status 0 (successful).
+  INFO [c6e21a66] Running $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/mining_node/shared/bundle as deploy@3.93.159.78
+ DEBUG [c6e21a66] Command: cd /home/deploy/mining_node/releases/20210924163233 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/mining_node/shared/bundle )
+  INFO [c6e21a66] Finished in 0.261 seconds with exit status 0 (successful).
+  INFO [a76d92ff] Running $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test as deploy@3.93.159.78
+ DEBUG [a76d92ff] Command: cd /home/deploy/mining_node/releases/20210924163233 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test )
+  INFO [a76d92ff] Finished in 0.302 seconds with exit status 0 (successful).
+ DEBUG [2fe7b70b] Running if test ! -d /home/deploy/mining_node/releases/20210924163233; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924163233'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [2fe7b70b] Command: if test ! -d /home/deploy/mining_node/releases/20210924163233; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924163233'" 1>&2; false; fi
+ DEBUG [2fe7b70b] Finished in 0.063 seconds with exit status 0 (successful).
+ DEBUG [4d5f8562] Running $HOME/.rbenv/bin/rbenv exec bundle check as deploy@3.93.159.78
+ DEBUG [4d5f8562] Command: cd /home/deploy/mining_node/releases/20210924163233 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle check )
+ DEBUG [4d5f8562] 	The dependency tzinfo-data (>= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`.
+ DEBUG [4d5f8562] 	The Gemfile's dependencies are satisfied
+ DEBUG [4d5f8562] Finished in 0.436 seconds with exit status 0 (successful).
+  INFO The Gemfile's dependencies are satisfied, skipping installation
+  INFO [deploy:migrate] Run `rake db:migrate`
+ DEBUG [68c1bdc7] Running if test ! -d /home/deploy/mining_node/releases/20210924163233; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924163233'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [68c1bdc7] Command: if test ! -d /home/deploy/mining_node/releases/20210924163233; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924163233'" 1>&2; false; fi
+ DEBUG [68c1bdc7] Finished in 0.074 seconds with exit status 0 (successful).
+  INFO [990471df] Running $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate as deploy@3.93.159.78
+ DEBUG [990471df] Command: cd /home/deploy/mining_node/releases/20210924163233 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate )
+  INFO [990471df] Finished in 3.542 seconds with exit status 0 (successful).
+  INFO [06e58eed] Running /usr/bin/env ln -s /home/deploy/mining_node/releases/20210924163233 /home/deploy/mining_node/releases/current as deploy@3.93.159.78
+ DEBUG [06e58eed] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/releases/20210924163233 /home/deploy/mining_node/releases/current )
+  INFO [06e58eed] Finished in 0.084 seconds with exit status 0 (successful).
+  INFO [bd9053cf] Running /usr/bin/env mv /home/deploy/mining_node/releases/current /home/deploy/mining_node as deploy@3.93.159.78
+ DEBUG [bd9053cf] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mv /home/deploy/mining_node/releases/current /home/deploy/mining_node )
+  INFO [bd9053cf] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO [85a3168a] Running /usr/bin/env touch /home/deploy/mining_node/releases/20210924163233/tmp/restart.txt as deploy@3.93.159.78
+ DEBUG [85a3168a] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env touch /home/deploy/mining_node/releases/20210924163233/tmp/restart.txt )
+  INFO [85a3168a] Finished in 0.074 seconds with exit status 0 (successful).
+ DEBUG [c115c772] Running /usr/bin/env ls -x /home/deploy/mining_node/releases as deploy@3.93.159.78
+ DEBUG [c115c772] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ls -x /home/deploy/mining_node/releases )
+ DEBUG [c115c772] 	20210923180141	20210923180216	20210923185326	20210924163233
+ DEBUG [c115c772] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO Keeping 3 of 4 deployed releases on 3.93.159.78
+ DEBUG [a8c18bc6] Running [ -d /home/deploy/mining_node/current ] as deploy@3.93.159.78
+ DEBUG [a8c18bc6] Command: [ -d /home/deploy/mining_node/current ]
+ DEBUG [a8c18bc6] Finished in 0.064 seconds with exit status 0 (successful).
+ DEBUG [e1187ed4] Running /usr/bin/env readlink /home/deploy/mining_node/current as deploy@3.93.159.78
+ DEBUG [e1187ed4] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env readlink /home/deploy/mining_node/current )
+ DEBUG [e1187ed4] 	/home/deploy/mining_node/releases/20210924163233
+ DEBUG [e1187ed4] Finished in 0.108 seconds with exit status 0 (successful).
+  INFO [1d848643] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923180141 as deploy@3.93.159.78
+ DEBUG [1d848643] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923180141 )
+  INFO [1d848643] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [a3b939b9] Running if test ! -d /home/deploy/mining_node/releases; then echo "Directory does not exist '/home/deploy/mining_node/releases'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [a3b939b9] Command: if test ! -d /home/deploy/mining_node/releases; then echo "Directory does not exist '/home/deploy/mining_node/releases'" 1>&2; false; fi
+ DEBUG [a3b939b9] Finished in 0.102 seconds with exit status 0 (successful).
+  INFO [341a8745] Running /usr/bin/env echo "Branch master (at 7de4b30d5b0a06dfda09ac8728f5021e67391b41) deployed as release 20210924163233 by aditpatel" >> /home/deploy/mining_node/revisions.log as deploy@3.93.159.78
+ DEBUG [341a8745] Command: cd /home/deploy/mining_node/releases && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "Branch master (at 7de4b30d5b0a06dfda09ac8728f5021e67391b41) deployed as release 20210924163233 by aditpatel" >> /home/deploy/mining_node/revisions.log )
+  INFO [341a8745] Finished in 0.081 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 14:20:13 -0400 cap production db:push
+  INFO ---------------------------------------------------------------------------
+ DEBUG [5a72cd2c] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [5a72cd2c] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [5a72cd2c] Finished in 1.064 seconds with exit status 0 (successful).
+ DEBUG [f371bf02] Running if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [f371bf02] Command: if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi
+ DEBUG [f371bf02] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [13dc3079] Running $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null as deploy@3.93.159.78
+ DEBUG [13dc3079] Command: cd /home/deploy/mining_node/current && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null )
+ DEBUG [13dc3079] 	__CAPISTRANODB_CONFIG_BEGIN_FLAG__---
+:adapter: postgresql
+:encoding: unicode
+:pool: 5
+:database: mining_node_production
+:username: deploy
+:password: Rails.application.credentials.dig(:production, :db_password)
+__CAPISTRANODB_CONFIG_END_FLAG__
+ DEBUG [13dc3079] Finished in 3.760 seconds with exit status 0 (successful).
+ DEBUG Uploading miner_development_2021-09-24-142020.sql.gz 0.0%
+  INFO Uploading miner_development_2021-09-24-142020.sql.gz 100.0%
+  INFO [280407b7] Running cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-142020.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-142020.sql as deploy@3.93.159.78
+ DEBUG [280407b7] Command: cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-142020.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-142020.sql
+ DEBUG [280407b7] 	perl: warning: Setting locale failed.
+ DEBUG [280407b7] 	perl: warning: Please check that your locale settings:
+ DEBUG [280407b7] 		LANGUAGE = (unset),
+ DEBUG [280407b7] 		LC_ALL = (unset),
+ DEBUG [280407b7] 		LC_CTYPE = "UTF-8",
+ DEBUG [280407b7] 		LANG = "C.UTF-8"
+ DEBUG [280407b7] 	    are supported and installed on your system.
+ DEBUG [280407b7] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [280407b7] 	 pg_terminate_backend 
+----------------------
+(0 rows)
+
+ DEBUG [280407b7] 	perl: warning: Setting locale failed.
+ DEBUG [280407b7] 	perl: warning: Please check that your locale settings:
+ DEBUG [280407b7] 		LANGUAGE = (unset),
+ DEBUG [280407b7] 		LC_ALL = (unset),
+ DEBUG [280407b7] 		LC_CTYPE = "UTF-8",
+ DEBUG [280407b7] 		LANG = "C.UTF-8"
+ DEBUG [280407b7] 	    are supported and installed on your system.
+ DEBUG [280407b7] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [280407b7] 	perl: warning: Setting locale failed.
+ DEBUG [280407b7] 	perl: warning: Please check that your locale settings:
+ DEBUG [280407b7] 		LANGUAGE = (unset),
+ DEBUG [280407b7] 		LC_ALL = (unset),
+ DEBUG [280407b7] 		LC_CTYPE = "UTF-8",
+ DEBUG [280407b7] 		LANG = "C.UTF-8"
+ DEBUG [280407b7] 	    are supported and installed on your system.
+ DEBUG [280407b7] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [280407b7] 	perl: warning: Setting locale failed.
+ DEBUG [280407b7] 	perl: warning: Please check that your locale settings:
+ DEBUG [280407b7] 		LANGUAGE = (unset),
+ DEBUG [280407b7] 		LC_ALL = (unset),
+ DEBUG [280407b7] 		LC_CTYPE = "UTF-8",
+ DEBUG [280407b7] 		LANG = "C.UTF-8"
+ DEBUG [280407b7] 	    are supported and installed on your system.
+ DEBUG [280407b7] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	 set_config 
+------------
+ 
+(1 row)
+
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	SET
+ DEBUG [280407b7] 	CREATE TABLE
+ DEBUG [280407b7] 	CREATE TABLE
+ DEBUG [280407b7] 	CREATE SEQUENCE
+ DEBUG [280407b7] 	ALTER SEQUENCE
+ DEBUG [280407b7] 	CREATE TABLE
+ DEBUG [280407b7] 	CREATE SEQUENCE
+ DEBUG [280407b7] 	ALTER SEQUENCE
+ DEBUG [280407b7] 	CREATE TABLE
+ DEBUG [280407b7] 	CREATE TABLE
+ DEBUG [280407b7] 	CREATE SEQUENCE
+ DEBUG [280407b7] 	ALTER SEQUENCE
+ DEBUG [280407b7] 	ALTER TABLE
+ DEBUG [280407b7] 	ALTER TABLE
+ DEBUG [280407b7] 	ALTER TABLE
+ DEBUG [280407b7] 	COPY 2
+ DEBUG [280407b7] 	COPY 3
+ DEBUG [280407b7] 	COPY 3
+ DEBUG [280407b7] 	COPY 3
+ DEBUG [280407b7] 	COPY 0
+ DEBUG [280407b7] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [280407b7] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [280407b7] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [280407b7] 	ALTER TABLE
+ DEBUG [280407b7] 	ALTER TABLE
+ DEBUG [280407b7] 	ALTER TABLE
+ DEBUG [280407b7] 	ALTER TABLE
+ DEBUG [280407b7] 	ALTER TABLE
+ DEBUG [280407b7] 	CREATE INDEX
+ DEBUG [280407b7] 	ALTER TABLE
+  INFO [280407b7] Finished in 0.681 seconds with exit status 0 (successful).
+  INFO [360d7f20] Running cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-142020.sql as deploy@3.93.159.78
+ DEBUG [360d7f20] Command: cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-142020.sql
+  INFO [360d7f20] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 14:31:31 -0400 cap production db:push
+  INFO ---------------------------------------------------------------------------
+ DEBUG [698f1837] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [698f1837] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [698f1837] Finished in 1.284 seconds with exit status 0 (successful).
+ DEBUG [9dfa42ce] Running if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [9dfa42ce] Command: if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi
+ DEBUG [9dfa42ce] Finished in 0.042 seconds with exit status 0 (successful).
+ DEBUG [27ee3fb1] Running $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null as deploy@3.93.159.78
+ DEBUG [27ee3fb1] Command: cd /home/deploy/mining_node/current && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null )
+ DEBUG [27ee3fb1] 	__CAPISTRANODB_CONFIG_BEGIN_FLAG__---
+:adapter: postgresql
+:encoding: unicode
+:pool: 5
+:database: mining_node_production
+:username: deploy
+:password: Rails.application.credentials.dig(:production, :db_password)
+__CAPISTRANODB_CONFIG_END_FLAG__
+ DEBUG [27ee3fb1] Finished in 3.039 seconds with exit status 0 (successful).
+ DEBUG Uploading miner_development_2021-09-24-143137.sql.gz 0.0%
+  INFO Uploading miner_development_2021-09-24-143137.sql.gz 100.0%
+  INFO [bbcfde91] Running cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-143137.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-143137.sql as deploy@3.93.159.78
+ DEBUG [bbcfde91] Command: cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-143137.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-143137.sql
+ DEBUG [bbcfde91] 	perl: warning: Setting locale failed.
+ DEBUG [bbcfde91] 	perl: warning: Please check that your locale settings:
+ DEBUG [bbcfde91] 		LANGUAGE = (unset),
+ DEBUG [bbcfde91] 		LC_ALL = (unset),
+ DEBUG [bbcfde91] 		LC_CTYPE = "UTF-8",
+ DEBUG [bbcfde91] 		LANG = "C.UTF-8"
+ DEBUG [bbcfde91] 	    are supported and installed on your system.
+ DEBUG [bbcfde91] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [bbcfde91] 	 pg_terminate_backend 
+----------------------
+(0 rows)
+
+ DEBUG [bbcfde91] 	perl: warning: Setting locale failed.
+ DEBUG [bbcfde91] 	perl: warning: Please check that your locale settings:
+ DEBUG [bbcfde91] 		LANGUAGE = (unset),
+ DEBUG [bbcfde91] 		LC_ALL = (unset),
+ DEBUG [bbcfde91] 		LC_CTYPE = "UTF-8",
+ DEBUG [bbcfde91] 		LANG = "C.UTF-8"
+ DEBUG [bbcfde91] 	    are supported and installed on your system.
+ DEBUG [bbcfde91] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [bbcfde91] 	perl: warning: Setting locale failed.
+ DEBUG [bbcfde91] 	perl: warning: Please check that your locale settings:
+ DEBUG [bbcfde91] 		LANGUAGE = (unset),
+ DEBUG [bbcfde91] 		LC_ALL = (unset),
+ DEBUG [bbcfde91] 		LC_CTYPE = "UTF-8",
+ DEBUG [bbcfde91] 		LANG = "C.UTF-8"
+ DEBUG [bbcfde91] 	    are supported and installed on your system.
+ DEBUG [bbcfde91] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [bbcfde91] 	perl: warning: Setting locale failed.
+ DEBUG [bbcfde91] 	perl: warning: Please check that your locale settings:
+ DEBUG [bbcfde91] 		LANGUAGE = (unset),
+ DEBUG [bbcfde91] 		LC_ALL = (unset),
+ DEBUG [bbcfde91] 		LC_CTYPE = "UTF-8",
+ DEBUG [bbcfde91] 		LANG = "C.UTF-8"
+ DEBUG [bbcfde91] 	    are supported and installed on your system.
+ DEBUG [bbcfde91] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	 set_config 
+------------
+ 
+(1 row)
+
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	SET
+ DEBUG [bbcfde91] 	CREATE TABLE
+ DEBUG [bbcfde91] 	CREATE TABLE
+ DEBUG [bbcfde91] 	CREATE SEQUENCE
+ DEBUG [bbcfde91] 	ALTER SEQUENCE
+ DEBUG [bbcfde91] 	CREATE TABLE
+ DEBUG [bbcfde91] 	CREATE SEQUENCE
+ DEBUG [bbcfde91] 	ALTER SEQUENCE
+ DEBUG [bbcfde91] 	CREATE TABLE
+ DEBUG [bbcfde91] 	CREATE TABLE
+ DEBUG [bbcfde91] 	CREATE SEQUENCE
+ DEBUG [bbcfde91] 	ALTER SEQUENCE
+ DEBUG [bbcfde91] 	ALTER TABLE
+ DEBUG [bbcfde91] 	ALTER TABLE
+ DEBUG [bbcfde91] 	ALTER TABLE
+ DEBUG [bbcfde91] 	COPY 2
+ DEBUG [bbcfde91] 	COPY 3
+ DEBUG [bbcfde91] 	COPY 3
+ DEBUG [bbcfde91] 	COPY 3
+ DEBUG [bbcfde91] 	COPY 0
+ DEBUG [bbcfde91] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [bbcfde91] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [bbcfde91] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [bbcfde91] 	ALTER TABLE
+ DEBUG [bbcfde91] 	ALTER TABLE
+ DEBUG [bbcfde91] 	ALTER TABLE
+ DEBUG [bbcfde91] 	ALTER TABLE
+ DEBUG [bbcfde91] 	ALTER TABLE
+ DEBUG [bbcfde91] 	CREATE INDEX
+ DEBUG [bbcfde91] 	ALTER TABLE
+  INFO [bbcfde91] Finished in 0.620 seconds with exit status 0 (successful).
+  INFO [9154cddd] Running cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-143137.sql as deploy@3.93.159.78
+ DEBUG [9154cddd] Command: cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-143137.sql
+  INFO [9154cddd] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 14:33:09 -0400 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [ee9b6bfb] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [ee9b6bfb] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [ee9b6bfb] Finished in 2.025 seconds with exit status 0 (successful).
+  INFO [5c042295] Running /usr/bin/env mkdir -p /tmp as deploy@3.93.159.78
+ DEBUG [5c042295] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /tmp )
+  INFO [5c042295] Finished in 0.065 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-9782e2518e12e6600a43.sh 0.0%
+  INFO Uploading /tmp/git-ssh-9782e2518e12e6600a43.sh 100.0%
+  INFO [0ad1c989] Running /usr/bin/env chmod 700 /tmp/git-ssh-9782e2518e12e6600a43.sh as deploy@3.93.159.78
+ DEBUG [0ad1c989] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env chmod 700 /tmp/git-ssh-9782e2518e12e6600a43.sh )
+  INFO [0ad1c989] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [45ed7194] Running /usr/bin/env git ls-remote git@Mining:adit313/MiningNode.git HEAD as deploy@3.93.159.78
+ DEBUG [45ed7194] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-9782e2518e12e6600a43.sh" ; /usr/bin/env git ls-remote git@Mining:adit313/MiningNode.git HEAD )
+ DEBUG [45ed7194] 	73d32c71e67ba4b57c4064ef820451fa899776e2	HEAD
+  INFO [45ed7194] Finished in 0.446 seconds with exit status 0 (successful).
+  INFO [9cfd36e1] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared /home/deploy/mining_node/releases as deploy@3.93.159.78
+ DEBUG [9cfd36e1] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared /home/deploy/mining_node/releases )
+  INFO [9cfd36e1] Finished in 0.102 seconds with exit status 0 (successful).
+  INFO [0714758f] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared/log /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/shared/public/system as deploy@3.93.159.78
+ DEBUG [0714758f] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared/log /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/shared/public/system )
+  INFO [0714758f] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [c5b02e32] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared/config as deploy@3.93.159.78
+ DEBUG [c5b02e32] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared/config )
+  INFO [c5b02e32] Finished in 0.102 seconds with exit status 0 (successful).
+ DEBUG [fbfada13] Running [ -f /home/deploy/mining_node/shared/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [fbfada13] Command: [ -f /home/deploy/mining_node/shared/config/database.yml ]
+ DEBUG [fbfada13] Finished in 0.073 seconds with exit status 0 (successful).
+ DEBUG [86b3d5ff] Running [ -f /home/deploy/mining_node/shared/config/master.key ] as deploy@3.93.159.78
+ DEBUG [86b3d5ff] Command: [ -f /home/deploy/mining_node/shared/config/master.key ]
+ DEBUG [86b3d5ff] Finished in 0.103 seconds with exit status 0 (successful).
+ DEBUG [2e720d78] Running [ -f /home/deploy/mining_node/current/REVISION ] as deploy@3.93.159.78
+ DEBUG [2e720d78] Command: [ -f /home/deploy/mining_node/current/REVISION ]
+ DEBUG [2e720d78] Finished in 0.281 seconds with exit status 0 (successful).
+ DEBUG [f26c6ada] Running /usr/bin/env cat /home/deploy/mining_node/current/REVISION 2>/dev/null as deploy@3.93.159.78
+ DEBUG [f26c6ada] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env cat /home/deploy/mining_node/current/REVISION 2>/dev/null )
+ DEBUG [f26c6ada] 	7de4b30d5b0a06dfda09ac8728f5021e67391b41
+ DEBUG [f26c6ada] Finished in 0.105 seconds with exit status 0 (successful).
+ DEBUG [573484be] Running [ -f /home/deploy/mining_node/repo/HEAD ] as deploy@3.93.159.78
+ DEBUG [573484be] Command: [ -f /home/deploy/mining_node/repo/HEAD ]
+ DEBUG [573484be] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/mining_node/repo
+ DEBUG [989b964f] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [989b964f] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [989b964f] Finished in 0.076 seconds with exit status 0 (successful).
+  INFO [a31e04eb] Running /usr/bin/env git remote set-url origin git@Mining:adit313/MiningNode.git as deploy@3.93.159.78
+ DEBUG [a31e04eb] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-9782e2518e12e6600a43.sh" ; /usr/bin/env git remote set-url origin git@Mining:adit313/MiningNode.git )
+  INFO [a31e04eb] Finished in 0.107 seconds with exit status 0 (successful).
+  INFO [0a02a508] Running /usr/bin/env git remote update --prune as deploy@3.93.159.78
+ DEBUG [0a02a508] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-9782e2518e12e6600a43.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [0a02a508] 	Fetching origin
+ DEBUG [0a02a508] 	From Mining:adit313/MiningNode
+   7de4b30..73d32c7  master     -> master
+  INFO [0a02a508] Finished in 0.795 seconds with exit status 0 (successful).
+ DEBUG [f4f97f7c] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [f4f97f7c] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [f4f97f7c] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [344dc669] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924183313 as deploy@3.93.159.78
+ DEBUG [344dc669] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-9782e2518e12e6600a43.sh" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924183313 )
+  INFO [344dc669] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO [51179a2e] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/mining_node/releases/20210924183313 as deploy@3.93.159.78
+ DEBUG [51179a2e] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-9782e2518e12e6600a43.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/mining_node/releases/20210924183313 )
+  INFO [51179a2e] Finished in 0.239 seconds with exit status 0 (successful).
+ DEBUG [6f8587fa] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [6f8587fa] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [6f8587fa] Finished in 0.101 seconds with exit status 0 (successful).
+ DEBUG [2605ca06] Running /usr/bin/env git rev-list --max-count=1 master as deploy@3.93.159.78
+ DEBUG [2605ca06] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-9782e2518e12e6600a43.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [2605ca06] 	73d32c71e67ba4b57c4064ef820451fa899776e2
+ DEBUG [2605ca06] Finished in 0.063 seconds with exit status 0 (successful).
+ DEBUG [d29e84cb] Running if test ! -d /home/deploy/mining_node/releases/20210924183313; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924183313'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [d29e84cb] Command: if test ! -d /home/deploy/mining_node/releases/20210924183313; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924183313'" 1>&2; false; fi
+ DEBUG [d29e84cb] Finished in 0.101 seconds with exit status 0 (successful).
+  INFO [8608a8d1] Running /usr/bin/env echo "73d32c71e67ba4b57c4064ef820451fa899776e2" > REVISION as deploy@3.93.159.78
+ DEBUG [8608a8d1] Command: cd /home/deploy/mining_node/releases/20210924183313 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "73d32c71e67ba4b57c4064ef820451fa899776e2" > REVISION )
+  INFO [8608a8d1] Finished in 0.067 seconds with exit status 0 (successful).
+  INFO [d3ed02b5] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924183313/config as deploy@3.93.159.78
+ DEBUG [d3ed02b5] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924183313/config )
+  INFO [d3ed02b5] Finished in 0.109 seconds with exit status 0 (successful).
+ DEBUG [a7b58dd1] Running [ -L /home/deploy/mining_node/releases/20210924183313/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [a7b58dd1] Command: [ -L /home/deploy/mining_node/releases/20210924183313/config/database.yml ]
+ DEBUG [a7b58dd1] Finished in 0.060 seconds with exit status 1 (failed).
+ DEBUG [234b195a] Running [ -f /home/deploy/mining_node/releases/20210924183313/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [234b195a] Command: [ -f /home/deploy/mining_node/releases/20210924183313/config/database.yml ]
+ DEBUG [234b195a] Finished in 0.103 seconds with exit status 0 (successful).
+  INFO [5f76ceb6] Running /usr/bin/env rm /home/deploy/mining_node/releases/20210924183313/config/database.yml as deploy@3.93.159.78
+ DEBUG [5f76ceb6] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/mining_node/releases/20210924183313/config/database.yml )
+  INFO [5f76ceb6] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [2f823b37] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/config/database.yml /home/deploy/mining_node/releases/20210924183313/config/database.yml as deploy@3.93.159.78
+ DEBUG [2f823b37] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/config/database.yml /home/deploy/mining_node/releases/20210924183313/config/database.yml )
+  INFO [2f823b37] Finished in 0.105 seconds with exit status 0 (successful).
+ DEBUG [e55a6002] Running [ -L /home/deploy/mining_node/releases/20210924183313/config/master.key ] as deploy@3.93.159.78
+ DEBUG [e55a6002] Command: [ -L /home/deploy/mining_node/releases/20210924183313/config/master.key ]
+ DEBUG [e55a6002] Finished in 0.057 seconds with exit status 1 (failed).
+ DEBUG [311edc8f] Running [ -f /home/deploy/mining_node/releases/20210924183313/config/master.key ] as deploy@3.93.159.78
+ DEBUG [311edc8f] Command: [ -f /home/deploy/mining_node/releases/20210924183313/config/master.key ]
+ DEBUG [311edc8f] Finished in 0.374 seconds with exit status 0 (successful).
+  INFO [1da5051f] Running /usr/bin/env rm /home/deploy/mining_node/releases/20210924183313/config/master.key as deploy@3.93.159.78
+ DEBUG [1da5051f] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/mining_node/releases/20210924183313/config/master.key )
+  INFO [1da5051f] Finished in 0.064 seconds with exit status 0 (successful).
+  INFO [dc4cc86e] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/config/master.key /home/deploy/mining_node/releases/20210924183313/config/master.key as deploy@3.93.159.78
+ DEBUG [dc4cc86e] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/config/master.key /home/deploy/mining_node/releases/20210924183313/config/master.key )
+  INFO [dc4cc86e] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [4e91492d] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924183313 /home/deploy/mining_node/releases/20210924183313/tmp /home/deploy/mining_node/releases/20210924183313/vendor /home/deploy/mining_node/releases/20210924183313/public as deploy@3.93.159.78
+ DEBUG [4e91492d] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924183313 /home/deploy/mining_node/releases/20210924183313/tmp /home/deploy/mining_node/releases/20210924183313/vendor /home/deploy/mining_node/releases/20210924183313/public )
+  INFO [4e91492d] Finished in 0.129 seconds with exit status 0 (successful).
+ DEBUG [6da03aa5] Running [ -L /home/deploy/mining_node/releases/20210924183313/log ] as deploy@3.93.159.78
+ DEBUG [6da03aa5] Command: [ -L /home/deploy/mining_node/releases/20210924183313/log ]
+ DEBUG [6da03aa5] Finished in 0.116 seconds with exit status 1 (failed).
+ DEBUG [a2d89d47] Running [ -d /home/deploy/mining_node/releases/20210924183313/log ] as deploy@3.93.159.78
+ DEBUG [a2d89d47] Command: [ -d /home/deploy/mining_node/releases/20210924183313/log ]
+ DEBUG [a2d89d47] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [32b46d8e] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924183313/log as deploy@3.93.159.78
+ DEBUG [32b46d8e] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924183313/log )
+  INFO [32b46d8e] Finished in 0.102 seconds with exit status 0 (successful).
+  INFO [00c03086] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/log /home/deploy/mining_node/releases/20210924183313/log as deploy@3.93.159.78
+ DEBUG [00c03086] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/log /home/deploy/mining_node/releases/20210924183313/log )
+  INFO [00c03086] Finished in 0.061 seconds with exit status 0 (successful).
+ DEBUG [42a7c03e] Running [ -L /home/deploy/mining_node/releases/20210924183313/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [42a7c03e] Command: [ -L /home/deploy/mining_node/releases/20210924183313/tmp/pids ]
+ DEBUG [42a7c03e] Finished in 0.103 seconds with exit status 1 (failed).
+ DEBUG [32796dbc] Running [ -d /home/deploy/mining_node/releases/20210924183313/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [32796dbc] Command: [ -d /home/deploy/mining_node/releases/20210924183313/tmp/pids ]
+ DEBUG [32796dbc] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [0d157398] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924183313/tmp/pids as deploy@3.93.159.78
+ DEBUG [0d157398] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924183313/tmp/pids )
+  INFO [0d157398] Finished in 0.107 seconds with exit status 0 (successful).
+  INFO [2a662548] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/releases/20210924183313/tmp/pids as deploy@3.93.159.78
+ DEBUG [2a662548] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/releases/20210924183313/tmp/pids )
+  INFO [2a662548] Finished in 0.064 seconds with exit status 0 (successful).
+ DEBUG [e8779951] Running [ -L /home/deploy/mining_node/releases/20210924183313/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [e8779951] Command: [ -L /home/deploy/mining_node/releases/20210924183313/tmp/cache ]
+ DEBUG [e8779951] Finished in 0.325 seconds with exit status 1 (failed).
+ DEBUG [f9af8df5] Running [ -d /home/deploy/mining_node/releases/20210924183313/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [f9af8df5] Command: [ -d /home/deploy/mining_node/releases/20210924183313/tmp/cache ]
+ DEBUG [f9af8df5] Finished in 0.067 seconds with exit status 0 (successful).
+  INFO [0dffe3f3] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924183313/tmp/cache as deploy@3.93.159.78
+ DEBUG [0dffe3f3] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924183313/tmp/cache )
+  INFO [0dffe3f3] Finished in 0.244 seconds with exit status 0 (successful).
+  INFO [28ade338] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/releases/20210924183313/tmp/cache as deploy@3.93.159.78
+ DEBUG [28ade338] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/releases/20210924183313/tmp/cache )
+  INFO [28ade338] Finished in 0.098 seconds with exit status 0 (successful).
+ DEBUG [158cfb34] Running [ -L /home/deploy/mining_node/releases/20210924183313/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [158cfb34] Command: [ -L /home/deploy/mining_node/releases/20210924183313/tmp/sockets ]
+ DEBUG [158cfb34] Finished in 0.341 seconds with exit status 1 (failed).
+ DEBUG [d4d669f7] Running [ -d /home/deploy/mining_node/releases/20210924183313/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [d4d669f7] Command: [ -d /home/deploy/mining_node/releases/20210924183313/tmp/sockets ]
+ DEBUG [d4d669f7] Finished in 0.294 seconds with exit status 1 (failed).
+  INFO [1f564e27] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/releases/20210924183313/tmp/sockets as deploy@3.93.159.78
+ DEBUG [1f564e27] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/releases/20210924183313/tmp/sockets )
+  INFO [1f564e27] Finished in 0.061 seconds with exit status 0 (successful).
+ DEBUG [c10bd4c8] Running [ -L /home/deploy/mining_node/releases/20210924183313/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [c10bd4c8] Command: [ -L /home/deploy/mining_node/releases/20210924183313/vendor/bundle ]
+ DEBUG [c10bd4c8] Finished in 0.460 seconds with exit status 1 (failed).
+ DEBUG [42f99f78] Running [ -d /home/deploy/mining_node/releases/20210924183313/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [42f99f78] Command: [ -d /home/deploy/mining_node/releases/20210924183313/vendor/bundle ]
+ DEBUG [42f99f78] Finished in 0.060 seconds with exit status 1 (failed).
+  INFO [061bbe71] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/releases/20210924183313/vendor/bundle as deploy@3.93.159.78
+ DEBUG [061bbe71] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/releases/20210924183313/vendor/bundle )
+  INFO [061bbe71] Finished in 0.105 seconds with exit status 0 (successful).
+ DEBUG [13944026] Running [ -L /home/deploy/mining_node/releases/20210924183313/public/system ] as deploy@3.93.159.78
+ DEBUG [13944026] Command: [ -L /home/deploy/mining_node/releases/20210924183313/public/system ]
+ DEBUG [13944026] Finished in 0.066 seconds with exit status 1 (failed).
+ DEBUG [06499c39] Running [ -d /home/deploy/mining_node/releases/20210924183313/public/system ] as deploy@3.93.159.78
+ DEBUG [06499c39] Command: [ -d /home/deploy/mining_node/releases/20210924183313/public/system ]
+ DEBUG [06499c39] Finished in 0.098 seconds with exit status 1 (failed).
+  INFO [e3bd7ac3] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/public/system /home/deploy/mining_node/releases/20210924183313/public/system as deploy@3.93.159.78
+ DEBUG [e3bd7ac3] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/public/system /home/deploy/mining_node/releases/20210924183313/public/system )
+  INFO [e3bd7ac3] Finished in 0.060 seconds with exit status 0 (successful).
+ DEBUG [6ba78462] Running if test ! -d /home/deploy/mining_node/releases/20210924183313; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924183313'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [6ba78462] Command: if test ! -d /home/deploy/mining_node/releases/20210924183313; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924183313'" 1>&2; false; fi
+ DEBUG [6ba78462] Finished in 0.100 seconds with exit status 0 (successful).
+  INFO [aa84f37d] Running $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true as deploy@3.93.159.78
+ DEBUG [aa84f37d] Command: cd /home/deploy/mining_node/releases/20210924183313 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true )
+  INFO [aa84f37d] Finished in 0.715 seconds with exit status 0 (successful).
+  INFO [34d578d0] Running $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/mining_node/shared/bundle as deploy@3.93.159.78
+ DEBUG [34d578d0] Command: cd /home/deploy/mining_node/releases/20210924183313 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/mining_node/shared/bundle )
+  INFO [34d578d0] Finished in 1.364 seconds with exit status 0 (successful).
+  INFO [42050d4e] Running $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test as deploy@3.93.159.78
+ DEBUG [42050d4e] Command: cd /home/deploy/mining_node/releases/20210924183313 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test )
+  INFO [42050d4e] Finished in 0.264 seconds with exit status 0 (successful).
+ DEBUG [f5b0ce3e] Running if test ! -d /home/deploy/mining_node/releases/20210924183313; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924183313'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [f5b0ce3e] Command: if test ! -d /home/deploy/mining_node/releases/20210924183313; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924183313'" 1>&2; false; fi
+ DEBUG [f5b0ce3e] Finished in 0.116 seconds with exit status 0 (successful).
+ DEBUG [d687e27e] Running $HOME/.rbenv/bin/rbenv exec bundle check as deploy@3.93.159.78
+ DEBUG [d687e27e] Command: cd /home/deploy/mining_node/releases/20210924183313 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle check )
+ DEBUG [d687e27e] 	The dependency tzinfo-data (>= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`.
+ DEBUG [d687e27e] 	The Gemfile's dependencies are satisfied
+ DEBUG [d687e27e] Finished in 0.826 seconds with exit status 0 (successful).
+  INFO The Gemfile's dependencies are satisfied, skipping installation
+  INFO [deploy:migrate] Run `rake db:migrate`
+ DEBUG [6d5c61ce] Running if test ! -d /home/deploy/mining_node/releases/20210924183313; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924183313'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [6d5c61ce] Command: if test ! -d /home/deploy/mining_node/releases/20210924183313; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924183313'" 1>&2; false; fi
+ DEBUG [6d5c61ce] Finished in 0.105 seconds with exit status 0 (successful).
+  INFO [1275377b] Running $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate as deploy@3.93.159.78
+ DEBUG [1275377b] Command: cd /home/deploy/mining_node/releases/20210924183313 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate )
+  INFO [1275377b] Finished in 2.821 seconds with exit status 0 (successful).
+  INFO [9188adba] Running /usr/bin/env ln -s /home/deploy/mining_node/releases/20210924183313 /home/deploy/mining_node/releases/current as deploy@3.93.159.78
+ DEBUG [9188adba] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/releases/20210924183313 /home/deploy/mining_node/releases/current )
+  INFO [9188adba] Finished in 0.563 seconds with exit status 0 (successful).
+  INFO [12155abe] Running /usr/bin/env mv /home/deploy/mining_node/releases/current /home/deploy/mining_node as deploy@3.93.159.78
+ DEBUG [12155abe] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mv /home/deploy/mining_node/releases/current /home/deploy/mining_node )
+  INFO [12155abe] Finished in 0.068 seconds with exit status 0 (successful).
+  INFO [8573bac6] Running /usr/bin/env touch /home/deploy/mining_node/releases/20210924183313/tmp/restart.txt as deploy@3.93.159.78
+ DEBUG [8573bac6] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env touch /home/deploy/mining_node/releases/20210924183313/tmp/restart.txt )
+  INFO [8573bac6] Finished in 0.101 seconds with exit status 0 (successful).
+ DEBUG [9f3df760] Running /usr/bin/env ls -x /home/deploy/mining_node/releases as deploy@3.93.159.78
+ DEBUG [9f3df760] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ls -x /home/deploy/mining_node/releases )
+ DEBUG [9f3df760] 	20210923180216	20210923185326	20210924163233	20210924183313
+ DEBUG [9f3df760] Finished in 0.104 seconds with exit status 0 (successful).
+  INFO Keeping 3 of 4 deployed releases on 3.93.159.78
+ DEBUG [6c165683] Running [ -d /home/deploy/mining_node/current ] as deploy@3.93.159.78
+ DEBUG [6c165683] Command: [ -d /home/deploy/mining_node/current ]
+ DEBUG [6c165683] Finished in 0.098 seconds with exit status 0 (successful).
+ DEBUG [045ed56a] Running /usr/bin/env readlink /home/deploy/mining_node/current as deploy@3.93.159.78
+ DEBUG [045ed56a] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env readlink /home/deploy/mining_node/current )
+ DEBUG [045ed56a] 	/home/deploy/mining_node/releases/20210924183313
+ DEBUG [045ed56a] Finished in 0.066 seconds with exit status 0 (successful).
+  INFO [50621a56] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923180216 as deploy@3.93.159.78
+ DEBUG [50621a56] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923180216 )
+  INFO [50621a56] Finished in 0.150 seconds with exit status 0 (successful).
+ DEBUG [039874c7] Running if test ! -d /home/deploy/mining_node/releases; then echo "Directory does not exist '/home/deploy/mining_node/releases'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [039874c7] Command: if test ! -d /home/deploy/mining_node/releases; then echo "Directory does not exist '/home/deploy/mining_node/releases'" 1>&2; false; fi
+ DEBUG [039874c7] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [5665e6d7] Running /usr/bin/env echo "Branch master (at 73d32c71e67ba4b57c4064ef820451fa899776e2) deployed as release 20210924183313 by aditpatel" >> /home/deploy/mining_node/revisions.log as deploy@3.93.159.78
+ DEBUG [5665e6d7] Command: cd /home/deploy/mining_node/releases && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "Branch master (at 73d32c71e67ba4b57c4064ef820451fa899776e2) deployed as release 20210924183313 by aditpatel" >> /home/deploy/mining_node/revisions.log )
+  INFO [5665e6d7] Finished in 0.329 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 14:53:54 -0400 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [506d481f] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [506d481f] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [506d481f] Finished in 2.432 seconds with exit status 0 (successful).
+  INFO [e82a575a] Running /usr/bin/env mkdir -p /tmp as deploy@3.93.159.78
+ DEBUG [e82a575a] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /tmp )
+  INFO [e82a575a] Finished in 0.062 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-b64e7be064463403dd5d.sh 0.0%
+  INFO Uploading /tmp/git-ssh-b64e7be064463403dd5d.sh 100.0%
+  INFO [eecbf434] Running /usr/bin/env chmod 700 /tmp/git-ssh-b64e7be064463403dd5d.sh as deploy@3.93.159.78
+ DEBUG [eecbf434] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env chmod 700 /tmp/git-ssh-b64e7be064463403dd5d.sh )
+  INFO [eecbf434] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [9ea473f9] Running /usr/bin/env git ls-remote git@Mining:adit313/MiningNode.git HEAD as deploy@3.93.159.78
+ DEBUG [9ea473f9] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-b64e7be064463403dd5d.sh" ; /usr/bin/env git ls-remote git@Mining:adit313/MiningNode.git HEAD )
+ DEBUG [9ea473f9] 	94ebeddb3e0ac7d25c3e5c45206e521e1a5e0fb5	HEAD
+  INFO [9ea473f9] Finished in 0.425 seconds with exit status 0 (successful).
+  INFO [9398c7b2] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared /home/deploy/mining_node/releases as deploy@3.93.159.78
+ DEBUG [9398c7b2] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared /home/deploy/mining_node/releases )
+  INFO [9398c7b2] Finished in 0.670 seconds with exit status 0 (successful).
+  INFO [dc2d9071] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared/log /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/shared/public/system as deploy@3.93.159.78
+ DEBUG [dc2d9071] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared/log /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/shared/public/system )
+  INFO [dc2d9071] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [352d4ac4] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared/config as deploy@3.93.159.78
+ DEBUG [352d4ac4] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared/config )
+  INFO [352d4ac4] Finished in 0.099 seconds with exit status 0 (successful).
+ DEBUG [16db5106] Running [ -f /home/deploy/mining_node/shared/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [16db5106] Command: [ -f /home/deploy/mining_node/shared/config/database.yml ]
+ DEBUG [16db5106] Finished in 0.058 seconds with exit status 0 (successful).
+ DEBUG [768c565a] Running [ -f /home/deploy/mining_node/shared/config/master.key ] as deploy@3.93.159.78
+ DEBUG [768c565a] Command: [ -f /home/deploy/mining_node/shared/config/master.key ]
+ DEBUG [768c565a] Finished in 0.111 seconds with exit status 0 (successful).
+ DEBUG [aecd391b] Running [ -f /home/deploy/mining_node/current/REVISION ] as deploy@3.93.159.78
+ DEBUG [aecd391b] Command: [ -f /home/deploy/mining_node/current/REVISION ]
+ DEBUG [aecd391b] Finished in 0.062 seconds with exit status 0 (successful).
+ DEBUG [5fcc3aaf] Running /usr/bin/env cat /home/deploy/mining_node/current/REVISION 2>/dev/null as deploy@3.93.159.78
+ DEBUG [5fcc3aaf] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env cat /home/deploy/mining_node/current/REVISION 2>/dev/null )
+ DEBUG [5fcc3aaf] 	73d32c71e67ba4b57c4064ef820451fa899776e2
+ DEBUG [5fcc3aaf] Finished in 0.478 seconds with exit status 0 (successful).
+ DEBUG [3c70f745] Running [ -f /home/deploy/mining_node/repo/HEAD ] as deploy@3.93.159.78
+ DEBUG [3c70f745] Command: [ -f /home/deploy/mining_node/repo/HEAD ]
+ DEBUG [3c70f745] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/mining_node/repo
+ DEBUG [2f7c7a9e] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [2f7c7a9e] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [2f7c7a9e] Finished in 0.097 seconds with exit status 0 (successful).
+  INFO [97bcfa70] Running /usr/bin/env git remote set-url origin git@Mining:adit313/MiningNode.git as deploy@3.93.159.78
+ DEBUG [97bcfa70] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-b64e7be064463403dd5d.sh" ; /usr/bin/env git remote set-url origin git@Mining:adit313/MiningNode.git )
+  INFO [97bcfa70] Finished in 0.080 seconds with exit status 0 (successful).
+  INFO [a7e399b9] Running /usr/bin/env git remote update --prune as deploy@3.93.159.78
+ DEBUG [a7e399b9] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-b64e7be064463403dd5d.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [a7e399b9] 	Fetching origin
+ DEBUG [a7e399b9] 	From Mining:adit313/MiningNode
+   73d32c7..94ebedd  master     -> master
+  INFO [a7e399b9] Finished in 0.755 seconds with exit status 0 (successful).
+ DEBUG [4d3f61a7] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [4d3f61a7] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [4d3f61a7] Finished in 0.104 seconds with exit status 0 (successful).
+  INFO [131c58ee] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924185359 as deploy@3.93.159.78
+ DEBUG [131c58ee] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-b64e7be064463403dd5d.sh" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924185359 )
+  INFO [131c58ee] Finished in 0.070 seconds with exit status 0 (successful).
+  INFO [eb515150] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/mining_node/releases/20210924185359 as deploy@3.93.159.78
+ DEBUG [eb515150] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-b64e7be064463403dd5d.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/mining_node/releases/20210924185359 )
+  INFO [eb515150] Finished in 0.587 seconds with exit status 0 (successful).
+ DEBUG [66e772d4] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [66e772d4] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [66e772d4] Finished in 0.071 seconds with exit status 0 (successful).
+ DEBUG [6501bb0a] Running /usr/bin/env git rev-list --max-count=1 master as deploy@3.93.159.78
+ DEBUG [6501bb0a] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-b64e7be064463403dd5d.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [6501bb0a] 	94ebeddb3e0ac7d25c3e5c45206e521e1a5e0fb5
+ DEBUG [6501bb0a] Finished in 0.110 seconds with exit status 0 (successful).
+ DEBUG [39e114d5] Running if test ! -d /home/deploy/mining_node/releases/20210924185359; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924185359'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [39e114d5] Command: if test ! -d /home/deploy/mining_node/releases/20210924185359; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924185359'" 1>&2; false; fi
+ DEBUG [39e114d5] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [9f088434] Running /usr/bin/env echo "94ebeddb3e0ac7d25c3e5c45206e521e1a5e0fb5" > REVISION as deploy@3.93.159.78
+ DEBUG [9f088434] Command: cd /home/deploy/mining_node/releases/20210924185359 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "94ebeddb3e0ac7d25c3e5c45206e521e1a5e0fb5" > REVISION )
+  INFO [9f088434] Finished in 0.100 seconds with exit status 0 (successful).
+  INFO [5291a6da] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924185359/config as deploy@3.93.159.78
+ DEBUG [5291a6da] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924185359/config )
+  INFO [5291a6da] Finished in 0.063 seconds with exit status 0 (successful).
+ DEBUG [b08c8dfb] Running [ -L /home/deploy/mining_node/releases/20210924185359/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [b08c8dfb] Command: [ -L /home/deploy/mining_node/releases/20210924185359/config/database.yml ]
+ DEBUG [b08c8dfb] Finished in 0.098 seconds with exit status 1 (failed).
+ DEBUG [17206290] Running [ -f /home/deploy/mining_node/releases/20210924185359/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [17206290] Command: [ -f /home/deploy/mining_node/releases/20210924185359/config/database.yml ]
+ DEBUG [17206290] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [39e032ee] Running /usr/bin/env rm /home/deploy/mining_node/releases/20210924185359/config/database.yml as deploy@3.93.159.78
+ DEBUG [39e032ee] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/mining_node/releases/20210924185359/config/database.yml )
+  INFO [39e032ee] Finished in 0.142 seconds with exit status 0 (successful).
+  INFO [f99f4e43] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/config/database.yml /home/deploy/mining_node/releases/20210924185359/config/database.yml as deploy@3.93.159.78
+ DEBUG [f99f4e43] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/config/database.yml /home/deploy/mining_node/releases/20210924185359/config/database.yml )
+  INFO [f99f4e43] Finished in 0.058 seconds with exit status 0 (successful).
+ DEBUG [c0474f7b] Running [ -L /home/deploy/mining_node/releases/20210924185359/config/master.key ] as deploy@3.93.159.78
+ DEBUG [c0474f7b] Command: [ -L /home/deploy/mining_node/releases/20210924185359/config/master.key ]
+ DEBUG [c0474f7b] Finished in 0.464 seconds with exit status 1 (failed).
+ DEBUG [cb0e6c25] Running [ -f /home/deploy/mining_node/releases/20210924185359/config/master.key ] as deploy@3.93.159.78
+ DEBUG [cb0e6c25] Command: [ -f /home/deploy/mining_node/releases/20210924185359/config/master.key ]
+ DEBUG [cb0e6c25] Finished in 0.063 seconds with exit status 0 (successful).
+  INFO [39d1e5c3] Running /usr/bin/env rm /home/deploy/mining_node/releases/20210924185359/config/master.key as deploy@3.93.159.78
+ DEBUG [39d1e5c3] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/mining_node/releases/20210924185359/config/master.key )
+  INFO [39d1e5c3] Finished in 0.326 seconds with exit status 0 (successful).
+  INFO [9da9068d] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/config/master.key /home/deploy/mining_node/releases/20210924185359/config/master.key as deploy@3.93.159.78
+ DEBUG [9da9068d] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/config/master.key /home/deploy/mining_node/releases/20210924185359/config/master.key )
+  INFO [9da9068d] Finished in 0.070 seconds with exit status 0 (successful).
+  INFO [ce461be6] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924185359 /home/deploy/mining_node/releases/20210924185359/tmp /home/deploy/mining_node/releases/20210924185359/vendor /home/deploy/mining_node/releases/20210924185359/public as deploy@3.93.159.78
+ DEBUG [ce461be6] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924185359 /home/deploy/mining_node/releases/20210924185359/tmp /home/deploy/mining_node/releases/20210924185359/vendor /home/deploy/mining_node/releases/20210924185359/public )
+  INFO [ce461be6] Finished in 0.104 seconds with exit status 0 (successful).
+ DEBUG [0071599a] Running [ -L /home/deploy/mining_node/releases/20210924185359/log ] as deploy@3.93.159.78
+ DEBUG [0071599a] Command: [ -L /home/deploy/mining_node/releases/20210924185359/log ]
+ DEBUG [0071599a] Finished in 0.276 seconds with exit status 1 (failed).
+ DEBUG [c05ddeaa] Running [ -d /home/deploy/mining_node/releases/20210924185359/log ] as deploy@3.93.159.78
+ DEBUG [c05ddeaa] Command: [ -d /home/deploy/mining_node/releases/20210924185359/log ]
+ DEBUG [c05ddeaa] Finished in 0.070 seconds with exit status 0 (successful).
+  INFO [0b6af3ed] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924185359/log as deploy@3.93.159.78
+ DEBUG [0b6af3ed] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924185359/log )
+  INFO [0b6af3ed] Finished in 0.100 seconds with exit status 0 (successful).
+  INFO [4f3a2f41] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/log /home/deploy/mining_node/releases/20210924185359/log as deploy@3.93.159.78
+ DEBUG [4f3a2f41] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/log /home/deploy/mining_node/releases/20210924185359/log )
+  INFO [4f3a2f41] Finished in 0.059 seconds with exit status 0 (successful).
+ DEBUG [e85b0248] Running [ -L /home/deploy/mining_node/releases/20210924185359/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [e85b0248] Command: [ -L /home/deploy/mining_node/releases/20210924185359/tmp/pids ]
+ DEBUG [e85b0248] Finished in 0.435 seconds with exit status 1 (failed).
+ DEBUG [7fa6352b] Running [ -d /home/deploy/mining_node/releases/20210924185359/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [7fa6352b] Command: [ -d /home/deploy/mining_node/releases/20210924185359/tmp/pids ]
+ DEBUG [7fa6352b] Finished in 0.065 seconds with exit status 0 (successful).
+  INFO [418d5be5] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924185359/tmp/pids as deploy@3.93.159.78
+ DEBUG [418d5be5] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924185359/tmp/pids )
+  INFO [418d5be5] Finished in 0.432 seconds with exit status 0 (successful).
+  INFO [686989e0] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/releases/20210924185359/tmp/pids as deploy@3.93.159.78
+ DEBUG [686989e0] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/releases/20210924185359/tmp/pids )
+  INFO [686989e0] Finished in 0.059 seconds with exit status 0 (successful).
+ DEBUG [8793e8d6] Running [ -L /home/deploy/mining_node/releases/20210924185359/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [8793e8d6] Command: [ -L /home/deploy/mining_node/releases/20210924185359/tmp/cache ]
+ DEBUG [8793e8d6] Finished in 0.117 seconds with exit status 1 (failed).
+ DEBUG [3e68ee5a] Running [ -d /home/deploy/mining_node/releases/20210924185359/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [3e68ee5a] Command: [ -d /home/deploy/mining_node/releases/20210924185359/tmp/cache ]
+ DEBUG [3e68ee5a] Finished in 0.299 seconds with exit status 0 (successful).
+  INFO [735bf4d0] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924185359/tmp/cache as deploy@3.93.159.78
+ DEBUG [735bf4d0] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924185359/tmp/cache )
+  INFO [735bf4d0] Finished in 0.130 seconds with exit status 0 (successful).
+  INFO [640fc999] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/releases/20210924185359/tmp/cache as deploy@3.93.159.78
+ DEBUG [640fc999] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/releases/20210924185359/tmp/cache )
+  INFO [640fc999] Finished in 0.067 seconds with exit status 0 (successful).
+ DEBUG [75e4e120] Running [ -L /home/deploy/mining_node/releases/20210924185359/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [75e4e120] Command: [ -L /home/deploy/mining_node/releases/20210924185359/tmp/sockets ]
+ DEBUG [75e4e120] Finished in 0.104 seconds with exit status 1 (failed).
+ DEBUG [bbf740ba] Running [ -d /home/deploy/mining_node/releases/20210924185359/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [bbf740ba] Command: [ -d /home/deploy/mining_node/releases/20210924185359/tmp/sockets ]
+ DEBUG [bbf740ba] Finished in 0.059 seconds with exit status 1 (failed).
+  INFO [abe85de5] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/releases/20210924185359/tmp/sockets as deploy@3.93.159.78
+ DEBUG [abe85de5] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/releases/20210924185359/tmp/sockets )
+  INFO [abe85de5] Finished in 0.105 seconds with exit status 0 (successful).
+ DEBUG [a7e73ac9] Running [ -L /home/deploy/mining_node/releases/20210924185359/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [a7e73ac9] Command: [ -L /home/deploy/mining_node/releases/20210924185359/vendor/bundle ]
+ DEBUG [a7e73ac9] Finished in 0.057 seconds with exit status 1 (failed).
+ DEBUG [10b6f8ad] Running [ -d /home/deploy/mining_node/releases/20210924185359/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [10b6f8ad] Command: [ -d /home/deploy/mining_node/releases/20210924185359/vendor/bundle ]
+ DEBUG [10b6f8ad] Finished in 0.097 seconds with exit status 1 (failed).
+  INFO [6f0fb661] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/releases/20210924185359/vendor/bundle as deploy@3.93.159.78
+ DEBUG [6f0fb661] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/releases/20210924185359/vendor/bundle )
+  INFO [6f0fb661] Finished in 0.060 seconds with exit status 0 (successful).
+ DEBUG [37f0cee6] Running [ -L /home/deploy/mining_node/releases/20210924185359/public/system ] as deploy@3.93.159.78
+ DEBUG [37f0cee6] Command: [ -L /home/deploy/mining_node/releases/20210924185359/public/system ]
+ DEBUG [37f0cee6] Finished in 0.100 seconds with exit status 1 (failed).
+ DEBUG [1f6e3cb5] Running [ -d /home/deploy/mining_node/releases/20210924185359/public/system ] as deploy@3.93.159.78
+ DEBUG [1f6e3cb5] Command: [ -d /home/deploy/mining_node/releases/20210924185359/public/system ]
+ DEBUG [1f6e3cb5] Finished in 0.058 seconds with exit status 1 (failed).
+  INFO [ef1f0c6c] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/public/system /home/deploy/mining_node/releases/20210924185359/public/system as deploy@3.93.159.78
+ DEBUG [ef1f0c6c] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/public/system /home/deploy/mining_node/releases/20210924185359/public/system )
+  INFO [ef1f0c6c] Finished in 0.168 seconds with exit status 0 (successful).
+ DEBUG [8d41345b] Running if test ! -d /home/deploy/mining_node/releases/20210924185359; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924185359'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [8d41345b] Command: if test ! -d /home/deploy/mining_node/releases/20210924185359; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924185359'" 1>&2; false; fi
+ DEBUG [8d41345b] Finished in 0.322 seconds with exit status 0 (successful).
+  INFO [ad808c40] Running $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true as deploy@3.93.159.78
+ DEBUG [ad808c40] Command: cd /home/deploy/mining_node/releases/20210924185359 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true )
+  INFO [ad808c40] Finished in 0.967 seconds with exit status 0 (successful).
+  INFO [3330a2ba] Running $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/mining_node/shared/bundle as deploy@3.93.159.78
+ DEBUG [3330a2ba] Command: cd /home/deploy/mining_node/releases/20210924185359 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/mining_node/shared/bundle )
+  INFO [3330a2ba] Finished in 0.270 seconds with exit status 0 (successful).
+  INFO [46e7c4db] Running $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test as deploy@3.93.159.78
+ DEBUG [46e7c4db] Command: cd /home/deploy/mining_node/releases/20210924185359 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test )
+  INFO [46e7c4db] Finished in 0.317 seconds with exit status 0 (successful).
+ DEBUG [bc95fe33] Running if test ! -d /home/deploy/mining_node/releases/20210924185359; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924185359'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [bc95fe33] Command: if test ! -d /home/deploy/mining_node/releases/20210924185359; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924185359'" 1>&2; false; fi
+ DEBUG [bc95fe33] Finished in 0.091 seconds with exit status 0 (successful).
+ DEBUG [1b5d56bc] Running $HOME/.rbenv/bin/rbenv exec bundle check as deploy@3.93.159.78
+ DEBUG [1b5d56bc] Command: cd /home/deploy/mining_node/releases/20210924185359 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle check )
+ DEBUG [1b5d56bc] 	The dependency tzinfo-data (>= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`.
+ DEBUG [1b5d56bc] 	The Gemfile's dependencies are satisfied
+ DEBUG [1b5d56bc] Finished in 0.531 seconds with exit status 0 (successful).
+  INFO The Gemfile's dependencies are satisfied, skipping installation
+  INFO [deploy:migrate] Run `rake db:migrate`
+ DEBUG [031bebcf] Running if test ! -d /home/deploy/mining_node/releases/20210924185359; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924185359'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [031bebcf] Command: if test ! -d /home/deploy/mining_node/releases/20210924185359; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924185359'" 1>&2; false; fi
+ DEBUG [031bebcf] Finished in 0.311 seconds with exit status 0 (successful).
+  INFO [849f2577] Running $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate as deploy@3.93.159.78
+ DEBUG [849f2577] Command: cd /home/deploy/mining_node/releases/20210924185359 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate )
+  INFO [849f2577] Finished in 2.842 seconds with exit status 0 (successful).
+  INFO [3fae45f1] Running /usr/bin/env ln -s /home/deploy/mining_node/releases/20210924185359 /home/deploy/mining_node/releases/current as deploy@3.93.159.78
+ DEBUG [3fae45f1] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/releases/20210924185359 /home/deploy/mining_node/releases/current )
+  INFO [3fae45f1] Finished in 0.173 seconds with exit status 0 (successful).
+  INFO [41eb2c17] Running /usr/bin/env mv /home/deploy/mining_node/releases/current /home/deploy/mining_node as deploy@3.93.159.78
+ DEBUG [41eb2c17] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mv /home/deploy/mining_node/releases/current /home/deploy/mining_node )
+  INFO [41eb2c17] Finished in 0.064 seconds with exit status 0 (successful).
+  INFO [b68bc397] Running /usr/bin/env touch /home/deploy/mining_node/releases/20210924185359/tmp/restart.txt as deploy@3.93.159.78
+ DEBUG [b68bc397] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env touch /home/deploy/mining_node/releases/20210924185359/tmp/restart.txt )
+  INFO [b68bc397] Finished in 0.101 seconds with exit status 0 (successful).
+ DEBUG [2e52f7d2] Running /usr/bin/env ls -x /home/deploy/mining_node/releases as deploy@3.93.159.78
+ DEBUG [2e52f7d2] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ls -x /home/deploy/mining_node/releases )
+ DEBUG [2e52f7d2] 	20210923185326	20210924163233	20210924183313	20210924185359
+ DEBUG [2e52f7d2] Finished in 0.064 seconds with exit status 0 (successful).
+  INFO Keeping 3 of 4 deployed releases on 3.93.159.78
+ DEBUG [562aea05] Running [ -d /home/deploy/mining_node/current ] as deploy@3.93.159.78
+ DEBUG [562aea05] Command: [ -d /home/deploy/mining_node/current ]
+ DEBUG [562aea05] Finished in 0.099 seconds with exit status 0 (successful).
+ DEBUG [d828953f] Running /usr/bin/env readlink /home/deploy/mining_node/current as deploy@3.93.159.78
+ DEBUG [d828953f] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env readlink /home/deploy/mining_node/current )
+ DEBUG [d828953f] 	/home/deploy/mining_node/releases/20210924185359
+ DEBUG [d828953f] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [898aed22] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923185326 as deploy@3.93.159.78
+ DEBUG [898aed22] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210923185326 )
+  INFO [898aed22] Finished in 0.170 seconds with exit status 0 (successful).
+ DEBUG [68ac9ea7] Running if test ! -d /home/deploy/mining_node/releases; then echo "Directory does not exist '/home/deploy/mining_node/releases'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [68ac9ea7] Command: if test ! -d /home/deploy/mining_node/releases; then echo "Directory does not exist '/home/deploy/mining_node/releases'" 1>&2; false; fi
+ DEBUG [68ac9ea7] Finished in 0.474 seconds with exit status 0 (successful).
+  INFO [010899cd] Running /usr/bin/env echo "Branch master (at 94ebeddb3e0ac7d25c3e5c45206e521e1a5e0fb5) deployed as release 20210924185359 by aditpatel" >> /home/deploy/mining_node/revisions.log as deploy@3.93.159.78
+ DEBUG [010899cd] Command: cd /home/deploy/mining_node/releases && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "Branch master (at 94ebeddb3e0ac7d25c3e5c45206e521e1a5e0fb5) deployed as release 20210924185359 by aditpatel" >> /home/deploy/mining_node/revisions.log )
+  INFO [010899cd] Finished in 0.368 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 15:02:07 -0400 cap production db:push
+  INFO ---------------------------------------------------------------------------
+ DEBUG [881ecc30] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [881ecc30] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [881ecc30] Finished in 2.352 seconds with exit status 0 (successful).
+ DEBUG [10f9e2c1] Running if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [10f9e2c1] Command: if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi
+ DEBUG [10f9e2c1] Finished in 0.133 seconds with exit status 0 (successful).
+ DEBUG [0e7cee37] Running $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null as deploy@3.93.159.78
+ DEBUG [0e7cee37] Command: cd /home/deploy/mining_node/current && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null )
+ DEBUG [0e7cee37] 	__CAPISTRANODB_CONFIG_BEGIN_FLAG__---
+:adapter: postgresql
+:encoding: unicode
+:pool: 5
+:database: mining_node_production
+:username: deploy
+:password: Rails.application.credentials.dig(:production, :db_password)
+__CAPISTRANODB_CONFIG_END_FLAG__
+ DEBUG [0e7cee37] Finished in 3.833 seconds with exit status 0 (successful).
+ DEBUG Uploading miner_development_2021-09-24-150218.sql.gz 0.0%
+  INFO Uploading miner_development_2021-09-24-150218.sql.gz 100.0%
+  INFO [68b17dfd] Running cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-150218.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-150218.sql as deploy@3.93.159.78
+ DEBUG [68b17dfd] Command: cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-150218.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-150218.sql
+ DEBUG [68b17dfd] 	perl: warning: Setting locale failed.
+ DEBUG [68b17dfd] 	perl: warning: Please check that your locale settings:
+ DEBUG [68b17dfd] 		LANGUAGE = (unset),
+ DEBUG [68b17dfd] 		LC_ALL = (unset),
+ DEBUG [68b17dfd] 		LC_CTYPE = "UTF-8",
+ DEBUG [68b17dfd] 		LANG = "C.UTF-8"
+ DEBUG [68b17dfd] 	    are supported and installed on your system.
+ DEBUG [68b17dfd] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [68b17dfd] 	 pg_terminate_backend 
+----------------------
+(0 rows)
+
+ DEBUG [68b17dfd] 	perl: warning: Setting locale failed.
+ DEBUG [68b17dfd] 	perl: warning: Please check that your locale settings:
+ DEBUG [68b17dfd] 		LANGUAGE = (unset),
+ DEBUG [68b17dfd] 		LC_ALL = (unset),
+ DEBUG [68b17dfd] 		LC_CTYPE = "UTF-8",
+ DEBUG [68b17dfd] 		LANG = "C.UTF-8"
+ DEBUG [68b17dfd] 	    are supported and installed on your system.
+ DEBUG [68b17dfd] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [68b17dfd] 	perl: warning: Setting locale failed.
+ DEBUG [68b17dfd] 	perl: warning: Please check that your locale settings:
+ DEBUG [68b17dfd] 		LANGUAGE = (unset),
+ DEBUG [68b17dfd] 		LC_ALL = (unset),
+ DEBUG [68b17dfd] 		LC_CTYPE = "UTF-8",
+ DEBUG [68b17dfd] 		LANG = "C.UTF-8"
+ DEBUG [68b17dfd] 	    are supported and installed on your system.
+ DEBUG [68b17dfd] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [68b17dfd] 	perl: warning: Setting locale failed.
+ DEBUG [68b17dfd] 	perl: warning: Please check that your locale settings:
+ DEBUG [68b17dfd] 		LANGUAGE = (unset),
+ DEBUG [68b17dfd] 		LC_ALL = (unset),
+ DEBUG [68b17dfd] 		LC_CTYPE = "UTF-8",
+ DEBUG [68b17dfd] 		LANG = "C.UTF-8"
+ DEBUG [68b17dfd] 	    are supported and installed on your system.
+ DEBUG [68b17dfd] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	 set_config 
+------------
+ 
+(1 row)
+
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	SET
+ DEBUG [68b17dfd] 	CREATE TABLE
+ DEBUG [68b17dfd] 	CREATE TABLE
+ DEBUG [68b17dfd] 	CREATE SEQUENCE
+ DEBUG [68b17dfd] 	ALTER SEQUENCE
+ DEBUG [68b17dfd] 	CREATE TABLE
+ DEBUG [68b17dfd] 	CREATE SEQUENCE
+ DEBUG [68b17dfd] 	ALTER SEQUENCE
+ DEBUG [68b17dfd] 	CREATE TABLE
+ DEBUG [68b17dfd] 	CREATE TABLE
+ DEBUG [68b17dfd] 	CREATE SEQUENCE
+ DEBUG [68b17dfd] 	ALTER SEQUENCE
+ DEBUG [68b17dfd] 	ALTER TABLE
+ DEBUG [68b17dfd] 	ALTER TABLE
+ DEBUG [68b17dfd] 	ALTER TABLE
+ DEBUG [68b17dfd] 	COPY 2
+ DEBUG [68b17dfd] 	COPY 3
+ DEBUG [68b17dfd] 	COPY 3
+ DEBUG [68b17dfd] 	COPY 3
+ DEBUG [68b17dfd] 	COPY 0
+ DEBUG [68b17dfd] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [68b17dfd] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [68b17dfd] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [68b17dfd] 	ALTER TABLE
+ DEBUG [68b17dfd] 	ALTER TABLE
+ DEBUG [68b17dfd] 	ALTER TABLE
+ DEBUG [68b17dfd] 	ALTER TABLE
+ DEBUG [68b17dfd] 	ALTER TABLE
+ DEBUG [68b17dfd] 	CREATE INDEX
+ DEBUG [68b17dfd] 	ALTER TABLE
+  INFO [68b17dfd] Finished in 0.721 seconds with exit status 0 (successful).
+  INFO [a566d97b] Running cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-150218.sql as deploy@3.93.159.78
+ DEBUG [a566d97b] Command: cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-150218.sql
+  INFO [a566d97b] Finished in 0.069 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 16:23:37 -0400 cap production db:push
+  INFO ---------------------------------------------------------------------------
+ DEBUG [5f336dbc] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [5f336dbc] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [5f336dbc] Finished in 0.993 seconds with exit status 0 (successful).
+ DEBUG [d7742723] Running if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [d7742723] Command: if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi
+ DEBUG [d7742723] Finished in 0.052 seconds with exit status 0 (successful).
+ DEBUG [dc488a28] Running $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null as deploy@3.93.159.78
+ DEBUG [dc488a28] Command: cd /home/deploy/mining_node/current && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null )
+ DEBUG [dc488a28] 	__CAPISTRANODB_CONFIG_BEGIN_FLAG__---
+:adapter: postgresql
+:encoding: unicode
+:pool: 5
+:database: mining_node_production
+:username: deploy
+:password: Rails.application.credentials.dig(:production, :db_password)
+__CAPISTRANODB_CONFIG_END_FLAG__
+ DEBUG [dc488a28] Finished in 1.299 seconds with exit status 0 (successful).
+ DEBUG Uploading miner_development_2021-09-24-162341.sql.gz 0.0%
+  INFO Uploading miner_development_2021-09-24-162341.sql.gz 100.0%
+  INFO [67e2fa1a] Running cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-162341.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-162341.sql as deploy@3.93.159.78
+ DEBUG [67e2fa1a] Command: cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-162341.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-162341.sql
+ DEBUG [67e2fa1a] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [67e2fa1a] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [67e2fa1a] 	 pg_terminate_backend 
+----------------------
+(0 rows)
+
+ DEBUG [67e2fa1a] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [67e2fa1a] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [67e2fa1a] 	perl: warning: Setting locale failed.
+ DEBUG [67e2fa1a] 	perl: warning: Please check that your locale settings:
+ DEBUG [67e2fa1a] 		LANGUAGE = (unset),
+ DEBUG [67e2fa1a] 		LC_ALL = (unset),
+ DEBUG [67e2fa1a] 		LC_CTYPE = "UTF-8",
+ DEBUG [67e2fa1a] 		LANG = "C.UTF-8"
+ DEBUG [67e2fa1a] 	    are supported and installed on your system.
+ DEBUG [67e2fa1a] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [67e2fa1a] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [67e2fa1a] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	 set_config 
+------------
+ 
+(1 row)
+
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	SET
+ DEBUG [67e2fa1a] 	CREATE TABLE
+ DEBUG [67e2fa1a] 	CREATE TABLE
+ DEBUG [67e2fa1a] 	CREATE SEQUENCE
+ DEBUG [67e2fa1a] 	ALTER SEQUENCE
+ DEBUG [67e2fa1a] 	CREATE TABLE
+ DEBUG [67e2fa1a] 	CREATE SEQUENCE
+ DEBUG [67e2fa1a] 	ALTER SEQUENCE
+ DEBUG [67e2fa1a] 	CREATE TABLE
+ DEBUG [67e2fa1a] 	CREATE TABLE
+ DEBUG [67e2fa1a] 	CREATE SEQUENCE
+ DEBUG [67e2fa1a] 	ALTER SEQUENCE
+ DEBUG [67e2fa1a] 	ALTER TABLE
+ DEBUG [67e2fa1a] 	ALTER TABLE
+ DEBUG [67e2fa1a] 	ALTER TABLE
+ DEBUG [67e2fa1a] 	COPY 2
+ DEBUG [67e2fa1a] 	COPY 3
+ DEBUG [67e2fa1a] 	COPY 3
+ DEBUG [67e2fa1a] 	COPY 3
+ DEBUG [67e2fa1a] 	COPY 0
+ DEBUG [67e2fa1a] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [67e2fa1a] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [67e2fa1a] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [67e2fa1a] 	ALTER TABLE
+ DEBUG [67e2fa1a] 	ALTER TABLE
+ DEBUG [67e2fa1a] 	ALTER TABLE
+ DEBUG [67e2fa1a] 	ALTER TABLE
+ DEBUG [67e2fa1a] 	ALTER TABLE
+ DEBUG [67e2fa1a] 	CREATE INDEX
+ DEBUG [67e2fa1a] 	ALTER TABLE
+  INFO [67e2fa1a] Finished in 0.475 seconds with exit status 0 (successful).
+  INFO [474372d2] Running cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-162341.sql as deploy@3.93.159.78
+ DEBUG [474372d2] Command: cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-162341.sql
+  INFO [474372d2] Finished in 0.066 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 16:57:17 -0400 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [a0391c62] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [a0391c62] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [a0391c62] Finished in 0.799 seconds with exit status 0 (successful).
+  INFO [1c767876] Running /usr/bin/env mkdir -p /tmp as deploy@3.93.159.78
+ DEBUG [1c767876] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /tmp )
+  INFO [1c767876] Finished in 0.058 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-f19e16526c5a1d298ba9.sh 0.0%
+  INFO Uploading /tmp/git-ssh-f19e16526c5a1d298ba9.sh 100.0%
+  INFO [0d114546] Running /usr/bin/env chmod 700 /tmp/git-ssh-f19e16526c5a1d298ba9.sh as deploy@3.93.159.78
+ DEBUG [0d114546] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env chmod 700 /tmp/git-ssh-f19e16526c5a1d298ba9.sh )
+  INFO [0d114546] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [d136dd0c] Running /usr/bin/env git ls-remote git@Mining:adit313/MiningNode.git HEAD as deploy@3.93.159.78
+ DEBUG [d136dd0c] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-f19e16526c5a1d298ba9.sh" ; /usr/bin/env git ls-remote git@Mining:adit313/MiningNode.git HEAD )
+ DEBUG [d136dd0c] 	86c1710868583916d044f87a1b7bd69a66040549	HEAD
+  INFO [d136dd0c] Finished in 0.410 seconds with exit status 0 (successful).
+  INFO [fbec2a8a] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared /home/deploy/mining_node/releases as deploy@3.93.159.78
+ DEBUG [fbec2a8a] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared /home/deploy/mining_node/releases )
+  INFO [fbec2a8a] Finished in 0.103 seconds with exit status 0 (successful).
+  INFO [76161a58] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared/log /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/shared/public/system as deploy@3.93.159.78
+ DEBUG [76161a58] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared/log /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/shared/public/system )
+  INFO [76161a58] Finished in 0.078 seconds with exit status 0 (successful).
+  INFO [af4902ec] Running /usr/bin/env mkdir -p /home/deploy/mining_node/shared/config as deploy@3.93.159.78
+ DEBUG [af4902ec] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/shared/config )
+  INFO [af4902ec] Finished in 0.102 seconds with exit status 0 (successful).
+ DEBUG [3748ca88] Running [ -f /home/deploy/mining_node/shared/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [3748ca88] Command: [ -f /home/deploy/mining_node/shared/config/database.yml ]
+ DEBUG [3748ca88] Finished in 0.057 seconds with exit status 0 (successful).
+ DEBUG [82557071] Running [ -f /home/deploy/mining_node/shared/config/master.key ] as deploy@3.93.159.78
+ DEBUG [82557071] Command: [ -f /home/deploy/mining_node/shared/config/master.key ]
+ DEBUG [82557071] Finished in 0.099 seconds with exit status 0 (successful).
+ DEBUG [62035fb5] Running [ -f /home/deploy/mining_node/current/REVISION ] as deploy@3.93.159.78
+ DEBUG [62035fb5] Command: [ -f /home/deploy/mining_node/current/REVISION ]
+ DEBUG [62035fb5] Finished in 0.063 seconds with exit status 0 (successful).
+ DEBUG [d06dac1b] Running /usr/bin/env cat /home/deploy/mining_node/current/REVISION 2>/dev/null as deploy@3.93.159.78
+ DEBUG [d06dac1b] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env cat /home/deploy/mining_node/current/REVISION 2>/dev/null )
+ DEBUG [d06dac1b] 	94ebeddb3e0ac7d25c3e5c45206e521e1a5e0fb5
+ DEBUG [d06dac1b] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [81a3d790] Running [ -f /home/deploy/mining_node/repo/HEAD ] as deploy@3.93.159.78
+ DEBUG [81a3d790] Command: [ -f /home/deploy/mining_node/repo/HEAD ]
+ DEBUG [81a3d790] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/mining_node/repo
+ DEBUG [fc586ff7] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [fc586ff7] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [fc586ff7] Finished in 0.103 seconds with exit status 0 (successful).
+  INFO [59e6fb49] Running /usr/bin/env git remote set-url origin git@Mining:adit313/MiningNode.git as deploy@3.93.159.78
+ DEBUG [59e6fb49] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-f19e16526c5a1d298ba9.sh" ; /usr/bin/env git remote set-url origin git@Mining:adit313/MiningNode.git )
+  INFO [59e6fb49] Finished in 0.066 seconds with exit status 0 (successful).
+  INFO [ba9e9513] Running /usr/bin/env git remote update --prune as deploy@3.93.159.78
+ DEBUG [ba9e9513] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-f19e16526c5a1d298ba9.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [ba9e9513] 	Fetching origin
+ DEBUG [ba9e9513] 	From Mining:adit313/MiningNode
+   94ebedd..86c1710  master     -> master
+  INFO [ba9e9513] Finished in 0.696 seconds with exit status 0 (successful).
+ DEBUG [d4494d6f] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [d4494d6f] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [d4494d6f] Finished in 0.099 seconds with exit status 0 (successful).
+  INFO [dd450539] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924205719 as deploy@3.93.159.78
+ DEBUG [dd450539] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-f19e16526c5a1d298ba9.sh" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924205719 )
+  INFO [dd450539] Finished in 0.070 seconds with exit status 0 (successful).
+  INFO [bdad0e40] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/mining_node/releases/20210924205719 as deploy@3.93.159.78
+ DEBUG [bdad0e40] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-f19e16526c5a1d298ba9.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/mining_node/releases/20210924205719 )
+  INFO [bdad0e40] Finished in 0.227 seconds with exit status 0 (successful).
+ DEBUG [e46f678b] Running if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [e46f678b] Command: if test ! -d /home/deploy/mining_node/repo; then echo "Directory does not exist '/home/deploy/mining_node/repo'" 1>&2; false; fi
+ DEBUG [e46f678b] Finished in 0.063 seconds with exit status 0 (successful).
+ DEBUG [2646b45f] Running /usr/bin/env git rev-list --max-count=1 master as deploy@3.93.159.78
+ DEBUG [2646b45f] Command: cd /home/deploy/mining_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-f19e16526c5a1d298ba9.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [2646b45f] 	86c1710868583916d044f87a1b7bd69a66040549
+ DEBUG [2646b45f] Finished in 0.109 seconds with exit status 0 (successful).
+ DEBUG [638b96f1] Running if test ! -d /home/deploy/mining_node/releases/20210924205719; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924205719'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [638b96f1] Command: if test ! -d /home/deploy/mining_node/releases/20210924205719; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924205719'" 1>&2; false; fi
+ DEBUG [638b96f1] Finished in 0.507 seconds with exit status 0 (successful).
+  INFO [1c6327f1] Running /usr/bin/env echo "86c1710868583916d044f87a1b7bd69a66040549" > REVISION as deploy@3.93.159.78
+ DEBUG [1c6327f1] Command: cd /home/deploy/mining_node/releases/20210924205719 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "86c1710868583916d044f87a1b7bd69a66040549" > REVISION )
+  INFO [1c6327f1] Finished in 0.102 seconds with exit status 0 (successful).
+  INFO [a4b48500] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924205719/config as deploy@3.93.159.78
+ DEBUG [a4b48500] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924205719/config )
+  INFO [a4b48500] Finished in 0.057 seconds with exit status 0 (successful).
+ DEBUG [c2451930] Running [ -L /home/deploy/mining_node/releases/20210924205719/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [c2451930] Command: [ -L /home/deploy/mining_node/releases/20210924205719/config/database.yml ]
+ DEBUG [c2451930] Finished in 0.099 seconds with exit status 1 (failed).
+ DEBUG [c2b19974] Running [ -f /home/deploy/mining_node/releases/20210924205719/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [c2b19974] Command: [ -f /home/deploy/mining_node/releases/20210924205719/config/database.yml ]
+ DEBUG [c2b19974] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [ed64cde1] Running /usr/bin/env rm /home/deploy/mining_node/releases/20210924205719/config/database.yml as deploy@3.93.159.78
+ DEBUG [ed64cde1] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/mining_node/releases/20210924205719/config/database.yml )
+  INFO [ed64cde1] Finished in 0.454 seconds with exit status 0 (successful).
+  INFO [bda58153] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/config/database.yml /home/deploy/mining_node/releases/20210924205719/config/database.yml as deploy@3.93.159.78
+ DEBUG [bda58153] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/config/database.yml /home/deploy/mining_node/releases/20210924205719/config/database.yml )
+  INFO [bda58153] Finished in 0.516 seconds with exit status 0 (successful).
+ DEBUG [cc3c5e48] Running [ -L /home/deploy/mining_node/releases/20210924205719/config/master.key ] as deploy@3.93.159.78
+ DEBUG [cc3c5e48] Command: [ -L /home/deploy/mining_node/releases/20210924205719/config/master.key ]
+ DEBUG [cc3c5e48] Finished in 0.101 seconds with exit status 1 (failed).
+ DEBUG [b2d9774a] Running [ -f /home/deploy/mining_node/releases/20210924205719/config/master.key ] as deploy@3.93.159.78
+ DEBUG [b2d9774a] Command: [ -f /home/deploy/mining_node/releases/20210924205719/config/master.key ]
+ DEBUG [b2d9774a] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [c11a0fb1] Running /usr/bin/env rm /home/deploy/mining_node/releases/20210924205719/config/master.key as deploy@3.93.159.78
+ DEBUG [c11a0fb1] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/mining_node/releases/20210924205719/config/master.key )
+  INFO [c11a0fb1] Finished in 0.547 seconds with exit status 0 (successful).
+  INFO [f2048821] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/config/master.key /home/deploy/mining_node/releases/20210924205719/config/master.key as deploy@3.93.159.78
+ DEBUG [f2048821] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/config/master.key /home/deploy/mining_node/releases/20210924205719/config/master.key )
+  INFO [f2048821] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [fe3b9add] Running /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924205719 /home/deploy/mining_node/releases/20210924205719/tmp /home/deploy/mining_node/releases/20210924205719/vendor /home/deploy/mining_node/releases/20210924205719/public as deploy@3.93.159.78
+ DEBUG [fe3b9add] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/mining_node/releases/20210924205719 /home/deploy/mining_node/releases/20210924205719/tmp /home/deploy/mining_node/releases/20210924205719/vendor /home/deploy/mining_node/releases/20210924205719/public )
+  INFO [fe3b9add] Finished in 0.105 seconds with exit status 0 (successful).
+ DEBUG [20000388] Running [ -L /home/deploy/mining_node/releases/20210924205719/log ] as deploy@3.93.159.78
+ DEBUG [20000388] Command: [ -L /home/deploy/mining_node/releases/20210924205719/log ]
+ DEBUG [20000388] Finished in 0.059 seconds with exit status 1 (failed).
+ DEBUG [affb1833] Running [ -d /home/deploy/mining_node/releases/20210924205719/log ] as deploy@3.93.159.78
+ DEBUG [affb1833] Command: [ -d /home/deploy/mining_node/releases/20210924205719/log ]
+ DEBUG [affb1833] Finished in 0.098 seconds with exit status 0 (successful).
+  INFO [bc5ce678] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924205719/log as deploy@3.93.159.78
+ DEBUG [bc5ce678] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924205719/log )
+  INFO [bc5ce678] Finished in 0.305 seconds with exit status 0 (successful).
+  INFO [d538791f] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/log /home/deploy/mining_node/releases/20210924205719/log as deploy@3.93.159.78
+ DEBUG [d538791f] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/log /home/deploy/mining_node/releases/20210924205719/log )
+  INFO [d538791f] Finished in 0.104 seconds with exit status 0 (successful).
+ DEBUG [408fc1cd] Running [ -L /home/deploy/mining_node/releases/20210924205719/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [408fc1cd] Command: [ -L /home/deploy/mining_node/releases/20210924205719/tmp/pids ]
+ DEBUG [408fc1cd] Finished in 0.062 seconds with exit status 1 (failed).
+ DEBUG [98504344] Running [ -d /home/deploy/mining_node/releases/20210924205719/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [98504344] Command: [ -d /home/deploy/mining_node/releases/20210924205719/tmp/pids ]
+ DEBUG [98504344] Finished in 0.100 seconds with exit status 0 (successful).
+  INFO [bfe66979] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924205719/tmp/pids as deploy@3.93.159.78
+ DEBUG [bfe66979] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924205719/tmp/pids )
+  INFO [bfe66979] Finished in 0.062 seconds with exit status 0 (successful).
+  INFO [0808cad8] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/releases/20210924205719/tmp/pids as deploy@3.93.159.78
+ DEBUG [0808cad8] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/pids /home/deploy/mining_node/releases/20210924205719/tmp/pids )
+  INFO [0808cad8] Finished in 0.105 seconds with exit status 0 (successful).
+ DEBUG [f9ad417b] Running [ -L /home/deploy/mining_node/releases/20210924205719/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [f9ad417b] Command: [ -L /home/deploy/mining_node/releases/20210924205719/tmp/cache ]
+ DEBUG [f9ad417b] Finished in 0.066 seconds with exit status 1 (failed).
+ DEBUG [dc46bbdb] Running [ -d /home/deploy/mining_node/releases/20210924205719/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [dc46bbdb] Command: [ -d /home/deploy/mining_node/releases/20210924205719/tmp/cache ]
+ DEBUG [dc46bbdb] Finished in 0.098 seconds with exit status 0 (successful).
+  INFO [be22902f] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924205719/tmp/cache as deploy@3.93.159.78
+ DEBUG [be22902f] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924205719/tmp/cache )
+  INFO [be22902f] Finished in 0.083 seconds with exit status 0 (successful).
+  INFO [5a710fdc] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/releases/20210924205719/tmp/cache as deploy@3.93.159.78
+ DEBUG [5a710fdc] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/cache /home/deploy/mining_node/releases/20210924205719/tmp/cache )
+  INFO [5a710fdc] Finished in 0.116 seconds with exit status 0 (successful).
+ DEBUG [0de222ff] Running [ -L /home/deploy/mining_node/releases/20210924205719/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [0de222ff] Command: [ -L /home/deploy/mining_node/releases/20210924205719/tmp/sockets ]
+ DEBUG [0de222ff] Finished in 0.065 seconds with exit status 1 (failed).
+ DEBUG [6c8165e5] Running [ -d /home/deploy/mining_node/releases/20210924205719/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [6c8165e5] Command: [ -d /home/deploy/mining_node/releases/20210924205719/tmp/sockets ]
+ DEBUG [6c8165e5] Finished in 0.452 seconds with exit status 1 (failed).
+  INFO [2e509d5d] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/releases/20210924205719/tmp/sockets as deploy@3.93.159.78
+ DEBUG [2e509d5d] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/tmp/sockets /home/deploy/mining_node/releases/20210924205719/tmp/sockets )
+  INFO [2e509d5d] Finished in 0.072 seconds with exit status 0 (successful).
+ DEBUG [fdc93d5c] Running [ -L /home/deploy/mining_node/releases/20210924205719/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [fdc93d5c] Command: [ -L /home/deploy/mining_node/releases/20210924205719/vendor/bundle ]
+ DEBUG [fdc93d5c] Finished in 0.110 seconds with exit status 1 (failed).
+ DEBUG [ffb3cf61] Running [ -d /home/deploy/mining_node/releases/20210924205719/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [ffb3cf61] Command: [ -d /home/deploy/mining_node/releases/20210924205719/vendor/bundle ]
+ DEBUG [ffb3cf61] Finished in 0.060 seconds with exit status 1 (failed).
+  INFO [3fe3d270] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/releases/20210924205719/vendor/bundle as deploy@3.93.159.78
+ DEBUG [3fe3d270] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/vendor/bundle /home/deploy/mining_node/releases/20210924205719/vendor/bundle )
+  INFO [3fe3d270] Finished in 0.107 seconds with exit status 0 (successful).
+ DEBUG [9f1e3b21] Running [ -L /home/deploy/mining_node/releases/20210924205719/public/system ] as deploy@3.93.159.78
+ DEBUG [9f1e3b21] Command: [ -L /home/deploy/mining_node/releases/20210924205719/public/system ]
+ DEBUG [9f1e3b21] Finished in 0.060 seconds with exit status 1 (failed).
+ DEBUG [2dbce2a5] Running [ -d /home/deploy/mining_node/releases/20210924205719/public/system ] as deploy@3.93.159.78
+ DEBUG [2dbce2a5] Command: [ -d /home/deploy/mining_node/releases/20210924205719/public/system ]
+ DEBUG [2dbce2a5] Finished in 0.451 seconds with exit status 1 (failed).
+  INFO [16fa058f] Running /usr/bin/env ln -s /home/deploy/mining_node/shared/public/system /home/deploy/mining_node/releases/20210924205719/public/system as deploy@3.93.159.78
+ DEBUG [16fa058f] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/shared/public/system /home/deploy/mining_node/releases/20210924205719/public/system )
+  INFO [16fa058f] Finished in 0.060 seconds with exit status 0 (successful).
+ DEBUG [c941895f] Running if test ! -d /home/deploy/mining_node/releases/20210924205719; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924205719'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [c941895f] Command: if test ! -d /home/deploy/mining_node/releases/20210924205719; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924205719'" 1>&2; false; fi
+ DEBUG [c941895f] Finished in 0.105 seconds with exit status 0 (successful).
+  INFO [2c0da84b] Running $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true as deploy@3.93.159.78
+ DEBUG [2c0da84b] Command: cd /home/deploy/mining_node/releases/20210924205719 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true )
+  INFO [2c0da84b] Finished in 0.261 seconds with exit status 0 (successful).
+  INFO [5ed6f664] Running $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/mining_node/shared/bundle as deploy@3.93.159.78
+ DEBUG [5ed6f664] Command: cd /home/deploy/mining_node/releases/20210924205719 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/mining_node/shared/bundle )
+  INFO [5ed6f664] Finished in 0.304 seconds with exit status 0 (successful).
+  INFO [6a60c767] Running $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test as deploy@3.93.159.78
+ DEBUG [6a60c767] Command: cd /home/deploy/mining_node/releases/20210924205719 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test )
+  INFO [6a60c767] Finished in 0.248 seconds with exit status 0 (successful).
+ DEBUG [21121d1f] Running if test ! -d /home/deploy/mining_node/releases/20210924205719; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924205719'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [21121d1f] Command: if test ! -d /home/deploy/mining_node/releases/20210924205719; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924205719'" 1>&2; false; fi
+ DEBUG [21121d1f] Finished in 0.102 seconds with exit status 0 (successful).
+ DEBUG [a6f05500] Running $HOME/.rbenv/bin/rbenv exec bundle check as deploy@3.93.159.78
+ DEBUG [a6f05500] Command: cd /home/deploy/mining_node/releases/20210924205719 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle check )
+ DEBUG [a6f05500] 	The dependency tzinfo-data (>= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`.
+ DEBUG [a6f05500] 	The Gemfile's dependencies are satisfied
+ DEBUG [a6f05500] Finished in 0.309 seconds with exit status 0 (successful).
+  INFO The Gemfile's dependencies are satisfied, skipping installation
+  INFO [deploy:migrate] Run `rake db:migrate`
+ DEBUG [9779b261] Running if test ! -d /home/deploy/mining_node/releases/20210924205719; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924205719'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [9779b261] Command: if test ! -d /home/deploy/mining_node/releases/20210924205719; then echo "Directory does not exist '/home/deploy/mining_node/releases/20210924205719'" 1>&2; false; fi
+ DEBUG [9779b261] Finished in 0.095 seconds with exit status 0 (successful).
+  INFO [145da5b0] Running $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate as deploy@3.93.159.78
+ DEBUG [145da5b0] Command: cd /home/deploy/mining_node/releases/20210924205719 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate )
+  INFO [145da5b0] Finished in 0.956 seconds with exit status 0 (successful).
+  INFO [f7655b55] Running /usr/bin/env ln -s /home/deploy/mining_node/releases/20210924205719 /home/deploy/mining_node/releases/current as deploy@3.93.159.78
+ DEBUG [f7655b55] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/mining_node/releases/20210924205719 /home/deploy/mining_node/releases/current )
+  INFO [f7655b55] Finished in 0.119 seconds with exit status 0 (successful).
+  INFO [7d811975] Running /usr/bin/env mv /home/deploy/mining_node/releases/current /home/deploy/mining_node as deploy@3.93.159.78
+ DEBUG [7d811975] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mv /home/deploy/mining_node/releases/current /home/deploy/mining_node )
+  INFO [7d811975] Finished in 0.282 seconds with exit status 0 (successful).
+  INFO [d18cf2d3] Running /usr/bin/env touch /home/deploy/mining_node/releases/20210924205719/tmp/restart.txt as deploy@3.93.159.78
+ DEBUG [d18cf2d3] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env touch /home/deploy/mining_node/releases/20210924205719/tmp/restart.txt )
+  INFO [d18cf2d3] Finished in 0.081 seconds with exit status 0 (successful).
+ DEBUG [ce75bd6f] Running /usr/bin/env ls -x /home/deploy/mining_node/releases as deploy@3.93.159.78
+ DEBUG [ce75bd6f] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ls -x /home/deploy/mining_node/releases )
+ DEBUG [ce75bd6f] 	20210924163233	20210924183313	20210924185359	20210924205719
+ DEBUG [ce75bd6f] Finished in 0.115 seconds with exit status 0 (successful).
+  INFO Keeping 3 of 4 deployed releases on 3.93.159.78
+ DEBUG [a4e6e224] Running [ -d /home/deploy/mining_node/current ] as deploy@3.93.159.78
+ DEBUG [a4e6e224] Command: [ -d /home/deploy/mining_node/current ]
+ DEBUG [a4e6e224] Finished in 0.062 seconds with exit status 0 (successful).
+ DEBUG [94925c05] Running /usr/bin/env readlink /home/deploy/mining_node/current as deploy@3.93.159.78
+ DEBUG [94925c05] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env readlink /home/deploy/mining_node/current )
+ DEBUG [94925c05] 	/home/deploy/mining_node/releases/20210924205719
+ DEBUG [94925c05] Finished in 0.102 seconds with exit status 0 (successful).
+  INFO [e60ae0f6] Running /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924163233 as deploy@3.93.159.78
+ DEBUG [e60ae0f6] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/mining_node/releases/20210924163233 )
+  INFO [e60ae0f6] Finished in 0.082 seconds with exit status 0 (successful).
+ DEBUG [991f9877] Running if test ! -d /home/deploy/mining_node/releases; then echo "Directory does not exist '/home/deploy/mining_node/releases'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [991f9877] Command: if test ! -d /home/deploy/mining_node/releases; then echo "Directory does not exist '/home/deploy/mining_node/releases'" 1>&2; false; fi
+ DEBUG [991f9877] Finished in 0.106 seconds with exit status 0 (successful).
+  INFO [2990ba7e] Running /usr/bin/env echo "Branch master (at 86c1710868583916d044f87a1b7bd69a66040549) deployed as release 20210924205719 by aditpatel" >> /home/deploy/mining_node/revisions.log as deploy@3.93.159.78
+ DEBUG [2990ba7e] Command: cd /home/deploy/mining_node/releases && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "Branch master (at 86c1710868583916d044f87a1b7bd69a66040549) deployed as release 20210924205719 by aditpatel" >> /home/deploy/mining_node/revisions.log )
+  INFO [2990ba7e] Finished in 0.062 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 16:58:13 -0400 cap production db:push
+  INFO ---------------------------------------------------------------------------
+ DEBUG [4754b0fa] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [4754b0fa] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [4754b0fa] Finished in 0.954 seconds with exit status 0 (successful).
+ DEBUG [4548acc2] Running if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [4548acc2] Command: if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi
+ DEBUG [4548acc2] Finished in 0.044 seconds with exit status 0 (successful).
+ DEBUG [f5a2d612] Running $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null as deploy@3.93.159.78
+ DEBUG [f5a2d612] Command: cd /home/deploy/mining_node/current && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null )
+ DEBUG [f5a2d612] 	__CAPISTRANODB_CONFIG_BEGIN_FLAG__---
+:adapter: postgresql
+:encoding: unicode
+:pool: 5
+:database: mining_node_production
+:username: deploy
+:password: Rails.application.credentials.dig(:production, :db_password)
+__CAPISTRANODB_CONFIG_END_FLAG__
+ DEBUG [f5a2d612] Finished in 1.292 seconds with exit status 0 (successful).
+ DEBUG Uploading miner_development_2021-09-24-165826.sql.gz 0.0%
+  INFO Uploading miner_development_2021-09-24-165826.sql.gz 100.0%
+  INFO [0ccd9f6b] Running cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-165826.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-165826.sql as deploy@3.93.159.78
+ DEBUG [0ccd9f6b] Command: cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-165826.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-165826.sql
+ DEBUG [0ccd9f6b] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [0ccd9f6b] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [0ccd9f6b] 	 pg_terminate_backend 
+----------------------
+(0 rows)
+
+ DEBUG [0ccd9f6b] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [0ccd9f6b] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [0ccd9f6b] 	perl: warning: Setting locale failed.
+ DEBUG [0ccd9f6b] 	perl: warning: Please check that your locale settings:
+ DEBUG [0ccd9f6b] 		LANGUAGE = (unset),
+ DEBUG [0ccd9f6b] 		LC_ALL = (unset),
+ DEBUG [0ccd9f6b] 		LC_CTYPE = "UTF-8",
+ DEBUG [0ccd9f6b] 		LANG = "C.UTF-8"
+ DEBUG [0ccd9f6b] 	    are supported and installed on your system.
+ DEBUG [0ccd9f6b] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [0ccd9f6b] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [0ccd9f6b] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [0ccd9f6b] 	SET
+SET
+ DEBUG [0ccd9f6b] 	SET
+SET
+ DEBUG [0ccd9f6b] 	SET
+ DEBUG [0ccd9f6b] 	 set_config 
+------------
+ 
+(1 row)
+
+ DEBUG [0ccd9f6b] 	SET
+ DEBUG [0ccd9f6b] 	SET
+ DEBUG [0ccd9f6b] 	SET
+ DEBUG [0ccd9f6b] 	SET
+ DEBUG [0ccd9f6b] 	SET
+ DEBUG [0ccd9f6b] 	SET
+ DEBUG [0ccd9f6b] 	CREATE TABLE
+ DEBUG [0ccd9f6b] 	CREATE TABLE
+ DEBUG [0ccd9f6b] 	CREATE SEQUENCE
+ DEBUG [0ccd9f6b] 	ALTER SEQUENCE
+ DEBUG [0ccd9f6b] 	CREATE TABLE
+ DEBUG [0ccd9f6b] 	CREATE SEQUENCE
+ DEBUG [0ccd9f6b] 	ALTER SEQUENCE
+ DEBUG [0ccd9f6b] 	CREATE TABLE
+ DEBUG [0ccd9f6b] 	CREATE TABLE
+ DEBUG [0ccd9f6b] 	CREATE SEQUENCE
+ DEBUG [0ccd9f6b] 	ALTER SEQUENCE
+ DEBUG [0ccd9f6b] 	ALTER TABLE
+ DEBUG [0ccd9f6b] 	ALTER TABLE
+ DEBUG [0ccd9f6b] 	ALTER TABLE
+ DEBUG [0ccd9f6b] 	COPY 2
+ DEBUG [0ccd9f6b] 	COPY 3
+ DEBUG [0ccd9f6b] 	COPY 3
+ DEBUG [0ccd9f6b] 	COPY 3
+ DEBUG [0ccd9f6b] 	COPY 0
+ DEBUG [0ccd9f6b] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [0ccd9f6b] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [0ccd9f6b] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [0ccd9f6b] 	ALTER TABLE
+ DEBUG [0ccd9f6b] 	ALTER TABLE
+ DEBUG [0ccd9f6b] 	ALTER TABLE
+ DEBUG [0ccd9f6b] 	ALTER TABLE
+ DEBUG [0ccd9f6b] 	ALTER TABLE
+ DEBUG [0ccd9f6b] 	CREATE INDEX
+ DEBUG [0ccd9f6b] 	ALTER TABLE
+  INFO [0ccd9f6b] Finished in 0.441 seconds with exit status 0 (successful).
+  INFO [baa5cec0] Running cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-165826.sql as deploy@3.93.159.78
+ DEBUG [baa5cec0] Command: cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-165826.sql
+  INFO [baa5cec0] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-24 17:21:59 -0400 cap production db:push
+  INFO ---------------------------------------------------------------------------
+ DEBUG [a5eb7756] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [a5eb7756] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [a5eb7756] Finished in 1.116 seconds with exit status 0 (successful).
+ DEBUG [c0efeacc] Running if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [c0efeacc] Command: if test ! -d /home/deploy/mining_node/current; then echo "Directory does not exist '/home/deploy/mining_node/current'" 1>&2; false; fi
+ DEBUG [c0efeacc] Finished in 0.280 seconds with exit status 0 (successful).
+ DEBUG [185ad3fb] Running $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null as deploy@3.93.159.78
+ DEBUG [185ad3fb] Command: cd /home/deploy/mining_node/current && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null )
+ DEBUG [185ad3fb] 	__CAPISTRANODB_CONFIG_BEGIN_FLAG__---
+:adapter: postgresql
+:encoding: unicode
+:pool: 5
+:database: mining_node_production
+:username: deploy
+:password: Rails.application.credentials.dig(:production, :db_password)
+__CAPISTRANODB_CONFIG_END_FLAG__
+ DEBUG [185ad3fb] Finished in 1.508 seconds with exit status 0 (successful).
+ DEBUG Uploading miner_development_2021-09-24-172203.sql.gz 0.0%
+  INFO Uploading miner_development_2021-09-24-172203.sql.gz 100.0%
+  INFO [7071c58e] Running cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-172203.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-172203.sql as deploy@3.93.159.78
+ DEBUG [7071c58e] Command: cd /home/deploy/mining_node/current && gzip -d miner_development_2021-09-24-172203.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'mining_node_production' AND pid <> pg_backend_pid();;"  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  mining_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d mining_node_production < ./miner_development_2021-09-24-172203.sql
+ DEBUG [7071c58e] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+ DEBUG [7071c58e] 		LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [7071c58e] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [7071c58e] 	 pg_terminate_backend 
+----------------------
+(0 rows)
+
+ DEBUG [7071c58e] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [7071c58e] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [7071c58e] 	perl: warning: Setting locale failed.
+ DEBUG [7071c58e] 	perl: warning: Please check that your locale settings:
+ DEBUG [7071c58e] 		LANGUAGE = (unset),
+ DEBUG [7071c58e] 		LC_ALL = (unset),
+ DEBUG [7071c58e] 		LC_CTYPE = "UTF-8",
+ DEBUG [7071c58e] 		LANG = "C.UTF-8"
+ DEBUG [7071c58e] 	    are supported and installed on your system.
+ DEBUG [7071c58e] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [7071c58e] 	perl: warning: Setting locale failed.
+ DEBUG [7071c58e] 	perl: warning: Please check that your locale settings:
+ DEBUG [7071c58e] 		LANGUAGE = (unset),
+ DEBUG [7071c58e] 		LC_ALL = (unset),
+ DEBUG [7071c58e] 		LC_CTYPE = "UTF-8",
+ DEBUG [7071c58e] 		LANG = "C.UTF-8"
+ DEBUG [7071c58e] 	    are supported and installed on your system.
+ DEBUG [7071c58e] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	 set_config 
+------------
+ 
+(1 row)
+
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	SET
+ DEBUG [7071c58e] 	CREATE TABLE
+ DEBUG [7071c58e] 	CREATE TABLE
+ DEBUG [7071c58e] 	CREATE SEQUENCE
+ DEBUG [7071c58e] 	ALTER SEQUENCE
+ DEBUG [7071c58e] 	CREATE TABLE
+ DEBUG [7071c58e] 	CREATE SEQUENCE
+ DEBUG [7071c58e] 	ALTER SEQUENCE
+ DEBUG [7071c58e] 	CREATE TABLE
+ DEBUG [7071c58e] 	CREATE TABLE
+ DEBUG [7071c58e] 	CREATE SEQUENCE
+ DEBUG [7071c58e] 	ALTER SEQUENCE
+ DEBUG [7071c58e] 	ALTER TABLE
+ DEBUG [7071c58e] 	ALTER TABLE
+ DEBUG [7071c58e] 	ALTER TABLE
+ DEBUG [7071c58e] 	COPY 2
+ DEBUG [7071c58e] 	COPY 3
+ DEBUG [7071c58e] 	COPY 3
+ DEBUG [7071c58e] 	COPY 3
+ DEBUG [7071c58e] 	COPY 0
+ DEBUG [7071c58e] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [7071c58e] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [7071c58e] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [7071c58e] 	ALTER TABLE
+ DEBUG [7071c58e] 	ALTER TABLE
+ DEBUG [7071c58e] 	ALTER TABLE
+ DEBUG [7071c58e] 	ALTER TABLE
+ DEBUG [7071c58e] 	ALTER TABLE
+ DEBUG [7071c58e] 	CREATE INDEX
+ DEBUG [7071c58e] 	ALTER TABLE
+  INFO [7071c58e] Finished in 0.691 seconds with exit status 0 (successful).
+  INFO [b18bfad0] Running cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-172203.sql as deploy@3.93.159.78
+ DEBUG [b18bfad0] Command: cd /home/deploy/mining_node/current && rm ./miner_development_2021-09-24-172203.sql
+  INFO [b18bfad0] Finished in 0.102 seconds with exit status 0 (successful).

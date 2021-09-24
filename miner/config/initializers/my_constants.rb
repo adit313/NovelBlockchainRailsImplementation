@@ -3,4 +3,4 @@ BLOCK_DIFFICULTY = 2 #defined as the number of hexadecimal zeros at the begining
 COMMIT_NODE_KEY = OpenSSL::PKey.read File.read "storage/private_key.pem"
 COMMIT_NODE_ADDRESS = Digest::SHA256.base64digest(COMMIT_NODE_KEY.public_key.to_s)
 PENALTY_WITHHOLDING_REQUIRED = 1
-CLEARING_WINDOW = 2
+CLEARING_WINDOW = 1

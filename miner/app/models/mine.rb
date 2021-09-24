@@ -1,3 +1,5 @@
+require "net/http"
+
 class Mine < ApplicationRecord
   def self.mine_next_block
     #check to see if there are transactions

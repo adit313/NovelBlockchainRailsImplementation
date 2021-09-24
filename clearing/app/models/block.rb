@@ -37,12 +37,13 @@ class Block < ApplicationRecord
       if !prev_block
         return "Previous block was not found on this node's chain"
       end
-      if prev_block.commit_hash
-        if parse_input["block_hash"] != Digest::SHA256.hexdigest(prev_block.commit_hash + parse_input["solution_hash"])
-          return "This block's block hash does not match this node's commit hash chains"
-        end
-      end
       prev_block_hash = prev_block.prev_block_hash
+    end
+
+    if prev_block.commit_hash
+      if parse_input["block_hash"] != Digest::SHA256.hexdigest(prev_block.commit_hash + parse_input["solution_hash"])
+        return "The block hash does not match this SHA256 Hash of the commit hash of the associated block at the end of the clearing window appended to the solution hash"
+      end
     end
 
     #if valid, add to memory or update if on chain

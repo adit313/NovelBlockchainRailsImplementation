@@ -2723,3 +2723,991 @@ Completed 200 OK in 23ms (Views: 0.1ms | ActiveRecord: 10.4ms | Allocations: 539
   [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" ORDER BY "blocks"."id" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 3]]
   [1m[36mConfirmedTransaction Load (1.0ms)[0m  [1m[34mSELECT "confirmed_transactions".* FROM "confirmed_transactions" WHERE "confirmed_transactions"."block_id" = $1[0m  [["block_id", 1]]
   [1m[36mConfirmedTransaction Load (0.6ms)[0m  [1m[34mSELECT "confirmed_transactions".* FROM "confirmed_transactions" WHERE "confirmed_transactions"."block_id" = $1[0m  [["block_id", 4]]
+  [1m[36mBlock Load (3.5ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" ORDER BY "blocks"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mBlock Load (0.5ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" ORDER BY "blocks"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Load (1.7ms)[0m  [1m[34mSELECT "confirmed_transactions".* FROM "confirmed_transactions" WHERE "confirmed_transactions"."block_id" = $1 ORDER BY "confirmed_transactions"."transaction_index" ASC[0m  [["block_id", 1]]
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" ORDER BY "blocks"."id" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 1]]
+  [1m[36mConfirmedTransaction Load (0.3ms)[0m  [1m[34mSELECT "confirmed_transactions".* FROM "confirmed_transactions" WHERE "confirmed_transactions"."block_id" = $1 ORDER BY "confirmed_transactions"."transaction_index" ASC[0m  [["block_id", 2]]
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" ORDER BY "blocks"."id" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 1]]
+  [1m[35m (3.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.8ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (132.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_development"[0m
+  [1m[35m (54.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_test"[0m
+  [1m[35m (259.1ms)[0m  [1m[35mCREATE DATABASE "commit_development" ENCODING = 'unicode'[0m
+  [1m[35m (89.0ms)[0m  [1m[35mCREATE DATABASE "commit_test" ENCODING = 'unicode'[0m
+  [1m[35m (47.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (6.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8145931283193932865)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateBlocks (20210909025225)
+  [1m[35m (3.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.8ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (4.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210909025225"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateConfirmedTransactions (20210909025311)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210909025311"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAccounts (20210914152748)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210914152748"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOpenBlocks (20210914205305)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.5ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210914205305"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOpenTransactions (20210914205338)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.6ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210914205338"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (2.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 16:18:40.430275"], ["updated_at", "2021-09-24 16:18:40.430275"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(8145931283193932865)[0m
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.7ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "block_height", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["commit_hash", "abb2855ebfc303bf5e146868f532390c3a9d816717dcdbd2c8ce2846ea878224"], ["merkle_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["solution_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["block_height", 0], ["nonce", 1], ["difficulty", 1], ["created_at", "2021-09-24 16:18:44.651198"], ["updated_at", "2021-09-24 16:18:44.651198"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (10.9ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "11919b8b641bcb95cf36af54450f885364bf1adf03b7af973d743f9807a25a1fb2d4efc44688a394cc3e6a8b132dff90d3c2e8fe4f9ff4297f259ba72973aab9804842134df317183c63cfbe7bc9e8ea6273495d975217ce73f8984ebcdd96ae387e043735f3e86613409b3cb78abea81f931b9f8b050f815a0ffad103efa6439f8c0aad812aa4d68458d5734d09d3ba0dd50a1cdefbf465643ba452518b6195b99b05169c0ac64d1b9d3f14220baa96b48384279195434a0554477f3c4369f9f95b1fa47f044ebf3c4e1996ef782111b28b8ae7ac5a6242db952407ba833eaf5cf440da9d5a561df359a2dc0e2f4b0f5e96e9b5b5eb11cb59a524d1c6bcb6fd"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 1], ["transaction_index", 0], ["block_id", 1], ["created_at", "2021-09-24 16:18:44.700890"], ["updated_at", "2021-09-24 16:18:44.700890"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.3ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["commit_hash", "c50b22a7a983fd0e9d38d18aec48b2626942b136f66714c12629ac47b5009bd6"], ["merkle_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["solution_hash", "0021a3af0189201ff02c0803d554b91306723300b85f7999e59b16a45fbf59f0"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["nonce", 497], ["difficulty", 1], ["created_at", "2021-09-24 16:18:44.717307"], ["updated_at", "2021-09-24 16:18:44.717307"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "32e382d2d8f7d041afc173770d30d6f60c17aba3bdf945ad03e9ac370f33a37643e13910e0c97d31e32988676a69b5a64537821403f4cc59aa8df96c59dcf37208bf50ee1981caabcff7db3b6d37181adafb90c02fa875f6121c5e8fe5e15fd9621770cc09cdb88dd9d294821d9d9263f7774485e97da7136721bcb8c078bc77a3c9179f2a1f7c6b914056e361db2383419f8cfcc48bea38d2ab9be718880c1e4eca7390045e3bd7928c6b4a2e212f845bc0e94a8be84f7176926e2a5df5e42b87caa056dbeffc0a5e0568d9e1350ee754d74e6a6e60eea78d6c63b47c25f9e39e98af75269659ffc01a07cd49886695c23da80374c63ea4a990c31ba16cba84"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 2], ["created_at", "2021-09-24 16:18:44.723085"], ["updated_at", "2021-09-24 16:18:44.723085"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0c8e2590ee3f0f457bae8bbceadd75d64f590c8a322c6781b290e7d4f017f708"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.3ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "0c8e2590ee3f0f457bae8bbceadd75d64f590c8a322c6781b290e7d4f017f708"], ["merkle_hash", "2d4b64feb55692c343d7439111a0bbc111e496f5e1df2b0a6c00243d98ab26e8"], ["solution_hash", "007900126f03830ba59163c09640d15c7db01b3cb31ea953d11c76654f314016"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 119], ["difficulty", 1], ["created_at", "2021-09-24 16:18:44.727848"], ["updated_at", "2021-09-24 16:18:44.727848"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "2d4b64feb55692c343d7439111a0bbc111e496f5e1df2b0a6c00243d98ab26e8"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "b88cd16fe0a965e9e35985e61b30e65b931c607979ab9f47266f4598d2f9a1561a633ecab66f88d700ff77edcea022da171b0683c90ee242f09ee6de9c46ce0a429c2d30ef694a8901f5239fc54199db8298c51ba581813817c89564127cbc4dd9952b004560aea4ea231219e12e306b8d92ef2903ab2d7c6578ea5ece241474437b3192c86c3c157be9b2d84eac2d3ecccf88ee14c4dd6852032d3f3d8a0341a83f0910a9eb187dbc94d74ac28a99a5e50971f92321d97f5cf914c0d76bc99f7b04758c385de7d5084c12aa7c808641ed847fa97857daa50591c7d2f36100918e95835fcf8ea87766dc2c45e9ba393f1db2d22cf6031e53822c396884197ae3"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 3], ["created_at", "2021-09-24 16:18:44.733634"], ["updated_at", "2021-09-24 16:18:44.733634"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Create (1.4ms)[0m  [1m[32mINSERT INTO "open_blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "0c8e2590ee3f0f457bae8bbceadd75d64f590c8a322c6781b290e7d4f017f708"], ["merkle_hash", "2d4b64feb55692c343d7439111a0bbc111e496f5e1df2b0a6c00243d98ab26e8"], ["solution_hash", "007900126f03830ba59163c09640d15c7db01b3cb31ea953d11c76654f314016"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 119], ["difficulty", 1], ["created_at", "2021-09-24 16:18:44.752748"], ["updated_at", "2021-09-24 16:18:44.752748"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Load (0.4ms)[0m  [1m[34mSELECT "open_blocks".* FROM "open_blocks" WHERE "open_blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mOpenTransaction Create (3.2ms)[0m  [1m[32mINSERT INTO "open_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "open_block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "2d4b64feb55692c343d7439111a0bbc111e496f5e1df2b0a6c00243d98ab26e8"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "b88cd16fe0a965e9e35985e61b30e65b931c607979ab9f47266f4598d2f9a1561a633ecab66f88d700ff77edcea022da171b0683c90ee242f09ee6de9c46ce0a429c2d30ef694a8901f5239fc54199db8298c51ba581813817c89564127cbc4dd9952b004560aea4ea231219e12e306b8d92ef2903ab2d7c6578ea5ece241474437b3192c86c3c157be9b2d84eac2d3ecccf88ee14c4dd6852032d3f3d8a0341a83f0910a9eb187dbc94d74ac28a99a5e50971f92321d97f5cf914c0d76bc99f7b04758c385de7d5084c12aa7c808641ed847fa97857daa50591c7d2f36100918e95835fcf8ea87766dc2c45e9ba393f1db2d22cf6031e53822c396884197ae3"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 3], ["transaction_index", 0], ["open_block_id", 1], ["created_at", "2021-09-24 16:18:44.778592"], ["updated_at", "2021-09-24 16:18:44.778592"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBlock Load (0.4ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mBlock Load (0.5ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks"[0m
+  [1m[35m (30.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (279.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_development"[0m
+  [1m[35m (58.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_test"[0m
+  [1m[35m (266.1ms)[0m  [1m[35mCREATE DATABASE "commit_development" ENCODING = 'unicode'[0m
+  [1m[35m (104.7ms)[0m  [1m[35mCREATE DATABASE "commit_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (110.6ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (56.8ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (59.2ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (34.3ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (125.8ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (11.5ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (66.2ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (30.2ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (38.2ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (97.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (52.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (11.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 18:19:53.763016"], ["updated_at", "2021-09-24 18:19:53.763016"]]
+  [1m[35m (37.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 18:19:53.828361"], ["updated_at", "2021-09-24 18:19:53.828361"]]
+  [1m[35m (5.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (43.5ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (31.7ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (64.7ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (3.8ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (24.1ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (40.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (33.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 18:19:54.206134"], ["updated_at", "2021-09-24 18:19:54.206134"]]
+  [1m[35m (30.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2021-09-24 18:19:54.242953"], ["key", "environment"]]
+  [1m[35m (55.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 18:19:54.303421"], ["updated_at", "2021-09-24 18:19:54.303421"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.9ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "block_height", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["commit_hash", "abb2855ebfc303bf5e146868f532390c3a9d816717dcdbd2c8ce2846ea878224"], ["merkle_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["solution_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["block_height", 0], ["nonce", 1], ["difficulty", 1], ["created_at", "2021-09-24 18:19:54.400527"], ["updated_at", "2021-09-24 18:19:54.400527"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (1.1ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "11919b8b641bcb95cf36af54450f885364bf1adf03b7af973d743f9807a25a1fb2d4efc44688a394cc3e6a8b132dff90d3c2e8fe4f9ff4297f259ba72973aab9804842134df317183c63cfbe7bc9e8ea6273495d975217ce73f8984ebcdd96ae387e043735f3e86613409b3cb78abea81f931b9f8b050f815a0ffad103efa6439f8c0aad812aa4d68458d5734d09d3ba0dd50a1cdefbf465643ba452518b6195b99b05169c0ac64d1b9d3f14220baa96b48384279195434a0554477f3c4369f9f95b1fa47f044ebf3c4e1996ef782111b28b8ae7ac5a6242db952407ba833eaf5cf440da9d5a561df359a2dc0e2f4b0f5e96e9b5b5eb11cb59a524d1c6bcb6fd"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 1], ["transaction_index", 0], ["block_id", 1], ["created_at", "2021-09-24 18:19:54.437611"], ["updated_at", "2021-09-24 18:19:54.437611"]]
+  [1m[35m (10.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.3ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["commit_hash", "c50b22a7a983fd0e9d38d18aec48b2626942b136f66714c12629ac47b5009bd6"], ["merkle_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["solution_hash", "0021a3af0189201ff02c0803d554b91306723300b85f7999e59b16a45fbf59f0"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["nonce", 497], ["difficulty", 1], ["created_at", "2021-09-24 18:19:54.454365"], ["updated_at", "2021-09-24 18:19:54.454365"]]
+  [1m[35m (4.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "32e382d2d8f7d041afc173770d30d6f60c17aba3bdf945ad03e9ac370f33a37643e13910e0c97d31e32988676a69b5a64537821403f4cc59aa8df96c59dcf37208bf50ee1981caabcff7db3b6d37181adafb90c02fa875f6121c5e8fe5e15fd9621770cc09cdb88dd9d294821d9d9263f7774485e97da7136721bcb8c078bc77a3c9179f2a1f7c6b914056e361db2383419f8cfcc48bea38d2ab9be718880c1e4eca7390045e3bd7928c6b4a2e212f845bc0e94a8be84f7176926e2a5df5e42b87caa056dbeffc0a5e0568d9e1350ee754d74e6a6e60eea78d6c63b47c25f9e39e98af75269659ffc01a07cd49886695c23da80374c63ea4a990c31ba16cba84"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 2], ["created_at", "2021-09-24 18:19:54.465062"], ["updated_at", "2021-09-24 18:19:54.465062"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0c8e2590ee3f0f457bae8bbceadd75d64f590c8a322c6781b290e7d4f017f708"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.4ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "0c8e2590ee3f0f457bae8bbceadd75d64f590c8a322c6781b290e7d4f017f708"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "007900126f03830ba59163c09640d15c7db01b3cb31ea953d11c76654f314016"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 119], ["difficulty", 1], ["created_at", "2021-09-24 18:19:54.472306"], ["updated_at", "2021-09-24 18:19:54.472306"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 3], ["created_at", "2021-09-24 18:19:54.479225"], ["updated_at", "2021-09-24 18:19:54.479225"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Create (0.7ms)[0m  [1m[32mINSERT INTO "open_blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "0c8e2590ee3f0f457bae8bbceadd75d64f590c8a322c6781b290e7d4f017f708"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "007900126f03830ba59163c09640d15c7db01b3cb31ea953d11c76654f314016"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 119], ["difficulty", 1], ["created_at", "2021-09-24 18:19:54.498082"], ["updated_at", "2021-09-24 18:19:54.498082"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Load (0.7ms)[0m  [1m[34mSELECT "open_blocks".* FROM "open_blocks" WHERE "open_blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mOpenTransaction Create (1.5ms)[0m  [1m[32mINSERT INTO "open_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "open_block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 3], ["transaction_index", 0], ["open_block_id", 1], ["created_at", "2021-09-24 18:19:54.531966"], ["updated_at", "2021-09-24 18:19:54.531966"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (75.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_development"[0m
+  [1m[35m (46.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_test"[0m
+  [1m[35m (83.2ms)[0m  [1m[35mCREATE DATABASE "commit_development" ENCODING = 'unicode'[0m
+  [1m[35m (150.3ms)[0m  [1m[35mCREATE DATABASE "commit_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (21.7ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (7.2ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (8.3ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (4.8ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (2.1ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 18:31:22.661059"], ["updated_at", "2021-09-24 18:31:22.661059"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 18:31:22.673048"], ["updated_at", "2021-09-24 18:31:22.673048"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (10.8ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (7.7ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (7.7ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (12.7ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (5.7ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (2.6ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 18:31:22.802330"], ["updated_at", "2021-09-24 18:31:22.802330"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.4ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2021-09-24 18:31:22.809744"], ["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 18:31:22.815267"], ["updated_at", "2021-09-24 18:31:22.815267"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.7ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "block_height", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["commit_hash", "abb2855ebfc303bf5e146868f532390c3a9d816717dcdbd2c8ce2846ea878224"], ["merkle_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["solution_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["block_height", 0], ["nonce", 1], ["difficulty", 1], ["created_at", "2021-09-24 18:31:22.895294"], ["updated_at", "2021-09-24 18:31:22.895294"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (1.1ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "11919b8b641bcb95cf36af54450f885364bf1adf03b7af973d743f9807a25a1fb2d4efc44688a394cc3e6a8b132dff90d3c2e8fe4f9ff4297f259ba72973aab9804842134df317183c63cfbe7bc9e8ea6273495d975217ce73f8984ebcdd96ae387e043735f3e86613409b3cb78abea81f931b9f8b050f815a0ffad103efa6439f8c0aad812aa4d68458d5734d09d3ba0dd50a1cdefbf465643ba452518b6195b99b05169c0ac64d1b9d3f14220baa96b48384279195434a0554477f3c4369f9f95b1fa47f044ebf3c4e1996ef782111b28b8ae7ac5a6242db952407ba833eaf5cf440da9d5a561df359a2dc0e2f4b0f5e96e9b5b5eb11cb59a524d1c6bcb6fd"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 1], ["transaction_index", 0], ["block_id", 1], ["created_at", "2021-09-24 18:31:22.927766"], ["updated_at", "2021-09-24 18:31:22.927766"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.4ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["commit_hash", "c50b22a7a983fd0e9d38d18aec48b2626942b136f66714c12629ac47b5009bd6"], ["merkle_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["solution_hash", "0021a3af0189201ff02c0803d554b91306723300b85f7999e59b16a45fbf59f0"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["nonce", 497], ["difficulty", 1], ["created_at", "2021-09-24 18:31:22.933746"], ["updated_at", "2021-09-24 18:31:22.933746"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.9ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "32e382d2d8f7d041afc173770d30d6f60c17aba3bdf945ad03e9ac370f33a37643e13910e0c97d31e32988676a69b5a64537821403f4cc59aa8df96c59dcf37208bf50ee1981caabcff7db3b6d37181adafb90c02fa875f6121c5e8fe5e15fd9621770cc09cdb88dd9d294821d9d9263f7774485e97da7136721bcb8c078bc77a3c9179f2a1f7c6b914056e361db2383419f8cfcc48bea38d2ab9be718880c1e4eca7390045e3bd7928c6b4a2e212f845bc0e94a8be84f7176926e2a5df5e42b87caa056dbeffc0a5e0568d9e1350ee754d74e6a6e60eea78d6c63b47c25f9e39e98af75269659ffc01a07cd49886695c23da80374c63ea4a990c31ba16cba84"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 2], ["created_at", "2021-09-24 18:31:22.942003"], ["updated_at", "2021-09-24 18:31:22.942003"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0c8e2590ee3f0f457bae8bbceadd75d64f590c8a322c6781b290e7d4f017f708"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.5ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "0c8e2590ee3f0f457bae8bbceadd75d64f590c8a322c6781b290e7d4f017f708"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "007900126f03830ba59163c09640d15c7db01b3cb31ea953d11c76654f314016"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 119], ["difficulty", 1], ["created_at", "2021-09-24 18:31:22.949126"], ["updated_at", "2021-09-24 18:31:22.949126"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 3], ["created_at", "2021-09-24 18:31:22.956101"], ["updated_at", "2021-09-24 18:31:22.956101"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Create (0.8ms)[0m  [1m[32mINSERT INTO "open_blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "0c8e2590ee3f0f457bae8bbceadd75d64f590c8a322c6781b290e7d4f017f708"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "0d3a6c8ef526141240dfc96aa0c2228663f7357258e982557b7595cc30e0dcb9"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 15], ["difficulty", 1], ["created_at", "2021-09-24 18:31:22.973556"], ["updated_at", "2021-09-24 18:31:22.973556"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Load (0.3ms)[0m  [1m[34mSELECT "open_blocks".* FROM "open_blocks" WHERE "open_blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mOpenTransaction Create (0.9ms)[0m  [1m[32mINSERT INTO "open_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "open_block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 3], ["transaction_index", 0], ["open_block_id", 1], ["created_at", "2021-09-24 18:31:22.998874"], ["updated_at", "2021-09-24 18:31:22.998874"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (69.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_development"[0m
+  [1m[35m (51.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_test"[0m
+  [1m[35m (229.4ms)[0m  [1m[35mCREATE DATABASE "commit_development" ENCODING = 'unicode'[0m
+  [1m[35m (326.9ms)[0m  [1m[35mCREATE DATABASE "commit_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (103.4ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (97.8ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (65.8ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.5ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (26.1ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (1.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 19:01:07.570271"], ["updated_at", "2021-09-24 19:01:07.570271"]]
+  [1m[35m (18.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 19:01:07.596276"], ["updated_at", "2021-09-24 19:01:07.596276"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (61.2ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (34.5ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (14.3ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (84.8ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (40.3ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (9.7ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (1.9ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (11.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (17.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 19:01:07.936520"], ["updated_at", "2021-09-24 19:01:07.936520"]]
+  [1m[35m (6.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2021-09-24 19:01:07.948513"], ["key", "environment"]]
+  [1m[35m (7.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 19:01:07.960654"], ["updated_at", "2021-09-24 19:01:07.960654"]]
+  [1m[35m (4.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.8ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "block_height", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["commit_hash", "abb2855ebfc303bf5e146868f532390c3a9d816717dcdbd2c8ce2846ea878224"], ["merkle_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["solution_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["block_height", 0], ["nonce", 1], ["difficulty", 1], ["created_at", "2021-09-24 19:01:08.069572"], ["updated_at", "2021-09-24 19:01:08.069572"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (1.0ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "11919b8b641bcb95cf36af54450f885364bf1adf03b7af973d743f9807a25a1fb2d4efc44688a394cc3e6a8b132dff90d3c2e8fe4f9ff4297f259ba72973aab9804842134df317183c63cfbe7bc9e8ea6273495d975217ce73f8984ebcdd96ae387e043735f3e86613409b3cb78abea81f931b9f8b050f815a0ffad103efa6439f8c0aad812aa4d68458d5734d09d3ba0dd50a1cdefbf465643ba452518b6195b99b05169c0ac64d1b9d3f14220baa96b48384279195434a0554477f3c4369f9f95b1fa47f044ebf3c4e1996ef782111b28b8ae7ac5a6242db952407ba833eaf5cf440da9d5a561df359a2dc0e2f4b0f5e96e9b5b5eb11cb59a524d1c6bcb6fd"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 1], ["transaction_index", 0], ["block_id", 1], ["created_at", "2021-09-24 19:01:08.099882"], ["updated_at", "2021-09-24 19:01:08.099882"]]
+  [1m[35m (5.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.4ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["commit_hash", "c50b22a7a983fd0e9d38d18aec48b2626942b136f66714c12629ac47b5009bd6"], ["merkle_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["solution_hash", "0021a3af0189201ff02c0803d554b91306723300b85f7999e59b16a45fbf59f0"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["nonce", 497], ["difficulty", 1], ["created_at", "2021-09-24 19:01:08.111357"], ["updated_at", "2021-09-24 19:01:08.111357"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "32e382d2d8f7d041afc173770d30d6f60c17aba3bdf945ad03e9ac370f33a37643e13910e0c97d31e32988676a69b5a64537821403f4cc59aa8df96c59dcf37208bf50ee1981caabcff7db3b6d37181adafb90c02fa875f6121c5e8fe5e15fd9621770cc09cdb88dd9d294821d9d9263f7774485e97da7136721bcb8c078bc77a3c9179f2a1f7c6b914056e361db2383419f8cfcc48bea38d2ab9be718880c1e4eca7390045e3bd7928c6b4a2e212f845bc0e94a8be84f7176926e2a5df5e42b87caa056dbeffc0a5e0568d9e1350ee754d74e6a6e60eea78d6c63b47c25f9e39e98af75269659ffc01a07cd49886695c23da80374c63ea4a990c31ba16cba84"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 2], ["created_at", "2021-09-24 19:01:08.117417"], ["updated_at", "2021-09-24 19:01:08.117417"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.3ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "007900126f03830ba59163c09640d15c7db01b3cb31ea953d11c76654f314016"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 119], ["difficulty", 1], ["created_at", "2021-09-24 19:01:08.122303"], ["updated_at", "2021-09-24 19:01:08.122303"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 3], ["created_at", "2021-09-24 19:01:08.127693"], ["updated_at", "2021-09-24 19:01:08.127693"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Create (0.8ms)[0m  [1m[32mINSERT INTO "open_blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "0d3a6c8ef526141240dfc96aa0c2228663f7357258e982557b7595cc30e0dcb9"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 15], ["difficulty", 1], ["created_at", "2021-09-24 19:01:08.146457"], ["updated_at", "2021-09-24 19:01:08.146457"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Load (0.3ms)[0m  [1m[34mSELECT "open_blocks".* FROM "open_blocks" WHERE "open_blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mOpenTransaction Create (1.4ms)[0m  [1m[32mINSERT INTO "open_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "open_block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 3], ["transaction_index", 0], ["open_block_id", 1], ["created_at", "2021-09-24 19:01:08.179638"], ["updated_at", "2021-09-24 19:01:08.179638"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBlock Load (0.6ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mBlock Load (0.4ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks"[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (3.8ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (144.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_development"[0m
+  [1m[35m (46.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_test"[0m
+  [1m[35m (295.2ms)[0m  [1m[35mCREATE DATABASE "commit_development" ENCODING = 'unicode'[0m
+  [1m[35m (76.8ms)[0m  [1m[35mCREATE DATABASE "commit_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (17.4ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (6.2ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (2.6ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (3.2ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 20:22:09.474492"], ["updated_at", "2021-09-24 20:22:09.474492"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 20:22:09.488516"], ["updated_at", "2021-09-24 20:22:09.488516"]]
+  [1m[35m (4.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (10.7ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (4.6ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (4.2ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (3.5ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (1.8ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 20:22:09.593855"], ["updated_at", "2021-09-24 20:22:09.593855"]]
+  [1m[35m (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2021-09-24 20:22:09.602971"], ["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 20:22:09.608118"], ["updated_at", "2021-09-24 20:22:09.608118"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["LIMIT", 1]]
+  [1m[36mBlock Create (1.0ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "block_height", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["commit_hash", "abb2855ebfc303bf5e146868f532390c3a9d816717dcdbd2c8ce2846ea878224"], ["merkle_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["solution_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["block_height", 0], ["nonce", 1], ["difficulty", 1], ["created_at", "2021-09-24 20:22:09.674640"], ["updated_at", "2021-09-24 20:22:09.674640"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (1.0ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "11919b8b641bcb95cf36af54450f885364bf1adf03b7af973d743f9807a25a1fb2d4efc44688a394cc3e6a8b132dff90d3c2e8fe4f9ff4297f259ba72973aab9804842134df317183c63cfbe7bc9e8ea6273495d975217ce73f8984ebcdd96ae387e043735f3e86613409b3cb78abea81f931b9f8b050f815a0ffad103efa6439f8c0aad812aa4d68458d5734d09d3ba0dd50a1cdefbf465643ba452518b6195b99b05169c0ac64d1b9d3f14220baa96b48384279195434a0554477f3c4369f9f95b1fa47f044ebf3c4e1996ef782111b28b8ae7ac5a6242db952407ba833eaf5cf440da9d5a561df359a2dc0e2f4b0f5e96e9b5b5eb11cb59a524d1c6bcb6fd"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 1], ["transaction_index", 0], ["block_id", 1], ["created_at", "2021-09-24 20:22:09.715583"], ["updated_at", "2021-09-24 20:22:09.715583"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.3ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["commit_hash", "c50b22a7a983fd0e9d38d18aec48b2626942b136f66714c12629ac47b5009bd6"], ["merkle_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["solution_hash", "0021a3af0189201ff02c0803d554b91306723300b85f7999e59b16a45fbf59f0"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["nonce", 497], ["difficulty", 1], ["created_at", "2021-09-24 20:22:09.721736"], ["updated_at", "2021-09-24 20:22:09.721736"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.4ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "32e382d2d8f7d041afc173770d30d6f60c17aba3bdf945ad03e9ac370f33a37643e13910e0c97d31e32988676a69b5a64537821403f4cc59aa8df96c59dcf37208bf50ee1981caabcff7db3b6d37181adafb90c02fa875f6121c5e8fe5e15fd9621770cc09cdb88dd9d294821d9d9263f7774485e97da7136721bcb8c078bc77a3c9179f2a1f7c6b914056e361db2383419f8cfcc48bea38d2ab9be718880c1e4eca7390045e3bd7928c6b4a2e212f845bc0e94a8be84f7176926e2a5df5e42b87caa056dbeffc0a5e0568d9e1350ee754d74e6a6e60eea78d6c63b47c25f9e39e98af75269659ffc01a07cd49886695c23da80374c63ea4a990c31ba16cba84"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 2], ["created_at", "2021-09-24 20:22:09.729496"], ["updated_at", "2021-09-24 20:22:09.729496"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.6ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "007900126f03830ba59163c09640d15c7db01b3cb31ea953d11c76654f314016"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 119], ["difficulty", 1], ["created_at", "2021-09-24 20:22:09.738117"], ["updated_at", "2021-09-24 20:22:09.738117"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.6ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.8ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 3], ["created_at", "2021-09-24 20:22:09.748430"], ["updated_at", "2021-09-24 20:22:09.748430"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Create (0.6ms)[0m  [1m[32mINSERT INTO "open_blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "0d3a6c8ef526141240dfc96aa0c2228663f7357258e982557b7595cc30e0dcb9"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 15], ["difficulty", 1], ["created_at", "2021-09-24 20:22:09.767422"], ["updated_at", "2021-09-24 20:22:09.767422"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Load (0.6ms)[0m  [1m[34mSELECT "open_blocks".* FROM "open_blocks" WHERE "open_blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mOpenTransaction Create (1.5ms)[0m  [1m[32mINSERT INTO "open_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "open_block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 3], ["transaction_index", 0], ["open_block_id", 1], ["created_at", "2021-09-24 20:22:09.803679"], ["updated_at", "2021-09-24 20:22:09.803679"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBlock Load (0.5ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mBlock Load (0.5ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks"[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (52.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_development"[0m
+  [1m[35m (39.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_test"[0m
+  [1m[35m (72.3ms)[0m  [1m[35mCREATE DATABASE "commit_development" ENCODING = 'unicode'[0m
+  [1m[35m (84.7ms)[0m  [1m[35mCREATE DATABASE "commit_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (11.7ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (9.0ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (3.0ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 20:23:00.642205"], ["updated_at", "2021-09-24 20:23:00.642205"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 20:23:00.654363"], ["updated_at", "2021-09-24 20:23:00.654363"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (13.2ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (5.7ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (6.2ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (3.4ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 20:23:00.763687"], ["updated_at", "2021-09-24 20:23:00.763687"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2021-09-24 20:23:00.769324"], ["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 20:23:00.773630"], ["updated_at", "2021-09-24 20:23:00.773630"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.6ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "block_height", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["commit_hash", "abb2855ebfc303bf5e146868f532390c3a9d816717dcdbd2c8ce2846ea878224"], ["merkle_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["solution_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["block_height", 0], ["nonce", 1], ["difficulty", 1], ["created_at", "2021-09-24 20:23:00.841226"], ["updated_at", "2021-09-24 20:23:00.841226"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (1.0ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "11919b8b641bcb95cf36af54450f885364bf1adf03b7af973d743f9807a25a1fb2d4efc44688a394cc3e6a8b132dff90d3c2e8fe4f9ff4297f259ba72973aab9804842134df317183c63cfbe7bc9e8ea6273495d975217ce73f8984ebcdd96ae387e043735f3e86613409b3cb78abea81f931b9f8b050f815a0ffad103efa6439f8c0aad812aa4d68458d5734d09d3ba0dd50a1cdefbf465643ba452518b6195b99b05169c0ac64d1b9d3f14220baa96b48384279195434a0554477f3c4369f9f95b1fa47f044ebf3c4e1996ef782111b28b8ae7ac5a6242db952407ba833eaf5cf440da9d5a561df359a2dc0e2f4b0f5e96e9b5b5eb11cb59a524d1c6bcb6fd"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 1], ["transaction_index", 0], ["block_id", 1], ["created_at", "2021-09-24 20:23:00.864749"], ["updated_at", "2021-09-24 20:23:00.864749"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.3ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["commit_hash", "c50b22a7a983fd0e9d38d18aec48b2626942b136f66714c12629ac47b5009bd6"], ["merkle_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["solution_hash", "0021a3af0189201ff02c0803d554b91306723300b85f7999e59b16a45fbf59f0"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["nonce", 497], ["difficulty", 1], ["created_at", "2021-09-24 20:23:00.870307"], ["updated_at", "2021-09-24 20:23:00.870307"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "32e382d2d8f7d041afc173770d30d6f60c17aba3bdf945ad03e9ac370f33a37643e13910e0c97d31e32988676a69b5a64537821403f4cc59aa8df96c59dcf37208bf50ee1981caabcff7db3b6d37181adafb90c02fa875f6121c5e8fe5e15fd9621770cc09cdb88dd9d294821d9d9263f7774485e97da7136721bcb8c078bc77a3c9179f2a1f7c6b914056e361db2383419f8cfcc48bea38d2ab9be718880c1e4eca7390045e3bd7928c6b4a2e212f845bc0e94a8be84f7176926e2a5df5e42b87caa056dbeffc0a5e0568d9e1350ee754d74e6a6e60eea78d6c63b47c25f9e39e98af75269659ffc01a07cd49886695c23da80374c63ea4a990c31ba16cba84"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 2], ["created_at", "2021-09-24 20:23:00.875572"], ["updated_at", "2021-09-24 20:23:00.875572"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.3ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "0d3a6c8ef526141240dfc96aa0c2228663f7357258e982557b7595cc30e0dcb9"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 15], ["difficulty", 1], ["created_at", "2021-09-24 20:23:00.880039"], ["updated_at", "2021-09-24 20:23:00.880039"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 3], ["created_at", "2021-09-24 20:23:00.885107"], ["updated_at", "2021-09-24 20:23:00.885107"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Create (0.6ms)[0m  [1m[32mINSERT INTO "open_blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "0d3a6c8ef526141240dfc96aa0c2228663f7357258e982557b7595cc30e0dcb9"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 15], ["difficulty", 1], ["created_at", "2021-09-24 20:23:00.899263"], ["updated_at", "2021-09-24 20:23:00.899263"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Load (0.2ms)[0m  [1m[34mSELECT "open_blocks".* FROM "open_blocks" WHERE "open_blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mOpenTransaction Create (0.8ms)[0m  [1m[32mINSERT INTO "open_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "open_block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 3], ["transaction_index", 0], ["open_block_id", 1], ["created_at", "2021-09-24 20:23:00.919483"], ["updated_at", "2021-09-24 20:23:00.919483"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBlock Load (0.4ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mBlock Load (0.5ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks"[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (61.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_development"[0m
+  [1m[35m (46.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_test"[0m
+  [1m[35m (127.8ms)[0m  [1m[35mCREATE DATABASE "commit_development" ENCODING = 'unicode'[0m
+  [1m[35m (66.9ms)[0m  [1m[35mCREATE DATABASE "commit_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (11.3ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (2.4ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (4.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 20:58:01.089348"], ["updated_at", "2021-09-24 20:58:01.089348"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 20:58:01.101763"], ["updated_at", "2021-09-24 20:58:01.101763"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (11.6ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (5.2ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (2.5ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 20:58:01.202194"], ["updated_at", "2021-09-24 20:58:01.202194"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.4ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2021-09-24 20:58:01.208213"], ["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 20:58:01.213769"], ["updated_at", "2021-09-24 20:58:01.213769"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.7ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "block_height", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["commit_hash", "abb2855ebfc303bf5e146868f532390c3a9d816717dcdbd2c8ce2846ea878224"], ["merkle_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["solution_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["block_height", 0], ["nonce", 1], ["difficulty", 1], ["created_at", "2021-09-24 20:58:01.293326"], ["updated_at", "2021-09-24 20:58:01.293326"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.2ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (1.1ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "11919b8b641bcb95cf36af54450f885364bf1adf03b7af973d743f9807a25a1fb2d4efc44688a394cc3e6a8b132dff90d3c2e8fe4f9ff4297f259ba72973aab9804842134df317183c63cfbe7bc9e8ea6273495d975217ce73f8984ebcdd96ae387e043735f3e86613409b3cb78abea81f931b9f8b050f815a0ffad103efa6439f8c0aad812aa4d68458d5734d09d3ba0dd50a1cdefbf465643ba452518b6195b99b05169c0ac64d1b9d3f14220baa96b48384279195434a0554477f3c4369f9f95b1fa47f044ebf3c4e1996ef782111b28b8ae7ac5a6242db952407ba833eaf5cf440da9d5a561df359a2dc0e2f4b0f5e96e9b5b5eb11cb59a524d1c6bcb6fd"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 1], ["transaction_index", 0], ["block_id", 1], ["created_at", "2021-09-24 20:58:01.326897"], ["updated_at", "2021-09-24 20:58:01.326897"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.3ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["commit_hash", "c50b22a7a983fd0e9d38d18aec48b2626942b136f66714c12629ac47b5009bd6"], ["merkle_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["solution_hash", "0021a3af0189201ff02c0803d554b91306723300b85f7999e59b16a45fbf59f0"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["nonce", 497], ["difficulty", 1], ["created_at", "2021-09-24 20:58:01.333237"], ["updated_at", "2021-09-24 20:58:01.333237"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "32e382d2d8f7d041afc173770d30d6f60c17aba3bdf945ad03e9ac370f33a37643e13910e0c97d31e32988676a69b5a64537821403f4cc59aa8df96c59dcf37208bf50ee1981caabcff7db3b6d37181adafb90c02fa875f6121c5e8fe5e15fd9621770cc09cdb88dd9d294821d9d9263f7774485e97da7136721bcb8c078bc77a3c9179f2a1f7c6b914056e361db2383419f8cfcc48bea38d2ab9be718880c1e4eca7390045e3bd7928c6b4a2e212f845bc0e94a8be84f7176926e2a5df5e42b87caa056dbeffc0a5e0568d9e1350ee754d74e6a6e60eea78d6c63b47c25f9e39e98af75269659ffc01a07cd49886695c23da80374c63ea4a990c31ba16cba84"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 2], ["created_at", "2021-09-24 20:58:01.339191"], ["updated_at", "2021-09-24 20:58:01.339191"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.3ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "0d3a6c8ef526141240dfc96aa0c2228663f7357258e982557b7595cc30e0dcb9"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 15], ["difficulty", 1], ["created_at", "2021-09-24 20:58:01.344939"], ["updated_at", "2021-09-24 20:58:01.344939"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.4ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 3], ["created_at", "2021-09-24 20:58:01.350974"], ["updated_at", "2021-09-24 20:58:01.350974"]]
+  [1m[35m (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Create (0.8ms)[0m  [1m[32mINSERT INTO "open_blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "4e291ba203fc1005af514b74e1b0f089fb1b688e5df3824695241bca55702efb"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "0d3a6c8ef526141240dfc96aa0c2228663f7357258e982557b7595cc30e0dcb9"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 15], ["difficulty", 1], ["created_at", "2021-09-24 20:58:01.370346"], ["updated_at", "2021-09-24 20:58:01.370346"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Load (0.3ms)[0m  [1m[34mSELECT "open_blocks".* FROM "open_blocks" WHERE "open_blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mOpenTransaction Create (0.9ms)[0m  [1m[32mINSERT INTO "open_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "open_block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 3], ["transaction_index", 0], ["open_block_id", 1], ["created_at", "2021-09-24 20:58:01.397838"], ["updated_at", "2021-09-24 20:58:01.397838"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (49.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_development"[0m
+  [1m[35m (50.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "commit_test"[0m
+  [1m[35m (237.8ms)[0m  [1m[35mCREATE DATABASE "commit_development" ENCODING = 'unicode'[0m
+  [1m[35m (71.2ms)[0m  [1m[35mCREATE DATABASE "commit_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (17.3ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (8.4ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (9.8ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (7.5ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (6.3ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (4.2ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (3.2ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (1.9ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (5.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 21:21:48.041674"], ["updated_at", "2021-09-24 21:21:48.041674"]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 21:21:48.051583"], ["updated_at", "2021-09-24 21:21:48.051583"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (118.6ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "account_id" character varying, "confirmed_balance" float, "highest_nonce" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "blocks" CASCADE[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" bigserial primary key, "block_hash" character varying, "commit_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "block_height" integer, "nonce" integer, "difficulty" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "confirmed_transactions" CASCADE[0m
+  [1m[35m (60.7ms)[0m  [1m[35mCREATE TABLE "confirmed_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_confirmed_transactions_on_block_id" ON "confirmed_transactions"  ("block_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_blocks" CASCADE[0m
+  [1m[35m (109.3ms)[0m  [1m[35mCREATE TABLE "open_blocks" ("id" bigserial primary key, "block_hash" character varying, "merkle_hash" character varying, "solution_hash" character varying, "prev_block_hash" character varying, "nonce" integer, "difficulty" integer, "cleared_transactions" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "open_transactions" CASCADE[0m
+  [1m[35m (54.8ms)[0m  [1m[35mCREATE TABLE "open_transactions" ("id" bigserial primary key, "amount" float, "destination" character varying, "transaction_hash" character varying, "sender" character varying, "sender_public_key" character varying, "sender_signature" character varying, "tx_fee" float, "status" character varying, "nonce" integer, "transaction_index" integer, "open_block_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (39.3ms)[0m  [1m[35mCREATE  INDEX  "index_open_transactions_on_open_block_id" ON "open_transactions"  ("open_block_id")[0m
+  [1m[35m (19.4ms)[0m  [1m[35mALTER TABLE "confirmed_transactions" ADD CONSTRAINT "fk_rails_3eb03586f2"
+FOREIGN KEY ("block_id")
+  REFERENCES "blocks" ("id")
+[0m
+  [1m[35m (34.0ms)[0m  [1m[35mALTER TABLE "open_transactions" ADD CONSTRAINT "fk_rails_6dfbb858cf"
+FOREIGN KEY ("open_block_id")
+  REFERENCES "open_blocks" ("id")
+[0m
+  [1m[35m (42.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (15.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210914205338)[0m
+  [1m[35m (19.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210909025225),
+(20210909025311),
+(20210914152748),
+(20210914205305);
+
+[0m
+  [1m[35m (126.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-09-24 21:21:48.746070"], ["updated_at", "2021-09-24 21:21:48.746070"]]
+  [1m[35m (4.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.2ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2021-09-24 21:21:48.754636"], ["key", "environment"]]
+  [1m[35m (33.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c38cc064691b78c464bb9263adaaaf4b141cdcfe"], ["created_at", "2021-09-24 21:21:48.793444"], ["updated_at", "2021-09-24 21:21:48.793444"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["LIMIT", 1]]
+  [1m[36mBlock Create (1.3ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "block_height", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["commit_hash", "abb2855ebfc303bf5e146868f532390c3a9d816717dcdbd2c8ce2846ea878224"], ["merkle_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["solution_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000000"], ["block_height", 0], ["nonce", 1], ["difficulty", 1], ["created_at", "2021-09-24 21:21:48.891573"], ["updated_at", "2021-09-24 21:21:48.891573"]]
+  [1m[35m (11.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (1.3ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "8cde7f91ab8e6b0d327b3ddd5a867611e402d97f7d91fba410ed861380ce8013"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "11919b8b641bcb95cf36af54450f885364bf1adf03b7af973d743f9807a25a1fb2d4efc44688a394cc3e6a8b132dff90d3c2e8fe4f9ff4297f259ba72973aab9804842134df317183c63cfbe7bc9e8ea6273495d975217ce73f8984ebcdd96ae387e043735f3e86613409b3cb78abea81f931b9f8b050f815a0ffad103efa6439f8c0aad812aa4d68458d5734d09d3ba0dd50a1cdefbf465643ba452518b6195b99b05169c0ac64d1b9d3f14220baa96b48384279195434a0554477f3c4369f9f95b1fa47f044ebf3c4e1996ef782111b28b8ae7ac5a6242db952407ba833eaf5cf440da9d5a561df359a2dc0e2f4b0f5e96e9b5b5eb11cb59a524d1c6bcb6fd"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 1], ["transaction_index", 0], ["block_id", 1], ["created_at", "2021-09-24 21:21:48.938055"], ["updated_at", "2021-09-24 21:21:48.938055"]]
+  [1m[35m (27.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.5ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "commit_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["commit_hash", "c50b22a7a983fd0e9d38d18aec48b2626942b136f66714c12629ac47b5009bd6"], ["merkle_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["solution_hash", "0021a3af0189201ff02c0803d554b91306723300b85f7999e59b16a45fbf59f0"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad0"], ["nonce", 497], ["difficulty", 1], ["created_at", "2021-09-24 21:21:48.972890"], ["updated_at", "2021-09-24 21:21:48.972890"]]
+  [1m[35m (16.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (1.3ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 1000000000000.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "f685c8ce332e7824db50d00db815e05ca3baa0e971c0eab22955e47d8c33023f"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "32e382d2d8f7d041afc173770d30d6f60c17aba3bdf945ad03e9ac370f33a37643e13910e0c97d31e32988676a69b5a64537821403f4cc59aa8df96c59dcf37208bf50ee1981caabcff7db3b6d37181adafb90c02fa875f6121c5e8fe5e15fd9621770cc09cdb88dd9d294821d9d9263f7774485e97da7136721bcb8c078bc77a3c9179f2a1f7c6b914056e361db2383419f8cfcc48bea38d2ab9be718880c1e4eca7390045e3bd7928c6b4a2e212f845bc0e94a8be84f7176926e2a5df5e42b87caa056dbeffc0a5e0568d9e1350ee754d74e6a6e60eea78d6c63b47c25f9e39e98af75269659ffc01a07cd49886695c23da80374c63ea4a990c31ba16cba84"], ["tx_fee", 0.0], ["status", "cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 2], ["created_at", "2021-09-24 21:21:49.004701"], ["updated_at", "2021-09-24 21:21:49.004701"]]
+  [1m[35m (15.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "blocks" WHERE "blocks"."block_hash" = $1 LIMIT $2[0m  [["block_hash", "00c1d07d532fb58597f17c04afb557e7cd52b336fb7f7e7093fb707752b3b826"], ["LIMIT", 1]]
+  [1m[36mBlock Create (0.5ms)[0m  [1m[32mINSERT INTO "blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "00c1d07d532fb58597f17c04afb557e7cd52b336fb7f7e7093fb707752b3b826"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "0d3a6c8ef526141240dfc96aa0c2228663f7357258e982557b7595cc30e0dcb9"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 15], ["difficulty", 1], ["created_at", "2021-09-24 21:21:49.027101"], ["updated_at", "2021-09-24 21:21:49.027101"]]
+  [1m[35m (14.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBlock Load (0.4ms)[0m  [1m[34mSELECT "blocks".* FROM "blocks" WHERE "blocks"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConfirmedTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "confirmed_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 2], ["transaction_index", 0], ["block_id", 3], ["created_at", "2021-09-24 21:21:49.050196"], ["updated_at", "2021-09-24 21:21:49.050196"]]
+  [1m[35m (13.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Create (0.7ms)[0m  [1m[32mINSERT INTO "open_blocks" ("block_hash", "merkle_hash", "solution_hash", "prev_block_hash", "nonce", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["block_hash", "00c1d07d532fb58597f17c04afb557e7cd52b336fb7f7e7093fb707752b3b826"], ["merkle_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["solution_hash", "0d3a6c8ef526141240dfc96aa0c2228663f7357258e982557b7595cc30e0dcb9"], ["prev_block_hash", "0000000000000000000000000000000000000000000000000000000000000ad1"], ["nonce", 15], ["difficulty", 1], ["created_at", "2021-09-24 21:21:49.081872"], ["updated_at", "2021-09-24 21:21:49.081872"]]
+  [1m[35m (6.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOpenBlock Load (0.5ms)[0m  [1m[34mSELECT "open_blocks".* FROM "open_blocks" WHERE "open_blocks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mOpenTransaction Create (1.5ms)[0m  [1m[32mINSERT INTO "open_transactions" ("amount", "destination", "transaction_hash", "sender", "sender_public_key", "sender_signature", "tx_fee", "status", "nonce", "transaction_index", "open_block_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["amount", 0.0], ["destination", "0aKRMjy4GmRKZ2Ui4Zc8z9fqYOLTzwu9QD/JkGLd5Qw="], ["transaction_hash", "d9ed8a6f0ceb0b4a35d6f19818c4d03c03c5abfe1081d7aa1c38067922946110"], ["sender", "0000000000000000000000000000000000000000000000000000000000000000"], ["sender_public_key", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyri5U43kBpNJIIC4qbO3\nWfkC9lBOokHGfUSk7FjYFvc6ehA2xog1AdwRn0750C0Fj6ypEzRvz+8LT434ab5V\n6N3UZF4cEvzg67xHsRN3n0htpIUdCzBwNl2Bt8oUJklhM6LDL7DBfTtq5KtBZGyv\nPHjIfhft9nIUbJu8H4Peapg8SPVbEqkfboEgNQCIq8fbiS2CHWunLU9OViJSHG8C\n7Sp3FO/43s+e2k86DqBBsqOsjMReWBOYMaX+OFHIVY35ezclKY1B75vz5M5SjA21\nUPM6sy+fyGe5pwxI9s0/Q4D/dRlNMXY/c/p1mcRjB4CzRLMM50jj7nrjwshmJWri\n3wIDAQAB\n-----END PUBLIC KEY-----\n"], ["sender_signature", "343ad46462c9b47a7a1cca442ef6d55d961a8e6179e4f96920bab1e7e658920ec9d2c032b451bad6ee40f22305fa6960b6b6e10e36c4d8d53ba3c3fd8a7ffddcd17da76059f26484cd5044cde4a68fd131ce680652109b88008494615d6394b3ca1e68e71a0624dd607b1141a59832c3db676fc831818a047f90ace723415f98c178b2db2f41cb3cdbd2ddc7251bc52ec3b06e3231368080fb1a16389d1d634a0f7e6f5b695ea306ffd5c74135aa30912ea754caca31312a0440a22980a386c8f37cfdfd8b03ef350564f9c8d2453446c54e7247855db9cc0097fbb2cd9e085edf875ac9d33d2d22184c2dceb16624c267e5d66344cf55112269fbdacdd49fa9"], ["tx_fee", 0.0], ["status", "pre-cleared"], ["nonce", 3], ["transaction_index", 0], ["open_block_id", 1], ["created_at", "2021-09-24 21:21:49.121816"], ["updated_at", "2021-09-24 21:21:49.121816"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m

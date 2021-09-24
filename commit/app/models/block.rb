@@ -1,3 +1,5 @@
+require "net/http"
+
 class Block < ApplicationRecord
   has_many :confirmed_transactions
   validates :block_hash, uniqueness: true
@@ -38,12 +40,8 @@ class Block < ApplicationRecord
       if !prev_block
         return "Previous block was not found on this node's chain"
       end
-      if prev_block.commit_hash
-        return "This clearing window has already been closed"
-      end
       prev_block_hash = prev_block.prev_block_hash
     end
-
     #if valid, perform the commit process
     Block.commit_new_block(parse_input, prev_block)
   end
@@ -416,12 +414,13 @@ class Block < ApplicationRecord
       if !prev_block
         return "Previous block was not found on this node's chain"
       end
-      if prev_block.commit_hash
-        if parse_input["block_hash"] != Digest::SHA256.hexdigest(prev_block.commit_hash + parse_input["solution_hash"])
-          return "This block's block hash does not match this node's commit hash chains"
-        end
-      end
       prev_block_hash = prev_block.prev_block_hash
+    end
+
+    if prev_block.commit_hash
+      if parse_input["block_hash"] != Digest::SHA256.hexdigest(prev_block.commit_hash + parse_input["solution_hash"])
+        return "The block hash does not match this SHA256 Hash of the commit hash of the associated block at the end of the clearing window appended to the solution hash"
+      end
     end
 
     #if valid, add to memory or update if on chain
@@ -480,6 +479,16 @@ class Block < ApplicationRecord
       replacement_transaction_info.delete("id")
       txn_to_replace.update(replacement_transaction_info)
     }
+  end
+
+  def commit_hash_check()
+    txn_hash_w_status = []
+    #fail all of the open transactions
+    self.confirmed_transactions.order(:transaction_index).each { |open_txn|
+      txn_hash_w_status << Digest::SHA256.hexdigest((open_txn.amount ? open_txn.amount.to_s : "") + (open_txn.destination ? open_txn.destination.to_s : "") + open_txn.nonce.to_s + open_txn.sender.to_s + open_txn.sender_public_key.to_s + open_txn.status.to_s + open_txn.tx_fee.to_s)
+    }
+    commit_hash = Block.compute_transaction_merkle_tree(txn_hash_w_status)
+    return commit_hash
   end
 end
 

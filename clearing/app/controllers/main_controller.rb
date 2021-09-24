@@ -2,17 +2,17 @@ class MainController < ApplicationController
   def current_block #get current highest block
     block_id = Block.highest_block.id
     result = Block.includes(:confirmed_transactions).find(block_id).to_json(:include => :confirmed_transactions)
-    render json: result.to_json
+    render json: result
   end
 
   def get_chain
     result = Block.includes(:confirmed_transactions).where(block_height: (params[:id].to_i)..((params[:id].to_i + 50))).to_json(:include => :confirmed_transactions)
-    render json: result.to_json
+    render json: result
   end
 
   def open_blocks
     result = Block.includes(:confirmed_transactions).where(commit_hash: nil).to_json(:include => :confirmed_transactions)
-    render json: result.to_json
+    render json: result
   end
 
   def open_transactions
@@ -25,12 +25,12 @@ class MainController < ApplicationController
         end
       }
     }
-    render json: open_transactions.to_json
+    render json: open_transactions
   end
 
   def append_information
     result = ConfirmedTransaction.verify_and_append_transaction(request.body.read)
-    render json: result.to_json
+    render json: result
   end
 
   def block

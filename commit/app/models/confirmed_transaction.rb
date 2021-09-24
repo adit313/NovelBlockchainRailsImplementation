@@ -41,7 +41,7 @@ class ConfirmedTransaction < ApplicationRecord
     return json_input
   end
 
-  def broadcast_transaction_to_other_commit_and_mining_nodes(json_input)
+  def self.broadcast_transaction_to_other_commit_and_mining_nodes(json_input)
     #Broadcast POST "/new_transaction" to commit nodes
     # Net::HTTP.post(URI("http://other_commit_node_addresses/append_information"), payload, "Content-Type" => "application/json")
 
