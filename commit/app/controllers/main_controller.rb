@@ -5,6 +5,12 @@ class MainController < ApplicationController
     render json: result
   end
 
+  def cleared_block #get current highest block
+    Block.calculate_block_height
+    result = Block.includes(:confirmed_transactions).where.not(commit_hash: nil).order(block_height: :desc).first.to_json(:include => :confirmed_transactions)
+    render json: result
+  end
+
   def new_transaction
     result = ConfirmedTransaction.validate_new_transaction(request.body.read)
     render json: result
@@ -52,8 +58,11 @@ class MainController < ApplicationController
   end
 
   def get_chain
-    id_requested = params[:id] ? params[:id] : 0
-    result = Block.includes(:confirmed_transactions).where(block_height: (id_requested.to_i)..((id_requested.to_i + 50))).to_json(:include => :confirmed_transactions)
+    if params[:id]
+      result = Block.includes(:confirmed_transactions).where(block_height: (params[:id].to_i)..((params[:id].to_i + 50))).to_json(:include => :confirmed_transactions)
+    else
+      result = Block.includes(:confirmed_transactions).order(block_height: :desc).limit(50).to_json(:include => :confirmed_transactions)
+    end
     render json: result
   end
 end

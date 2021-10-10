@@ -11,7 +11,7 @@ class Mine < ApplicationRecord
 
       sender = "0000000000000000000000000000000000000000000000000000000000000000"
       digest = OpenSSL::Digest::SHA256.new
-      transaction_hash = Digest::SHA256.hexdigest(total_fees.to_s + COMMIT_NODE_ADDRESS.to_s + 1.to_s + sender.to_s + COMMIT_NODE_KEY.public_key.to_s.to_s + 0.to_s)
+      transaction_hash = Digest::SHA256.hexdigest(total_fees.to_s + COMMIT_NODE_ADDRESS.to_s + 1.to_s + sender.to_s + COMMIT_NODE_KEY.public_key.to_s.to_s + 0.to_f.to_s)
       signature = COMMIT_NODE_KEY.sign(digest, transaction_hash).unpack("H*").first
 
       coinbase_transaction = UnconfirmedTransaction.new(amount: total_fees,

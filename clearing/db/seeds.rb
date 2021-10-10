@@ -11,7 +11,7 @@ key = OpenSSL::PKey.read File.read "storage/private_key.pem"
 address = Digest::SHA256.base64digest(key.public_key.to_s)
 sender = "0000000000000000000000000000000000000000000000000000000000000000"
 digest = OpenSSL::Digest::SHA256.new
-transaction_hash = Digest::SHA256.hexdigest(amount.to_s + address.to_s + 1.to_s + sender.to_s + key.public_key.to_s.to_s + 0.to_s)
+transaction_hash = Digest::SHA256.hexdigest(amount.to_f.to_s + address.to_s + 1.to_s + sender.to_s + key.public_key.to_s.to_s + 0.to_f.to_s)
 
 genesis = Block.create(block_hash: "0000000000000000000000000000000000000000000000000000000000000ad0",
                        commit_hash: "abb2855ebfc303bf5e146868f532390c3a9d816717dcdbd2c8ce2846ea878224",
@@ -36,7 +36,7 @@ ConfirmedTransaction.create(
   block_id: genesis.id,
 )
 
-transaction_hash = Digest::SHA256.hexdigest(amount.to_s + address.to_s + 2.to_s + sender.to_s + key.public_key.to_s.to_s + 0.to_s)
+transaction_hash = Digest::SHA256.hexdigest(amount.to_f.to_s + address.to_s + 2.to_s + sender.to_s + key.public_key.to_s.to_s + 0.to_f.to_s)
 new_block1 = Block.create(block_hash: "0000000000000000000000000000000000000000000000000000000000000ad1",
                           commit_hash: "c50b22a7a983fd0e9d38d18aec48b2626942b136f66714c12629ac47b5009bd6",
                           merkle_hash: transaction_hash,
@@ -60,7 +60,7 @@ ConfirmedTransaction.create(
 )
 
 amount = 0
-transaction_hash = Digest::SHA256.hexdigest(amount.to_s + address.to_s + 3.to_s + sender.to_s + key.public_key.to_s.to_s + 0.to_s)
+transaction_hash = Digest::SHA256.hexdigest(amount.to_f.to_s + address.to_s + 3.to_s + sender.to_s + key.public_key.to_s.to_s + 0.to_f.to_s)
 new_block2 = Block.create(block_hash: "00c1d07d532fb58597f17c04afb557e7cd52b336fb7f7e7093fb707752b3b826",
                           commit_hash: nil,
                           merkle_hash: transaction_hash,

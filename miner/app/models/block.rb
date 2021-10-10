@@ -138,7 +138,7 @@ class Block < ApplicationRecord
       return "All blocks must have a valid difficulty"
     end
 
-    calculated_hash = Digest::SHA256.hexdigest(parse_input["merkle_hash"].to_s + parse_input["nonce"].to_s + parse_input["prev_block_hash"].to_s)
+    calculated_hash = Digest::SHA256.hexdigest(parse_input["merkle_hash"].to_s + parse_input["nonce"].to_i.to_s + parse_input["prev_block_hash"].to_s)
 
     if calculated_hash != parse_input["solution_hash"]
       return "The solution hash did not match the SHA256 hex hash of (merkle_hash + nonce + prev_block_hash)"

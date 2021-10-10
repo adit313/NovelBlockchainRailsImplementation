@@ -264,7 +264,7 @@ class Block < ApplicationRecord
       return "All blocks must have a valid difficulty"
     end
 
-    calculated_hash = Digest::SHA256.hexdigest(parse_input["merkle_hash"].to_s + parse_input["nonce"].to_s + parse_input["prev_block_hash"].to_s)
+    calculated_hash = Digest::SHA256.hexdigest(parse_input["merkle_hash"].to_s + parse_input["nonce"].to_i.to_s + parse_input["prev_block_hash"].to_s)
 
     if calculated_hash != parse_input["solution_hash"]
       return "The solution hash did not match the SHA256 hex hash of (merkle_hash + nonce + prev_block_hash)"
@@ -280,7 +280,7 @@ class Block < ApplicationRecord
       #fail all of the open transactions
       parse_input["confirmed_transactions"].sort { |e| e["transaction_index"] }.each { |open_txn|
         #SHA256 all the transactions along with their statuses
-        txn_hash_w_status << Digest::SHA256.hexdigest((open_txn.amount ? open_txn.amount.to_s : "") + (open_txn.destination ? open_txn.destination.to_s : "") + open_txn.nonce.to_s + open_txn.sender.to_s + open_txn.sender_public_key.to_s + open_txn.status.to_s + open_txn.tx_fee.to_s)
+        txn_hash_w_status << Digest::SHA256.hexdigest((open_txn.amount ? open_txn.amount.to_f.to_s : "") + (open_txn.destination ? open_txn.destination.to_s : "") + open_txn.nonce.to_s + open_txn.sender.to_s + open_txn.sender_public_key.to_s + open_txn.status.to_s + open_txn.tx_fee.to_f.to_s)
       }
       test_commit_hash = Block.compute_transaction_merkle_tree(txn_hash_w_status)
       if parse_input["commit_hash"] != test_commit_hash
@@ -485,7 +485,7 @@ class Block < ApplicationRecord
     txn_hash_w_status = []
     #fail all of the open transactions
     self.confirmed_transactions.order(:transaction_index).each { |open_txn|
-      txn_hash_w_status << Digest::SHA256.hexdigest((open_txn.amount ? open_txn.amount.to_s : "") + (open_txn.destination ? open_txn.destination.to_s : "") + open_txn.nonce.to_s + open_txn.sender.to_s + open_txn.sender_public_key.to_s + open_txn.status.to_s + open_txn.tx_fee.to_s)
+      txn_hash_w_status << Digest::SHA256.hexdigest((open_txn.amount ? open_txn.amount.to_f.to_s : "") + (open_txn.destination ? open_txn.destination.to_s : "") + open_txn.nonce.to_s + open_txn.sender.to_s + open_txn.sender_public_key.to_s + open_txn.status.to_s + open_txn.tx_fee.to_s)
     }
     commit_hash = Block.compute_transaction_merkle_tree(txn_hash_w_status)
     return commit_hash

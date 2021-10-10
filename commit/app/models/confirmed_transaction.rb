@@ -20,7 +20,7 @@ class ConfirmedTransaction < ApplicationRecord
       return "sender account could not be located in the blockchain"
     end
 
-    if parse_input["nonce"] <= sender_account.highest_nonce
+    if parse_input["nonce"].to_i <= sender_account.highest_nonce
       return "Invalid nonce, all transactions must be in increasing nonce order"
     end
 
@@ -70,7 +70,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #   verify the transaction hash, sender, nonce and information
-    calculated_hash = Digest::SHA256.hexdigest(parse_input["amount"].to_s + parse_input["destination"].to_s + parse_input["nonce"].to_s + parse_input["sender"].to_s + parse_input["sender_public_key"].to_s + parse_input["tx_fee"].to_s)
+    calculated_hash = Digest::SHA256.hexdigest(parse_input["amount"].to_s + parse_input["destination"].to_s + parse_input["nonce"].to_i.to_s + parse_input["sender"].to_s + parse_input["sender_public_key"].to_s + parse_input["tx_fee"].to_s)
     if calculated_hash != parse_input["transaction_hash"]
       return "The hash did not match the SHA256 hex Hash of (amount + destination + nonce + sender + sender_public_key + tx_fee)"
     end

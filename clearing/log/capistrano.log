@@ -4958,3 +4958,730 @@ perl: warning: Please check that your locale settings:
   INFO [e780111d] Running /usr/bin/env echo "Branch master (at d545060d412053c5bb86099e51d1e209296fb2b1) deployed as release 20210924214543 by aditpatel" >> /home/deploy/clearing_node/revisions.log as deploy@3.93.159.78
  DEBUG [e780111d] Command: cd /home/deploy/clearing_node/releases && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "Branch master (at d545060d412053c5bb86099e51d1e209296fb2b1) deployed as release 20210924214543 by aditpatel" >> /home/deploy/clearing_node/revisions.log )
   INFO [e780111d] Finished in 0.101 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-27 11:55:07 -0400 cap production db:push
+  INFO ---------------------------------------------------------------------------
+ DEBUG [4dffd3a9] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [4dffd3a9] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [4dffd3a9] Finished in 1.269 seconds with exit status 0 (successful).
+ DEBUG [7ffc84a5] Running if test ! -d /home/deploy/clearing_node/current; then echo "Directory does not exist '/home/deploy/clearing_node/current'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [7ffc84a5] Command: if test ! -d /home/deploy/clearing_node/current; then echo "Directory does not exist '/home/deploy/clearing_node/current'" 1>&2; false; fi
+ DEBUG [7ffc84a5] Finished in 0.041 seconds with exit status 0 (successful).
+ DEBUG [7f8cf9eb] Running $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null as deploy@3.93.159.78
+ DEBUG [7f8cf9eb] Command: cd /home/deploy/clearing_node/current && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null )
+ DEBUG [7f8cf9eb] 	__CAPISTRANODB_CONFIG_BEGIN_FLAG__---
+:adapter: postgresql
+:encoding: unicode
+:pool: 5
+:database: clearing_node_production
+:username: deploy
+:password: Rails.application.credentials.dig(:production, :db_password)
+__CAPISTRANODB_CONFIG_END_FLAG__
+ DEBUG [7f8cf9eb] Finished in 1.297 seconds with exit status 0 (successful).
+ DEBUG Uploading clearing_development_2021-09-27-115512.sql.gz 0.0%
+  INFO Uploading clearing_development_2021-09-27-115512.sql.gz 100.0%
+  INFO [8e4ae78c] Running cd /home/deploy/clearing_node/current && gzip -d clearing_development_2021-09-27-115512.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'clearing_node_production' AND pid <> pg_backend_pid();;"  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d clearing_node_production < ./clearing_development_2021-09-27-115512.sql as deploy@3.93.159.78
+ DEBUG [8e4ae78c] Command: cd /home/deploy/clearing_node/current && gzip -d clearing_development_2021-09-27-115512.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'clearing_node_production' AND pid <> pg_backend_pid();;"  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d clearing_node_production < ./clearing_development_2021-09-27-115512.sql
+ DEBUG [8e4ae78c] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [8e4ae78c] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [8e4ae78c] 	 pg_terminate_backend 
+----------------------
+(0 rows)
+
+ DEBUG [8e4ae78c] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [8e4ae78c] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [8e4ae78c] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [8e4ae78c] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [8e4ae78c] 	perl: warning: Setting locale failed.
+ DEBUG [8e4ae78c] 	perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [8e4ae78c] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [8e4ae78c] 	SET
+SET
+ DEBUG [8e4ae78c] 	SET
+SET
+ DEBUG [8e4ae78c] 	SET
+ DEBUG [8e4ae78c] 	 set_config 
+------------
+ 
+(1 row)
+
+ DEBUG [8e4ae78c] 	SET
+ DEBUG [8e4ae78c] 	SET
+ DEBUG [8e4ae78c] 	SET
+ DEBUG [8e4ae78c] 	SET
+ DEBUG [8e4ae78c] 	SET
+ DEBUG [8e4ae78c] 	SET
+ DEBUG [8e4ae78c] 	CREATE TABLE
+ DEBUG [8e4ae78c] 	CREATE SEQUENCE
+ DEBUG [8e4ae78c] 	ALTER SEQUENCE
+ DEBUG [8e4ae78c] 	CREATE TABLE
+ DEBUG [8e4ae78c] 	CREATE TABLE
+ DEBUG [8e4ae78c] 	CREATE SEQUENCE
+ DEBUG [8e4ae78c] 	ALTER SEQUENCE
+ DEBUG [8e4ae78c] 	CREATE TABLE
+ DEBUG [8e4ae78c] 	CREATE SEQUENCE
+ DEBUG [8e4ae78c] 	ALTER SEQUENCE
+ DEBUG [8e4ae78c] 	CREATE TABLE
+ DEBUG [8e4ae78c] 	CREATE TABLE
+ DEBUG [8e4ae78c] 	CREATE SEQUENCE
+ DEBUG [8e4ae78c] 	ALTER SEQUENCE
+ DEBUG [8e4ae78c] 	ALTER TABLE
+ DEBUG [8e4ae78c] 	ALTER TABLE
+ DEBUG [8e4ae78c] 	ALTER TABLE
+ DEBUG [8e4ae78c] 	ALTER TABLE
+ DEBUG [8e4ae78c] 	COPY 0
+ DEBUG [8e4ae78c] 	COPY 2
+ DEBUG [8e4ae78c] 	COPY 3
+ DEBUG [8e4ae78c] 	COPY 3
+ DEBUG [8e4ae78c] 	COPY 4
+ DEBUG [8e4ae78c] 	COPY 0
+ DEBUG [8e4ae78c] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [8e4ae78c] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [8e4ae78c] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [8e4ae78c] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [8e4ae78c] 	ALTER TABLE
+ DEBUG [8e4ae78c] 	ALTER TABLE
+ DEBUG [8e4ae78c] 	ALTER TABLE
+ DEBUG [8e4ae78c] 	ALTER TABLE
+ DEBUG [8e4ae78c] 	ALTER TABLE
+ DEBUG [8e4ae78c] 	ALTER TABLE
+ DEBUG [8e4ae78c] 	CREATE INDEX
+ DEBUG [8e4ae78c] 	ALTER TABLE
+  INFO [8e4ae78c] Finished in 0.452 seconds with exit status 0 (successful).
+  INFO [656fdefe] Running cd /home/deploy/clearing_node/current && rm ./clearing_development_2021-09-27-115512.sql as deploy@3.93.159.78
+ DEBUG [656fdefe] Command: cd /home/deploy/clearing_node/current && rm ./clearing_development_2021-09-27-115512.sql
+  INFO [656fdefe] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-27 14:39:57 -0400 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [d6572af0] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [d6572af0] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [d6572af0] Finished in 3.237 seconds with exit status 0 (successful).
+  INFO [3a60fc44] Running /usr/bin/env mkdir -p /tmp as deploy@3.93.159.78
+ DEBUG [3a60fc44] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /tmp )
+  INFO [3a60fc44] Finished in 0.058 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-d9c1d1e7f4560c0ad22f.sh 0.0%
+  INFO Uploading /tmp/git-ssh-d9c1d1e7f4560c0ad22f.sh 100.0%
+  INFO [b19e5ec8] Running /usr/bin/env chmod 700 /tmp/git-ssh-d9c1d1e7f4560c0ad22f.sh as deploy@3.93.159.78
+ DEBUG [b19e5ec8] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env chmod 700 /tmp/git-ssh-d9c1d1e7f4560c0ad22f.sh )
+  INFO [b19e5ec8] Finished in 0.104 seconds with exit status 0 (successful).
+  INFO [7ceb811d] Running /usr/bin/env git ls-remote git@Clearing:adit313/ClearingNode.git HEAD as deploy@3.93.159.78
+ DEBUG [7ceb811d] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-d9c1d1e7f4560c0ad22f.sh" ; /usr/bin/env git ls-remote git@Clearing:adit313/ClearingNode.git HEAD )
+ DEBUG [7ceb811d] 	ab1c684d4af2fcdcce4ff63b052b4eccd5429b20	HEAD
+  INFO [7ceb811d] Finished in 0.434 seconds with exit status 0 (successful).
+  INFO [df5bd7fa] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/shared /home/deploy/clearing_node/releases as deploy@3.93.159.78
+ DEBUG [df5bd7fa] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/shared /home/deploy/clearing_node/releases )
+  INFO [df5bd7fa] Finished in 0.103 seconds with exit status 0 (successful).
+  INFO [cd4aae17] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/shared/log /home/deploy/clearing_node/shared/tmp/pids /home/deploy/clearing_node/shared/tmp/cache /home/deploy/clearing_node/shared/tmp/sockets /home/deploy/clearing_node/shared/vendor/bundle /home/deploy/clearing_node/shared/public/system as deploy@3.93.159.78
+ DEBUG [cd4aae17] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/shared/log /home/deploy/clearing_node/shared/tmp/pids /home/deploy/clearing_node/shared/tmp/cache /home/deploy/clearing_node/shared/tmp/sockets /home/deploy/clearing_node/shared/vendor/bundle /home/deploy/clearing_node/shared/public/system )
+  INFO [cd4aae17] Finished in 0.071 seconds with exit status 0 (successful).
+  INFO [7059de12] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/shared/config as deploy@3.93.159.78
+ DEBUG [7059de12] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/shared/config )
+  INFO [7059de12] Finished in 0.103 seconds with exit status 0 (successful).
+ DEBUG [1ea9c092] Running [ -f /home/deploy/clearing_node/shared/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [1ea9c092] Command: [ -f /home/deploy/clearing_node/shared/config/database.yml ]
+ DEBUG [1ea9c092] Finished in 0.098 seconds with exit status 0 (successful).
+ DEBUG [fb0cb54e] Running [ -f /home/deploy/clearing_node/shared/config/master.key ] as deploy@3.93.159.78
+ DEBUG [fb0cb54e] Command: [ -f /home/deploy/clearing_node/shared/config/master.key ]
+ DEBUG [fb0cb54e] Finished in 0.548 seconds with exit status 0 (successful).
+ DEBUG [67392356] Running [ -f /home/deploy/clearing_node/current/REVISION ] as deploy@3.93.159.78
+ DEBUG [67392356] Command: [ -f /home/deploy/clearing_node/current/REVISION ]
+ DEBUG [67392356] Finished in 0.295 seconds with exit status 0 (successful).
+ DEBUG [30a3036d] Running /usr/bin/env cat /home/deploy/clearing_node/current/REVISION 2>/dev/null as deploy@3.93.159.78
+ DEBUG [30a3036d] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env cat /home/deploy/clearing_node/current/REVISION 2>/dev/null )
+ DEBUG [30a3036d] 	d545060d412053c5bb86099e51d1e209296fb2b1
+ DEBUG [30a3036d] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [ef10a73e] Running [ -f /home/deploy/clearing_node/repo/HEAD ] as deploy@3.93.159.78
+ DEBUG [ef10a73e] Command: [ -f /home/deploy/clearing_node/repo/HEAD ]
+ DEBUG [ef10a73e] Finished in 0.491 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/clearing_node/repo
+ DEBUG [1d6d1919] Running if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [1d6d1919] Command: if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi
+ DEBUG [1d6d1919] Finished in 0.104 seconds with exit status 0 (successful).
+  INFO [310ffa18] Running /usr/bin/env git remote set-url origin git@Clearing:adit313/ClearingNode.git as deploy@3.93.159.78
+ DEBUG [310ffa18] Command: cd /home/deploy/clearing_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-d9c1d1e7f4560c0ad22f.sh" ; /usr/bin/env git remote set-url origin git@Clearing:adit313/ClearingNode.git )
+  INFO [310ffa18] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [2e53f89f] Running /usr/bin/env git remote update --prune as deploy@3.93.159.78
+ DEBUG [2e53f89f] Command: cd /home/deploy/clearing_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-d9c1d1e7f4560c0ad22f.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [2e53f89f] 	Fetching origin
+ DEBUG [2e53f89f] 	From Clearing:adit313/ClearingNode
+   d545060..ab1c684  master     -> master
+  INFO [2e53f89f] Finished in 0.434 seconds with exit status 0 (successful).
+ DEBUG [133b433f] Running if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [133b433f] Command: if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi
+ DEBUG [133b433f] Finished in 0.323 seconds with exit status 0 (successful).
+  INFO [8cb318fe] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210927184005 as deploy@3.93.159.78
+ DEBUG [8cb318fe] Command: cd /home/deploy/clearing_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-d9c1d1e7f4560c0ad22f.sh" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210927184005 )
+  INFO [8cb318fe] Finished in 0.064 seconds with exit status 0 (successful).
+  INFO [16765700] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/clearing_node/releases/20210927184005 as deploy@3.93.159.78
+ DEBUG [16765700] Command: cd /home/deploy/clearing_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-d9c1d1e7f4560c0ad22f.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/clearing_node/releases/20210927184005 )
+  INFO [16765700] Finished in 0.221 seconds with exit status 0 (successful).
+ DEBUG [2d74dba3] Running if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [2d74dba3] Command: if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi
+ DEBUG [2d74dba3] Finished in 0.062 seconds with exit status 0 (successful).
+ DEBUG [9a73a034] Running /usr/bin/env git rev-list --max-count=1 master as deploy@3.93.159.78
+ DEBUG [9a73a034] Command: cd /home/deploy/clearing_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-d9c1d1e7f4560c0ad22f.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [9a73a034] 	ab1c684d4af2fcdcce4ff63b052b4eccd5429b20
+ DEBUG [9a73a034] Finished in 0.103 seconds with exit status 0 (successful).
+ DEBUG [6bd02e04] Running if test ! -d /home/deploy/clearing_node/releases/20210927184005; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210927184005'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [6bd02e04] Command: if test ! -d /home/deploy/clearing_node/releases/20210927184005; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210927184005'" 1>&2; false; fi
+ DEBUG [6bd02e04] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [54108df7] Running /usr/bin/env echo "ab1c684d4af2fcdcce4ff63b052b4eccd5429b20" > REVISION as deploy@3.93.159.78
+ DEBUG [54108df7] Command: cd /home/deploy/clearing_node/releases/20210927184005 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "ab1c684d4af2fcdcce4ff63b052b4eccd5429b20" > REVISION )
+  INFO [54108df7] Finished in 0.132 seconds with exit status 0 (successful).
+  INFO [93b299f0] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210927184005/config as deploy@3.93.159.78
+ DEBUG [93b299f0] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210927184005/config )
+  INFO [93b299f0] Finished in 0.084 seconds with exit status 0 (successful).
+ DEBUG [40fd03a9] Running [ -L /home/deploy/clearing_node/releases/20210927184005/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [40fd03a9] Command: [ -L /home/deploy/clearing_node/releases/20210927184005/config/database.yml ]
+ DEBUG [40fd03a9] Finished in 0.496 seconds with exit status 1 (failed).
+ DEBUG [9209b50b] Running [ -f /home/deploy/clearing_node/releases/20210927184005/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [9209b50b] Command: [ -f /home/deploy/clearing_node/releases/20210927184005/config/database.yml ]
+ DEBUG [9209b50b] Finished in 0.062 seconds with exit status 0 (successful).
+  INFO [e3b94ad4] Running /usr/bin/env rm /home/deploy/clearing_node/releases/20210927184005/config/database.yml as deploy@3.93.159.78
+ DEBUG [e3b94ad4] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/clearing_node/releases/20210927184005/config/database.yml )
+  INFO [e3b94ad4] Finished in 0.102 seconds with exit status 0 (successful).
+  INFO [243a5d30] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/config/database.yml /home/deploy/clearing_node/releases/20210927184005/config/database.yml as deploy@3.93.159.78
+ DEBUG [243a5d30] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/config/database.yml /home/deploy/clearing_node/releases/20210927184005/config/database.yml )
+  INFO [243a5d30] Finished in 0.061 seconds with exit status 0 (successful).
+ DEBUG [8f1366f5] Running [ -L /home/deploy/clearing_node/releases/20210927184005/config/master.key ] as deploy@3.93.159.78
+ DEBUG [8f1366f5] Command: [ -L /home/deploy/clearing_node/releases/20210927184005/config/master.key ]
+ DEBUG [8f1366f5] Finished in 0.105 seconds with exit status 1 (failed).
+ DEBUG [f647c988] Running [ -f /home/deploy/clearing_node/releases/20210927184005/config/master.key ] as deploy@3.93.159.78
+ DEBUG [f647c988] Command: [ -f /home/deploy/clearing_node/releases/20210927184005/config/master.key ]
+ DEBUG [f647c988] Finished in 0.062 seconds with exit status 0 (successful).
+  INFO [865d3e19] Running /usr/bin/env rm /home/deploy/clearing_node/releases/20210927184005/config/master.key as deploy@3.93.159.78
+ DEBUG [865d3e19] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/clearing_node/releases/20210927184005/config/master.key )
+  INFO [865d3e19] Finished in 0.107 seconds with exit status 0 (successful).
+  INFO [14d93315] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/config/master.key /home/deploy/clearing_node/releases/20210927184005/config/master.key as deploy@3.93.159.78
+ DEBUG [14d93315] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/config/master.key /home/deploy/clearing_node/releases/20210927184005/config/master.key )
+  INFO [14d93315] Finished in 0.294 seconds with exit status 0 (successful).
+  INFO [4c405d22] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210927184005 /home/deploy/clearing_node/releases/20210927184005/tmp /home/deploy/clearing_node/releases/20210927184005/vendor /home/deploy/clearing_node/releases/20210927184005/public as deploy@3.93.159.78
+ DEBUG [4c405d22] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210927184005 /home/deploy/clearing_node/releases/20210927184005/tmp /home/deploy/clearing_node/releases/20210927184005/vendor /home/deploy/clearing_node/releases/20210927184005/public )
+  INFO [4c405d22] Finished in 0.063 seconds with exit status 0 (successful).
+ DEBUG [e3bdef78] Running [ -L /home/deploy/clearing_node/releases/20210927184005/log ] as deploy@3.93.159.78
+ DEBUG [e3bdef78] Command: [ -L /home/deploy/clearing_node/releases/20210927184005/log ]
+ DEBUG [e3bdef78] Finished in 0.105 seconds with exit status 1 (failed).
+ DEBUG [2b5f3ded] Running [ -d /home/deploy/clearing_node/releases/20210927184005/log ] as deploy@3.93.159.78
+ DEBUG [2b5f3ded] Command: [ -d /home/deploy/clearing_node/releases/20210927184005/log ]
+ DEBUG [2b5f3ded] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [370e1d4d] Running /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210927184005/log as deploy@3.93.159.78
+ DEBUG [370e1d4d] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210927184005/log )
+  INFO [370e1d4d] Finished in 0.103 seconds with exit status 0 (successful).
+  INFO [ed480473] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/log /home/deploy/clearing_node/releases/20210927184005/log as deploy@3.93.159.78
+ DEBUG [ed480473] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/log /home/deploy/clearing_node/releases/20210927184005/log )
+  INFO [ed480473] Finished in 0.508 seconds with exit status 0 (successful).
+ DEBUG [af565cb4] Running [ -L /home/deploy/clearing_node/releases/20210927184005/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [af565cb4] Command: [ -L /home/deploy/clearing_node/releases/20210927184005/tmp/pids ]
+ DEBUG [af565cb4] Finished in 0.062 seconds with exit status 1 (failed).
+ DEBUG [306a6e7c] Running [ -d /home/deploy/clearing_node/releases/20210927184005/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [306a6e7c] Command: [ -d /home/deploy/clearing_node/releases/20210927184005/tmp/pids ]
+ DEBUG [306a6e7c] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [430a4bb2] Running /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210927184005/tmp/pids as deploy@3.93.159.78
+ DEBUG [430a4bb2] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210927184005/tmp/pids )
+  INFO [430a4bb2] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO [b6a93c17] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/pids /home/deploy/clearing_node/releases/20210927184005/tmp/pids as deploy@3.93.159.78
+ DEBUG [b6a93c17] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/pids /home/deploy/clearing_node/releases/20210927184005/tmp/pids )
+  INFO [b6a93c17] Finished in 0.061 seconds with exit status 0 (successful).
+ DEBUG [e661ab34] Running [ -L /home/deploy/clearing_node/releases/20210927184005/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [e661ab34] Command: [ -L /home/deploy/clearing_node/releases/20210927184005/tmp/cache ]
+ DEBUG [e661ab34] Finished in 0.104 seconds with exit status 1 (failed).
+ DEBUG [0c0bf8d4] Running [ -d /home/deploy/clearing_node/releases/20210927184005/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [0c0bf8d4] Command: [ -d /home/deploy/clearing_node/releases/20210927184005/tmp/cache ]
+ DEBUG [0c0bf8d4] Finished in 0.067 seconds with exit status 0 (successful).
+  INFO [e6f12d5e] Running /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210927184005/tmp/cache as deploy@3.93.159.78
+ DEBUG [e6f12d5e] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210927184005/tmp/cache )
+  INFO [e6f12d5e] Finished in 0.155 seconds with exit status 0 (successful).
+  INFO [7a16364e] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/cache /home/deploy/clearing_node/releases/20210927184005/tmp/cache as deploy@3.93.159.78
+ DEBUG [7a16364e] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/cache /home/deploy/clearing_node/releases/20210927184005/tmp/cache )
+  INFO [7a16364e] Finished in 0.060 seconds with exit status 0 (successful).
+ DEBUG [62ec2038] Running [ -L /home/deploy/clearing_node/releases/20210927184005/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [62ec2038] Command: [ -L /home/deploy/clearing_node/releases/20210927184005/tmp/sockets ]
+ DEBUG [62ec2038] Finished in 0.107 seconds with exit status 1 (failed).
+ DEBUG [e9b50111] Running [ -d /home/deploy/clearing_node/releases/20210927184005/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [e9b50111] Command: [ -d /home/deploy/clearing_node/releases/20210927184005/tmp/sockets ]
+ DEBUG [e9b50111] Finished in 0.483 seconds with exit status 1 (failed).
+  INFO [277c4776] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/sockets /home/deploy/clearing_node/releases/20210927184005/tmp/sockets as deploy@3.93.159.78
+ DEBUG [277c4776] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/sockets /home/deploy/clearing_node/releases/20210927184005/tmp/sockets )
+  INFO [277c4776] Finished in 0.102 seconds with exit status 0 (successful).
+ DEBUG [44429cd6] Running [ -L /home/deploy/clearing_node/releases/20210927184005/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [44429cd6] Command: [ -L /home/deploy/clearing_node/releases/20210927184005/vendor/bundle ]
+ DEBUG [44429cd6] Finished in 0.077 seconds with exit status 1 (failed).
+ DEBUG [d9704099] Running [ -d /home/deploy/clearing_node/releases/20210927184005/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [d9704099] Command: [ -d /home/deploy/clearing_node/releases/20210927184005/vendor/bundle ]
+ DEBUG [d9704099] Finished in 0.106 seconds with exit status 1 (failed).
+  INFO [190a4c5c] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/vendor/bundle /home/deploy/clearing_node/releases/20210927184005/vendor/bundle as deploy@3.93.159.78
+ DEBUG [190a4c5c] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/vendor/bundle /home/deploy/clearing_node/releases/20210927184005/vendor/bundle )
+  INFO [190a4c5c] Finished in 0.062 seconds with exit status 0 (successful).
+ DEBUG [2b8d6207] Running [ -L /home/deploy/clearing_node/releases/20210927184005/public/system ] as deploy@3.93.159.78
+ DEBUG [2b8d6207] Command: [ -L /home/deploy/clearing_node/releases/20210927184005/public/system ]
+ DEBUG [2b8d6207] Finished in 0.100 seconds with exit status 1 (failed).
+ DEBUG [58bbf6b6] Running [ -d /home/deploy/clearing_node/releases/20210927184005/public/system ] as deploy@3.93.159.78
+ DEBUG [58bbf6b6] Command: [ -d /home/deploy/clearing_node/releases/20210927184005/public/system ]
+ DEBUG [58bbf6b6] Finished in 0.132 seconds with exit status 1 (failed).
+  INFO [6c7717f9] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/public/system /home/deploy/clearing_node/releases/20210927184005/public/system as deploy@3.93.159.78
+ DEBUG [6c7717f9] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/public/system /home/deploy/clearing_node/releases/20210927184005/public/system )
+  INFO [6c7717f9] Finished in 0.108 seconds with exit status 0 (successful).
+ DEBUG [69bea305] Running if test ! -d /home/deploy/clearing_node/releases/20210927184005; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210927184005'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [69bea305] Command: if test ! -d /home/deploy/clearing_node/releases/20210927184005; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210927184005'" 1>&2; false; fi
+ DEBUG [69bea305] Finished in 0.756 seconds with exit status 0 (successful).
+  INFO [fba9dad7] Running $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true as deploy@3.93.159.78
+ DEBUG [fba9dad7] Command: cd /home/deploy/clearing_node/releases/20210927184005 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true )
+  INFO [fba9dad7] Finished in 0.763 seconds with exit status 0 (successful).
+  INFO [f7b8290c] Running $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/clearing_node/shared/bundle as deploy@3.93.159.78
+ DEBUG [f7b8290c] Command: cd /home/deploy/clearing_node/releases/20210927184005 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/clearing_node/shared/bundle )
+  INFO [f7b8290c] Finished in 0.258 seconds with exit status 0 (successful).
+  INFO [4443be7c] Running $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test as deploy@3.93.159.78
+ DEBUG [4443be7c] Command: cd /home/deploy/clearing_node/releases/20210927184005 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test )
+  INFO [4443be7c] Finished in 0.358 seconds with exit status 0 (successful).
+ DEBUG [5a89ea53] Running if test ! -d /home/deploy/clearing_node/releases/20210927184005; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210927184005'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [5a89ea53] Command: if test ! -d /home/deploy/clearing_node/releases/20210927184005; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210927184005'" 1>&2; false; fi
+ DEBUG [5a89ea53] Finished in 0.280 seconds with exit status 0 (successful).
+ DEBUG [07ff0379] Running $HOME/.rbenv/bin/rbenv exec bundle check as deploy@3.93.159.78
+ DEBUG [07ff0379] Command: cd /home/deploy/clearing_node/releases/20210927184005 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle check )
+ DEBUG [07ff0379] 	The dependency tzinfo-data (>= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`.
+ DEBUG [07ff0379] 	The following gems are missing
+ * rack-cors (1.1.1)
+Install missing gems with `bundle install`
+ DEBUG [07ff0379] Finished in 0.313 seconds with exit status 1 (failed).
+  INFO [d2057380] Running $HOME/.rbenv/bin/rbenv exec bundle install --jobs 4 --quiet as deploy@3.93.159.78
+ DEBUG [d2057380] Command: cd /home/deploy/clearing_node/releases/20210927184005 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle install --jobs 4 --quiet )
+  INFO [d2057380] Finished in 1.821 seconds with exit status 0 (successful).
+  INFO [deploy:migrate] Run `rake db:migrate`
+ DEBUG [11e3de8a] Running if test ! -d /home/deploy/clearing_node/releases/20210927184005; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210927184005'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [11e3de8a] Command: if test ! -d /home/deploy/clearing_node/releases/20210927184005; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210927184005'" 1>&2; false; fi
+ DEBUG [11e3de8a] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [62deeea2] Running $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate as deploy@3.93.159.78
+ DEBUG [62deeea2] Command: cd /home/deploy/clearing_node/releases/20210927184005 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate )
+  INFO [62deeea2] Finished in 0.941 seconds with exit status 0 (successful).
+  INFO [fce7ee07] Running /usr/bin/env ln -s /home/deploy/clearing_node/releases/20210927184005 /home/deploy/clearing_node/releases/current as deploy@3.93.159.78
+ DEBUG [fce7ee07] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/releases/20210927184005 /home/deploy/clearing_node/releases/current )
+  INFO [fce7ee07] Finished in 0.066 seconds with exit status 0 (successful).
+  INFO [efdb6827] Running /usr/bin/env mv /home/deploy/clearing_node/releases/current /home/deploy/clearing_node as deploy@3.93.159.78
+ DEBUG [efdb6827] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mv /home/deploy/clearing_node/releases/current /home/deploy/clearing_node )
+  INFO [efdb6827] Finished in 0.107 seconds with exit status 0 (successful).
+  INFO [e71b322b] Running /usr/bin/env touch /home/deploy/clearing_node/releases/20210927184005/tmp/restart.txt as deploy@3.93.159.78
+ DEBUG [e71b322b] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env touch /home/deploy/clearing_node/releases/20210927184005/tmp/restart.txt )
+  INFO [e71b322b] Finished in 0.314 seconds with exit status 0 (successful).
+ DEBUG [140c32c1] Running /usr/bin/env ls -x /home/deploy/clearing_node/releases as deploy@3.93.159.78
+ DEBUG [140c32c1] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ls -x /home/deploy/clearing_node/releases )
+ DEBUG [140c32c1] 	20210924214146	20210924214356	20210924214543	20210927184005
+ DEBUG [140c32c1] Finished in 0.115 seconds with exit status 0 (successful).
+  INFO Keeping 3 of 4 deployed releases on 3.93.159.78
+ DEBUG [3609fa6c] Running [ -d /home/deploy/clearing_node/current ] as deploy@3.93.159.78
+ DEBUG [3609fa6c] Command: [ -d /home/deploy/clearing_node/current ]
+ DEBUG [3609fa6c] Finished in 0.059 seconds with exit status 0 (successful).
+ DEBUG [7943cfc6] Running /usr/bin/env readlink /home/deploy/clearing_node/current as deploy@3.93.159.78
+ DEBUG [7943cfc6] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env readlink /home/deploy/clearing_node/current )
+ DEBUG [7943cfc6] 	/home/deploy/clearing_node/releases/20210927184005
+ DEBUG [7943cfc6] Finished in 0.101 seconds with exit status 0 (successful).
+  INFO [5241346d] Running /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210924214146 as deploy@3.93.159.78
+ DEBUG [5241346d] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210924214146 )
+  INFO [5241346d] Finished in 0.071 seconds with exit status 0 (successful).
+ DEBUG [7da695e6] Running if test ! -d /home/deploy/clearing_node/releases; then echo "Directory does not exist '/home/deploy/clearing_node/releases'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [7da695e6] Command: if test ! -d /home/deploy/clearing_node/releases; then echo "Directory does not exist '/home/deploy/clearing_node/releases'" 1>&2; false; fi
+ DEBUG [7da695e6] Finished in 0.324 seconds with exit status 0 (successful).
+  INFO [cd96e6f5] Running /usr/bin/env echo "Branch master (at ab1c684d4af2fcdcce4ff63b052b4eccd5429b20) deployed as release 20210927184005 by aditpatel" >> /home/deploy/clearing_node/revisions.log as deploy@3.93.159.78
+ DEBUG [cd96e6f5] Command: cd /home/deploy/clearing_node/releases && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "Branch master (at ab1c684d4af2fcdcce4ff63b052b4eccd5429b20) deployed as release 20210927184005 by aditpatel" >> /home/deploy/clearing_node/revisions.log )
+  INFO [cd96e6f5] Finished in 0.136 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-29 12:27:23 -0400 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [490b777a] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [490b777a] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [490b777a] Finished in 0.951 seconds with exit status 0 (successful).
+  INFO [c9af6661] Running /usr/bin/env mkdir -p /tmp as deploy@3.93.159.78
+ DEBUG [c9af6661] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /tmp )
+  INFO [c9af6661] Finished in 0.059 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-c2a73249f57b1bb8bded.sh 0.0%
+  INFO Uploading /tmp/git-ssh-c2a73249f57b1bb8bded.sh 100.0%
+  INFO [79c9fe02] Running /usr/bin/env chmod 700 /tmp/git-ssh-c2a73249f57b1bb8bded.sh as deploy@3.93.159.78
+ DEBUG [79c9fe02] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env chmod 700 /tmp/git-ssh-c2a73249f57b1bb8bded.sh )
+  INFO [79c9fe02] Finished in 0.069 seconds with exit status 0 (successful).
+  INFO [8f31bb07] Running /usr/bin/env git ls-remote git@Clearing:adit313/ClearingNode.git HEAD as deploy@3.93.159.78
+ DEBUG [8f31bb07] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-c2a73249f57b1bb8bded.sh" ; /usr/bin/env git ls-remote git@Clearing:adit313/ClearingNode.git HEAD )
+ DEBUG [8f31bb07] 	2b039dbc5624d6e3b89fbd27d1887bc958954902	HEAD
+  INFO [8f31bb07] Finished in 0.417 seconds with exit status 0 (successful).
+  INFO [0eeec36c] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/shared /home/deploy/clearing_node/releases as deploy@3.93.159.78
+ DEBUG [0eeec36c] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/shared /home/deploy/clearing_node/releases )
+  INFO [0eeec36c] Finished in 0.100 seconds with exit status 0 (successful).
+  INFO [87a6306b] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/shared/log /home/deploy/clearing_node/shared/tmp/pids /home/deploy/clearing_node/shared/tmp/cache /home/deploy/clearing_node/shared/tmp/sockets /home/deploy/clearing_node/shared/vendor/bundle /home/deploy/clearing_node/shared/public/system as deploy@3.93.159.78
+ DEBUG [87a6306b] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/shared/log /home/deploy/clearing_node/shared/tmp/pids /home/deploy/clearing_node/shared/tmp/cache /home/deploy/clearing_node/shared/tmp/sockets /home/deploy/clearing_node/shared/vendor/bundle /home/deploy/clearing_node/shared/public/system )
+  INFO [87a6306b] Finished in 0.078 seconds with exit status 0 (successful).
+  INFO [592cfb66] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/shared/config as deploy@3.93.159.78
+ DEBUG [592cfb66] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/shared/config )
+  INFO [592cfb66] Finished in 0.486 seconds with exit status 0 (successful).
+ DEBUG [fe1b9ea3] Running [ -f /home/deploy/clearing_node/shared/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [fe1b9ea3] Command: [ -f /home/deploy/clearing_node/shared/config/database.yml ]
+ DEBUG [fe1b9ea3] Finished in 0.060 seconds with exit status 0 (successful).
+ DEBUG [616ba348] Running [ -f /home/deploy/clearing_node/shared/config/master.key ] as deploy@3.93.159.78
+ DEBUG [616ba348] Command: [ -f /home/deploy/clearing_node/shared/config/master.key ]
+ DEBUG [616ba348] Finished in 0.099 seconds with exit status 0 (successful).
+ DEBUG [624beb00] Running [ -f /home/deploy/clearing_node/current/REVISION ] as deploy@3.93.159.78
+ DEBUG [624beb00] Command: [ -f /home/deploy/clearing_node/current/REVISION ]
+ DEBUG [624beb00] Finished in 0.067 seconds with exit status 0 (successful).
+ DEBUG [725852ec] Running /usr/bin/env cat /home/deploy/clearing_node/current/REVISION 2>/dev/null as deploy@3.93.159.78
+ DEBUG [725852ec] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env cat /home/deploy/clearing_node/current/REVISION 2>/dev/null )
+ DEBUG [725852ec] 	ab1c684d4af2fcdcce4ff63b052b4eccd5429b20
+ DEBUG [725852ec] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [e5b3b60a] Running [ -f /home/deploy/clearing_node/repo/HEAD ] as deploy@3.93.159.78
+ DEBUG [e5b3b60a] Command: [ -f /home/deploy/clearing_node/repo/HEAD ]
+ DEBUG [e5b3b60a] Finished in 0.096 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/clearing_node/repo
+ DEBUG [3aaa2721] Running if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [3aaa2721] Command: if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi
+ DEBUG [3aaa2721] Finished in 0.103 seconds with exit status 0 (successful).
+  INFO [9b5dd4c3] Running /usr/bin/env git remote set-url origin git@Clearing:adit313/ClearingNode.git as deploy@3.93.159.78
+ DEBUG [9b5dd4c3] Command: cd /home/deploy/clearing_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-c2a73249f57b1bb8bded.sh" ; /usr/bin/env git remote set-url origin git@Clearing:adit313/ClearingNode.git )
+  INFO [9b5dd4c3] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [9be89893] Running /usr/bin/env git remote update --prune as deploy@3.93.159.78
+ DEBUG [9be89893] Command: cd /home/deploy/clearing_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-c2a73249f57b1bb8bded.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [9be89893] 	Fetching origin
+ DEBUG [9be89893] 	From Clearing:adit313/ClearingNode
+   ab1c684..2b039db  master     -> master
+  INFO [9be89893] Finished in 0.784 seconds with exit status 0 (successful).
+ DEBUG [41d22a3e] Running if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [41d22a3e] Command: if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi
+ DEBUG [41d22a3e] Finished in 0.105 seconds with exit status 0 (successful).
+  INFO [eb102ee3] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210929162726 as deploy@3.93.159.78
+ DEBUG [eb102ee3] Command: cd /home/deploy/clearing_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-c2a73249f57b1bb8bded.sh" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210929162726 )
+  INFO [eb102ee3] Finished in 0.068 seconds with exit status 0 (successful).
+  INFO [e2987520] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/clearing_node/releases/20210929162726 as deploy@3.93.159.78
+ DEBUG [e2987520] Command: cd /home/deploy/clearing_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-c2a73249f57b1bb8bded.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/clearing_node/releases/20210929162726 )
+  INFO [e2987520] Finished in 0.571 seconds with exit status 0 (successful).
+ DEBUG [3efd7121] Running if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [3efd7121] Command: if test ! -d /home/deploy/clearing_node/repo; then echo "Directory does not exist '/home/deploy/clearing_node/repo'" 1>&2; false; fi
+ DEBUG [3efd7121] Finished in 0.088 seconds with exit status 0 (successful).
+ DEBUG [226f4561] Running /usr/bin/env git rev-list --max-count=1 master as deploy@3.93.159.78
+ DEBUG [226f4561] Command: cd /home/deploy/clearing_node/repo && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-c2a73249f57b1bb8bded.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [226f4561] 	2b039dbc5624d6e3b89fbd27d1887bc958954902
+ DEBUG [226f4561] Finished in 0.064 seconds with exit status 0 (successful).
+ DEBUG [35249193] Running if test ! -d /home/deploy/clearing_node/releases/20210929162726; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210929162726'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [35249193] Command: if test ! -d /home/deploy/clearing_node/releases/20210929162726; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210929162726'" 1>&2; false; fi
+ DEBUG [35249193] Finished in 0.102 seconds with exit status 0 (successful).
+  INFO [c9a136ce] Running /usr/bin/env echo "2b039dbc5624d6e3b89fbd27d1887bc958954902" > REVISION as deploy@3.93.159.78
+ DEBUG [c9a136ce] Command: cd /home/deploy/clearing_node/releases/20210929162726 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "2b039dbc5624d6e3b89fbd27d1887bc958954902" > REVISION )
+  INFO [c9a136ce] Finished in 0.105 seconds with exit status 0 (successful).
+  INFO [dee5ad14] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210929162726/config as deploy@3.93.159.78
+ DEBUG [dee5ad14] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210929162726/config )
+  INFO [dee5ad14] Finished in 0.337 seconds with exit status 0 (successful).
+ DEBUG [e3a60e72] Running [ -L /home/deploy/clearing_node/releases/20210929162726/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [e3a60e72] Command: [ -L /home/deploy/clearing_node/releases/20210929162726/config/database.yml ]
+ DEBUG [e3a60e72] Finished in 0.078 seconds with exit status 1 (failed).
+ DEBUG [55359803] Running [ -f /home/deploy/clearing_node/releases/20210929162726/config/database.yml ] as deploy@3.93.159.78
+ DEBUG [55359803] Command: [ -f /home/deploy/clearing_node/releases/20210929162726/config/database.yml ]
+ DEBUG [55359803] Finished in 0.114 seconds with exit status 0 (successful).
+  INFO [138ee1cc] Running /usr/bin/env rm /home/deploy/clearing_node/releases/20210929162726/config/database.yml as deploy@3.93.159.78
+ DEBUG [138ee1cc] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/clearing_node/releases/20210929162726/config/database.yml )
+  INFO [138ee1cc] Finished in 0.101 seconds with exit status 0 (successful).
+  INFO [c42e50ae] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/config/database.yml /home/deploy/clearing_node/releases/20210929162726/config/database.yml as deploy@3.93.159.78
+ DEBUG [c42e50ae] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/config/database.yml /home/deploy/clearing_node/releases/20210929162726/config/database.yml )
+  INFO [c42e50ae] Finished in 0.207 seconds with exit status 0 (successful).
+ DEBUG [80d7c32d] Running [ -L /home/deploy/clearing_node/releases/20210929162726/config/master.key ] as deploy@3.93.159.78
+ DEBUG [80d7c32d] Command: [ -L /home/deploy/clearing_node/releases/20210929162726/config/master.key ]
+ DEBUG [80d7c32d] Finished in 0.304 seconds with exit status 1 (failed).
+ DEBUG [c6b9d2c4] Running [ -f /home/deploy/clearing_node/releases/20210929162726/config/master.key ] as deploy@3.93.159.78
+ DEBUG [c6b9d2c4] Command: [ -f /home/deploy/clearing_node/releases/20210929162726/config/master.key ]
+ DEBUG [c6b9d2c4] Finished in 0.072 seconds with exit status 0 (successful).
+  INFO [9afad44f] Running /usr/bin/env rm /home/deploy/clearing_node/releases/20210929162726/config/master.key as deploy@3.93.159.78
+ DEBUG [9afad44f] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm /home/deploy/clearing_node/releases/20210929162726/config/master.key )
+  INFO [9afad44f] Finished in 0.104 seconds with exit status 0 (successful).
+  INFO [202b7fbe] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/config/master.key /home/deploy/clearing_node/releases/20210929162726/config/master.key as deploy@3.93.159.78
+ DEBUG [202b7fbe] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/config/master.key /home/deploy/clearing_node/releases/20210929162726/config/master.key )
+  INFO [202b7fbe] Finished in 0.062 seconds with exit status 0 (successful).
+  INFO [f2926b93] Running /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210929162726 /home/deploy/clearing_node/releases/20210929162726/tmp /home/deploy/clearing_node/releases/20210929162726/vendor /home/deploy/clearing_node/releases/20210929162726/public as deploy@3.93.159.78
+ DEBUG [f2926b93] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mkdir -p /home/deploy/clearing_node/releases/20210929162726 /home/deploy/clearing_node/releases/20210929162726/tmp /home/deploy/clearing_node/releases/20210929162726/vendor /home/deploy/clearing_node/releases/20210929162726/public )
+  INFO [f2926b93] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [310c6f5f] Running [ -L /home/deploy/clearing_node/releases/20210929162726/log ] as deploy@3.93.159.78
+ DEBUG [310c6f5f] Command: [ -L /home/deploy/clearing_node/releases/20210929162726/log ]
+ DEBUG [310c6f5f] Finished in 0.319 seconds with exit status 1 (failed).
+ DEBUG [0af222a2] Running [ -d /home/deploy/clearing_node/releases/20210929162726/log ] as deploy@3.93.159.78
+ DEBUG [0af222a2] Command: [ -d /home/deploy/clearing_node/releases/20210929162726/log ]
+ DEBUG [0af222a2] Finished in 0.075 seconds with exit status 0 (successful).
+  INFO [8ca663ad] Running /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210929162726/log as deploy@3.93.159.78
+ DEBUG [8ca663ad] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210929162726/log )
+  INFO [8ca663ad] Finished in 0.105 seconds with exit status 0 (successful).
+  INFO [c3c7dd44] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/log /home/deploy/clearing_node/releases/20210929162726/log as deploy@3.93.159.78
+ DEBUG [c3c7dd44] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/log /home/deploy/clearing_node/releases/20210929162726/log )
+  INFO [c3c7dd44] Finished in 0.066 seconds with exit status 0 (successful).
+ DEBUG [efd18ec9] Running [ -L /home/deploy/clearing_node/releases/20210929162726/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [efd18ec9] Command: [ -L /home/deploy/clearing_node/releases/20210929162726/tmp/pids ]
+ DEBUG [efd18ec9] Finished in 0.100 seconds with exit status 1 (failed).
+ DEBUG [260d18df] Running [ -d /home/deploy/clearing_node/releases/20210929162726/tmp/pids ] as deploy@3.93.159.78
+ DEBUG [260d18df] Command: [ -d /home/deploy/clearing_node/releases/20210929162726/tmp/pids ]
+ DEBUG [260d18df] Finished in 0.295 seconds with exit status 0 (successful).
+  INFO [78663306] Running /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210929162726/tmp/pids as deploy@3.93.159.78
+ DEBUG [78663306] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210929162726/tmp/pids )
+  INFO [78663306] Finished in 0.105 seconds with exit status 0 (successful).
+  INFO [7c341e33] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/pids /home/deploy/clearing_node/releases/20210929162726/tmp/pids as deploy@3.93.159.78
+ DEBUG [7c341e33] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/pids /home/deploy/clearing_node/releases/20210929162726/tmp/pids )
+  INFO [7c341e33] Finished in 0.061 seconds with exit status 0 (successful).
+ DEBUG [de69adaf] Running [ -L /home/deploy/clearing_node/releases/20210929162726/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [de69adaf] Command: [ -L /home/deploy/clearing_node/releases/20210929162726/tmp/cache ]
+ DEBUG [de69adaf] Finished in 0.329 seconds with exit status 1 (failed).
+ DEBUG [4297fd8f] Running [ -d /home/deploy/clearing_node/releases/20210929162726/tmp/cache ] as deploy@3.93.159.78
+ DEBUG [4297fd8f] Command: [ -d /home/deploy/clearing_node/releases/20210929162726/tmp/cache ]
+ DEBUG [4297fd8f] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [b86fef2c] Running /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210929162726/tmp/cache as deploy@3.93.159.78
+ DEBUG [b86fef2c] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210929162726/tmp/cache )
+  INFO [b86fef2c] Finished in 0.479 seconds with exit status 0 (successful).
+  INFO [9a4d05f0] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/cache /home/deploy/clearing_node/releases/20210929162726/tmp/cache as deploy@3.93.159.78
+ DEBUG [9a4d05f0] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/cache /home/deploy/clearing_node/releases/20210929162726/tmp/cache )
+  INFO [9a4d05f0] Finished in 0.063 seconds with exit status 0 (successful).
+ DEBUG [ef94daa4] Running [ -L /home/deploy/clearing_node/releases/20210929162726/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [ef94daa4] Command: [ -L /home/deploy/clearing_node/releases/20210929162726/tmp/sockets ]
+ DEBUG [ef94daa4] Finished in 0.141 seconds with exit status 1 (failed).
+ DEBUG [8a26be11] Running [ -d /home/deploy/clearing_node/releases/20210929162726/tmp/sockets ] as deploy@3.93.159.78
+ DEBUG [8a26be11] Command: [ -d /home/deploy/clearing_node/releases/20210929162726/tmp/sockets ]
+ DEBUG [8a26be11] Finished in 0.058 seconds with exit status 1 (failed).
+  INFO [788e891c] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/sockets /home/deploy/clearing_node/releases/20210929162726/tmp/sockets as deploy@3.93.159.78
+ DEBUG [788e891c] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/tmp/sockets /home/deploy/clearing_node/releases/20210929162726/tmp/sockets )
+  INFO [788e891c] Finished in 0.098 seconds with exit status 0 (successful).
+ DEBUG [f055b92c] Running [ -L /home/deploy/clearing_node/releases/20210929162726/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [f055b92c] Command: [ -L /home/deploy/clearing_node/releases/20210929162726/vendor/bundle ]
+ DEBUG [f055b92c] Finished in 0.059 seconds with exit status 1 (failed).
+ DEBUG [d0fcc2dd] Running [ -d /home/deploy/clearing_node/releases/20210929162726/vendor/bundle ] as deploy@3.93.159.78
+ DEBUG [d0fcc2dd] Command: [ -d /home/deploy/clearing_node/releases/20210929162726/vendor/bundle ]
+ DEBUG [d0fcc2dd] Finished in 0.100 seconds with exit status 1 (failed).
+  INFO [30d0f274] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/vendor/bundle /home/deploy/clearing_node/releases/20210929162726/vendor/bundle as deploy@3.93.159.78
+ DEBUG [30d0f274] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/vendor/bundle /home/deploy/clearing_node/releases/20210929162726/vendor/bundle )
+  INFO [30d0f274] Finished in 0.060 seconds with exit status 0 (successful).
+ DEBUG [e9aa4870] Running [ -L /home/deploy/clearing_node/releases/20210929162726/public/system ] as deploy@3.93.159.78
+ DEBUG [e9aa4870] Command: [ -L /home/deploy/clearing_node/releases/20210929162726/public/system ]
+ DEBUG [e9aa4870] Finished in 0.101 seconds with exit status 1 (failed).
+ DEBUG [5f439901] Running [ -d /home/deploy/clearing_node/releases/20210929162726/public/system ] as deploy@3.93.159.78
+ DEBUG [5f439901] Command: [ -d /home/deploy/clearing_node/releases/20210929162726/public/system ]
+ DEBUG [5f439901] Finished in 0.079 seconds with exit status 1 (failed).
+  INFO [f633a857] Running /usr/bin/env ln -s /home/deploy/clearing_node/shared/public/system /home/deploy/clearing_node/releases/20210929162726/public/system as deploy@3.93.159.78
+ DEBUG [f633a857] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/shared/public/system /home/deploy/clearing_node/releases/20210929162726/public/system )
+  INFO [f633a857] Finished in 0.327 seconds with exit status 0 (successful).
+ DEBUG [cc99f0f5] Running if test ! -d /home/deploy/clearing_node/releases/20210929162726; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210929162726'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [cc99f0f5] Command: if test ! -d /home/deploy/clearing_node/releases/20210929162726; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210929162726'" 1>&2; false; fi
+ DEBUG [cc99f0f5] Finished in 0.055 seconds with exit status 0 (successful).
+  INFO [d00a1589] Running $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true as deploy@3.93.159.78
+ DEBUG [d00a1589] Command: cd /home/deploy/clearing_node/releases/20210929162726 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local deployment true )
+  INFO [d00a1589] Finished in 0.308 seconds with exit status 0 (successful).
+  INFO [ac6fbf7b] Running $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/clearing_node/shared/bundle as deploy@3.93.159.78
+ DEBUG [ac6fbf7b] Command: cd /home/deploy/clearing_node/releases/20210929162726 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local path /home/deploy/clearing_node/shared/bundle )
+  INFO [ac6fbf7b] Finished in 0.240 seconds with exit status 0 (successful).
+  INFO [e5f72632] Running $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test as deploy@3.93.159.78
+ DEBUG [e5f72632] Command: cd /home/deploy/clearing_node/releases/20210929162726 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle config --local without development:test )
+  INFO [e5f72632] Finished in 0.866 seconds with exit status 0 (successful).
+ DEBUG [99739b65] Running if test ! -d /home/deploy/clearing_node/releases/20210929162726; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210929162726'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [99739b65] Command: if test ! -d /home/deploy/clearing_node/releases/20210929162726; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210929162726'" 1>&2; false; fi
+ DEBUG [99739b65] Finished in 0.090 seconds with exit status 0 (successful).
+ DEBUG [d15833ec] Running $HOME/.rbenv/bin/rbenv exec bundle check as deploy@3.93.159.78
+ DEBUG [d15833ec] Command: cd /home/deploy/clearing_node/releases/20210929162726 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; $HOME/.rbenv/bin/rbenv exec bundle check )
+ DEBUG [d15833ec] 	The dependency tzinfo-data (>= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`.
+ DEBUG [d15833ec] 	The Gemfile's dependencies are satisfied
+ DEBUG [d15833ec] Finished in 0.363 seconds with exit status 0 (successful).
+  INFO The Gemfile's dependencies are satisfied, skipping installation
+  INFO [deploy:migrate] Run `rake db:migrate`
+ DEBUG [41f6eaed] Running if test ! -d /home/deploy/clearing_node/releases/20210929162726; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210929162726'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [41f6eaed] Command: if test ! -d /home/deploy/clearing_node/releases/20210929162726; then echo "Directory does not exist '/home/deploy/clearing_node/releases/20210929162726'" 1>&2; false; fi
+ DEBUG [41f6eaed] Finished in 0.068 seconds with exit status 0 (successful).
+  INFO [6ff1b976] Running $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate as deploy@3.93.159.78
+ DEBUG [6ff1b976] Command: cd /home/deploy/clearing_node/releases/20210929162726 && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rake db:migrate )
+  INFO [6ff1b976] Finished in 1.302 seconds with exit status 0 (successful).
+  INFO [1b83e372] Running /usr/bin/env ln -s /home/deploy/clearing_node/releases/20210929162726 /home/deploy/clearing_node/releases/current as deploy@3.93.159.78
+ DEBUG [1b83e372] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ln -s /home/deploy/clearing_node/releases/20210929162726 /home/deploy/clearing_node/releases/current )
+  INFO [1b83e372] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [3c765cca] Running /usr/bin/env mv /home/deploy/clearing_node/releases/current /home/deploy/clearing_node as deploy@3.93.159.78
+ DEBUG [3c765cca] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env mv /home/deploy/clearing_node/releases/current /home/deploy/clearing_node )
+  INFO [3c765cca] Finished in 0.106 seconds with exit status 0 (successful).
+  INFO [afd93874] Running /usr/bin/env touch /home/deploy/clearing_node/releases/20210929162726/tmp/restart.txt as deploy@3.93.159.78
+ DEBUG [afd93874] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env touch /home/deploy/clearing_node/releases/20210929162726/tmp/restart.txt )
+  INFO [afd93874] Finished in 0.066 seconds with exit status 0 (successful).
+ DEBUG [8be4c79c] Running /usr/bin/env ls -x /home/deploy/clearing_node/releases as deploy@3.93.159.78
+ DEBUG [8be4c79c] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env ls -x /home/deploy/clearing_node/releases )
+ DEBUG [8be4c79c] 	20210924214356	20210924214543	20210927184005	20210929162726
+ DEBUG [8be4c79c] Finished in 0.107 seconds with exit status 0 (successful).
+  INFO Keeping 3 of 4 deployed releases on 3.93.159.78
+ DEBUG [fb9cc9c6] Running [ -d /home/deploy/clearing_node/current ] as deploy@3.93.159.78
+ DEBUG [fb9cc9c6] Command: [ -d /home/deploy/clearing_node/current ]
+ DEBUG [fb9cc9c6] Finished in 0.072 seconds with exit status 0 (successful).
+ DEBUG [3fa7169a] Running /usr/bin/env readlink /home/deploy/clearing_node/current as deploy@3.93.159.78
+ DEBUG [3fa7169a] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env readlink /home/deploy/clearing_node/current )
+ DEBUG [3fa7169a] 	/home/deploy/clearing_node/releases/20210929162726
+ DEBUG [3fa7169a] Finished in 0.102 seconds with exit status 0 (successful).
+  INFO [345fb8c3] Running /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210924214356 as deploy@3.93.159.78
+ DEBUG [345fb8c3] Command: ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env rm -rf /home/deploy/clearing_node/releases/20210924214356 )
+  INFO [345fb8c3] Finished in 0.062 seconds with exit status 0 (successful).
+ DEBUG [0a1ca9f1] Running if test ! -d /home/deploy/clearing_node/releases; then echo "Directory does not exist '/home/deploy/clearing_node/releases'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [0a1ca9f1] Command: if test ! -d /home/deploy/clearing_node/releases; then echo "Directory does not exist '/home/deploy/clearing_node/releases'" 1>&2; false; fi
+ DEBUG [0a1ca9f1] Finished in 0.145 seconds with exit status 0 (successful).
+  INFO [21302f40] Running /usr/bin/env echo "Branch master (at 2b039dbc5624d6e3b89fbd27d1887bc958954902) deployed as release 20210929162726 by aditpatel" >> /home/deploy/clearing_node/revisions.log as deploy@3.93.159.78
+ DEBUG [21302f40] Command: cd /home/deploy/clearing_node/releases && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" ; /usr/bin/env echo "Branch master (at 2b039dbc5624d6e3b89fbd27d1887bc958954902) deployed as release 20210929162726 by aditpatel" >> /home/deploy/clearing_node/revisions.log )
+  INFO [21302f40] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2021-09-29 12:28:18 -0400 cap production db:push
+  INFO ---------------------------------------------------------------------------
+ DEBUG [926ede2c] Running [ -d $HOME/.rbenv/versions/2.7.1 ] as deploy@3.93.159.78
+ DEBUG [926ede2c] Command: [ -d $HOME/.rbenv/versions/2.7.1 ]
+ DEBUG [926ede2c] Finished in 0.884 seconds with exit status 0 (successful).
+ DEBUG [2e395220] Running if test ! -d /home/deploy/clearing_node/current; then echo "Directory does not exist '/home/deploy/clearing_node/current'" 1>&2; false; fi as deploy@3.93.159.78
+ DEBUG [2e395220] Command: if test ! -d /home/deploy/clearing_node/current; then echo "Directory does not exist '/home/deploy/clearing_node/current'" 1>&2; false; fi
+ DEBUG [2e395220] Finished in 0.062 seconds with exit status 0 (successful).
+ DEBUG [8a35a458] Running $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null as deploy@3.93.159.78
+ DEBUG [8a35a458] Command: cd /home/deploy/clearing_node/current && ( export RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="2.7.1" RAILS_ENV="production" ; $HOME/.rbenv/bin/rbenv exec bundle exec rails runner "puts '__CAPISTRANODB_CONFIG_BEGIN_FLAG__' + ActiveRecord::Base.connection.instance_variable_get(:@config).to_yaml + '__CAPISTRANODB_CONFIG_END_FLAG__'" 2>/dev/null )
+ DEBUG [8a35a458] 	__CAPISTRANODB_CONFIG_BEGIN_FLAG__---
+:adapter: postgresql
+:encoding: unicode
+:pool: 5
+:database: clearing_node_production
+:username: deploy
+:password: Rails.application.credentials.dig(:production, :db_password)
+__CAPISTRANODB_CONFIG_END_FLAG__
+ DEBUG [8a35a458] Finished in 1.265 seconds with exit status 0 (successful).
+ DEBUG Uploading clearing_development_2021-09-29-122824.sql.gz 0.0%
+  INFO Uploading clearing_development_2021-09-29-122824.sql.gz 100.0%
+  INFO [91acb5b4] Running cd /home/deploy/clearing_node/current && gzip -d clearing_development_2021-09-29-122824.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'clearing_node_production' AND pid <> pg_backend_pid();;"  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d clearing_node_production < ./clearing_development_2021-09-29-122824.sql as deploy@3.93.159.78
+ DEBUG [91acb5b4] Command: cd /home/deploy/clearing_node/current && gzip -d clearing_development_2021-09-29-122824.sql.gz  && RAILS_ENV=production && PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'clearing_node_production' AND pid <> pg_backend_pid();;"  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' dropdb  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' createdb  -U deploy  clearing_node_production; PGPASSWORD='Rails.application.credentials.dig(:production, :db_password)' psql  -U deploy  -d clearing_node_production < ./clearing_development_2021-09-29-122824.sql
+ DEBUG [91acb5b4] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [91acb5b4] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [91acb5b4] 	 pg_terminate_backend 
+----------------------
+ t
+(1 row)
+
+ DEBUG [91acb5b4] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [91acb5b4] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [91acb5b4] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [91acb5b4] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [91acb5b4] 	perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+ DEBUG [91acb5b4] 	perl: warning: Falling back to a fallback locale ("C.UTF-8").
+ DEBUG [91acb5b4] 	SET
+SET
+ DEBUG [91acb5b4] 	SET
+ DEBUG [91acb5b4] 	SET
+SET
+ DEBUG [91acb5b4] 	 set_config 
+------------
+ 
+(1 row)
+
+ DEBUG [91acb5b4] 	SET
+ DEBUG [91acb5b4] 	SET
+SET
+ DEBUG [91acb5b4] 	SET
+ DEBUG [91acb5b4] 	SET
+ DEBUG [91acb5b4] 	SET
+ DEBUG [91acb5b4] 	CREATE TABLE
+ DEBUG [91acb5b4] 	CREATE SEQUENCE
+ DEBUG [91acb5b4] 	ALTER SEQUENCE
+ DEBUG [91acb5b4] 	CREATE TABLE
+ DEBUG [91acb5b4] 	CREATE TABLE
+ DEBUG [91acb5b4] 	CREATE SEQUENCE
+ DEBUG [91acb5b4] 	ALTER SEQUENCE
+ DEBUG [91acb5b4] 	CREATE TABLE
+ DEBUG [91acb5b4] 	CREATE SEQUENCE
+ DEBUG [91acb5b4] 	ALTER SEQUENCE
+ DEBUG [91acb5b4] 	CREATE TABLE
+ DEBUG [91acb5b4] 	CREATE TABLE
+ DEBUG [91acb5b4] 	CREATE SEQUENCE
+ DEBUG [91acb5b4] 	ALTER SEQUENCE
+ DEBUG [91acb5b4] 	ALTER TABLE
+ DEBUG [91acb5b4] 	ALTER TABLE
+ DEBUG [91acb5b4] 	ALTER TABLE
+ DEBUG [91acb5b4] 	ALTER TABLE
+ DEBUG [91acb5b4] 	COPY 0
+ DEBUG [91acb5b4] 	COPY 2
+ DEBUG [91acb5b4] 	COPY 3
+ DEBUG [91acb5b4] 	COPY 3
+ DEBUG [91acb5b4] 	COPY 4
+ DEBUG [91acb5b4] 	COPY 0
+ DEBUG [91acb5b4] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [91acb5b4] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [91acb5b4] 	 setval 
+--------
+      3
+(1 row)
+
+ DEBUG [91acb5b4] 	 setval 
+--------
+      1
+(1 row)
+
+ DEBUG [91acb5b4] 	ALTER TABLE
+ DEBUG [91acb5b4] 	ALTER TABLE
+ DEBUG [91acb5b4] 	ALTER TABLE
+ DEBUG [91acb5b4] 	ALTER TABLE
+ DEBUG [91acb5b4] 	ALTER TABLE
+ DEBUG [91acb5b4] 	ALTER TABLE
+ DEBUG [91acb5b4] 	CREATE INDEX
+ DEBUG [91acb5b4] 	ALTER TABLE
+  INFO [91acb5b4] Finished in 0.851 seconds with exit status 0 (successful).
+  INFO [e27749fb] Running cd /home/deploy/clearing_node/current && rm ./clearing_development_2021-09-29-122824.sql as deploy@3.93.159.78
+ DEBUG [e27749fb] Command: cd /home/deploy/clearing_node/current && rm ./clearing_development_2021-09-29-122824.sql
+  INFO [e27749fb] Finished in 0.323 seconds with exit status 0 (successful).

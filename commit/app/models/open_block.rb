@@ -13,7 +13,7 @@ class OpenBlock < ApplicationRecord
         open_txn.update(status: "cleared")
       end
       #SHA256 all the transactions along with their statuses
-      txn_hash_w_status << Digest::SHA256.hexdigest((open_txn.amount ? open_txn.amount.to_s : "") + (open_txn.destination ? open_txn.destination.to_s : "") + open_txn.nonce.to_s + open_txn.sender.to_s + open_txn.sender_public_key.to_s + open_txn.status.to_s + open_txn.tx_fee.to_s)
+      txn_hash_w_status << Digest::SHA256.hexdigest((open_txn.amount ? open_txn.amount.to_f.to_s : "") + (open_txn.destination ? open_txn.destination.to_s : "") + open_txn.nonce.to_s + open_txn.sender.to_s + open_txn.sender_public_key.to_s + open_txn.status.to_s + open_txn.tx_fee.to_f.to_s)
     }
     commit_hash = Block.compute_transaction_merkle_tree(txn_hash_w_status)
     return commit_hash
