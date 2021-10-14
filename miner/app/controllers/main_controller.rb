@@ -16,6 +16,12 @@ class MainController < ApplicationController
     Mine.mine_next_block
   end
 
+  def all_unconfirmed_transactions
+    result = UnconfirmedTransaction.all
+    render json: result
+    Mine.mine_next_block
+  end
+
   def new_transaction
     submitted_multiblock = JSON.parse(request.body.read)
     result = []
