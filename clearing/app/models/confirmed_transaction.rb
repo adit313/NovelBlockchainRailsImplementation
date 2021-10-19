@@ -38,7 +38,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #verify that the transaction amount is greater than 0,
-    if parse_input["amount"] < 0
+    if parse_input["amount"].to_f < 0
       return "All transactions must have a positive amount "
     end
 
@@ -87,7 +87,7 @@ class ConfirmedTransaction < ApplicationRecord
       #       now we clear the transactions using this recursive function
       ConfirmedTransaction.clear_transactions(open_transactions, parse_input["sender"].to_s)
       #       send these blocks to the commit node network
-      transmit_open_blocks(blocks_to_check)
+      ConfirmedTransaction.transmit_open_blocks(blocks_to_check)
       #       TRANSMIT BLOCK CODE
       return "Transaction was matched"
     else
@@ -100,7 +100,8 @@ class ConfirmedTransaction < ApplicationRecord
   def self.transmit_open_blocks(blocks)
     payload = blocks.includes(:confirmed_transactions).to_json(:include => :confirmed_transactions)
     #POST "/cleared_block" to commit.stardust.finance
-    Net::HTTP.post(URI("http://commit.stardust.finance/cleared_block"), payload, "Content-Type" => "application/json")
+    response = Net::HTTP.post(URI("https://commit.stardust.finance/cleared_block"), payload, "Content-Type" => "application/json")
+    return response.body
   end
 
   def self.clear_transactions(open_transactions, sender)
@@ -109,7 +110,11 @@ class ConfirmedTransaction < ApplicationRecord
 
     account_details = Account.find_by(account_id: sender)
 
-    highest_nonce = account_details.highest_nonce + 1
+    if account_details && account_details.highest_nonce
+      highest_nonce = account_details.highest_nonce
+    else
+      highest_nonce = 0
+    end
 
     if account_details && account_details.confirmed_balance
       sender_balance = account_details.confirmed_balance
@@ -147,7 +152,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     if destinations.length >= 1
-      destinations.uniq!.each { |destination|
+      destinations.uniq.each { |destination|
         if destination != sender
           ConfirmedTransaction.clear_transactions(open_transactions, destination)
         end
@@ -228,7 +233,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #   verify the senders public key matches the address
-    if parse_input["sender"] != "0000000000000000000000000000000000000000000000000000000000000000"
+    if parse_input["sender"] != "0000000000000000000000000000000000000000000="
       return "Coinbase transaction must have an all 0 sender address"
     end
 

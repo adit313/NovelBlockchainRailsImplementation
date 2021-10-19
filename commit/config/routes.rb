@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get "/get_chain", to: "main#get_chain"
 
+  get "/open_block", to: "main#open_block"
+
   post "/new_transaction", to: "main#new_transaction"
 
   post "/append_information", to: "main#append_information"

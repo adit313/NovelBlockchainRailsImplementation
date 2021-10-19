@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get "/unconfirmed_transactions/:id", to: "main#unconfirmed_transactions"
 
+  get "/mine", to: "main#mine_next_block"
+
   post "/new_transaction", to: "main#new_transaction"
 
   post "/block", to: "main#block"

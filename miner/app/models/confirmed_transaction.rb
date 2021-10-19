@@ -1,17 +1,7 @@
 class ConfirmedTransaction < ApplicationRecord
   belongs_to :block
 
-  def self.generic_transaction_check(json_input)
-    if json_input.is_a?(String)
-      begin
-        parse_input = JSON.parse(json_input)
-      rescue
-        return "JSON is not Valid"
-      end
-    else
-      return "Transaction inputed was not a JSON String"
-    end
-
+  def self.generic_transaction_check(parse_input)
     if !parse_input["transaction_hash"] || parse_input["transaction_hash"].length != 64
       return "All transactions must have a valid SHA256 transaction hash"
     end
@@ -46,17 +36,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
   end
 
-  def self.coinbase_transaction_check(json_input)
-    if json_input.is_a?(String)
-      begin
-        parse_input = JSON.parse(json_input)
-      rescue
-        return "JSON is not Valid"
-      end
-    else
-      return "Transaction inputed was not a JSON String"
-    end
-
+  def self.coinbase_transaction_check(parse_input)
     if !parse_input["transaction_hash"] || parse_input["transaction_hash"].length != 64
       return "All transactions must have a valid SHA256 transaction hash"
     end
@@ -74,7 +54,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #   verify the senders public key matches the address
-    if parse_input["sender"] != "0000000000000000000000000000000000000000000000000000000000000000"
+    if parse_input["sender"] != "0000000000000000000000000000000000000000000="
       return "Coinbase transaction must have an all 0 sender address"
     end
 

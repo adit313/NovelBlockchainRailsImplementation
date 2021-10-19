@@ -192,12 +192,12 @@ class Block < ApplicationRecord
 
     block_transactions.each { |txn|
       total_fees += txn["tx_fee"]
-      if txn["sender"] == "0000000000000000000000000000000000000000000000000000000000000000"
-        ConfirmedTransaction.coinbase_transaction_check(txn.to_json)
+      if txn["sender"] == "0000000000000000000000000000000000000000000="
+        ConfirmedTransaction.coinbase_transaction_check(txn)
         coinbase_transaction_count += 1
         coinbase_amount_to_verify += txn["amount"]
       else
-        txn_test = ConfirmedTransaction.generic_transaction_check(txn.to_json)
+        txn_test = ConfirmedTransaction.generic_transaction_check(txn)
         if txn_test
           return txn_test
         end

@@ -78,6 +78,8 @@ class Block < ApplicationRecord
 
     #append the new block with it's block hash to the chain with all transactions set to "waiting"
     parse_input["confirmed_transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
+      status = "waiting"
+      status = "cleared" if new_txn["sender"] == "0000000000000000000000000000000000000000000="
       ConfirmedTransaction.create(
         amount: new_txn["amount"],
         destination: new_txn["destination"],
@@ -86,7 +88,7 @@ class Block < ApplicationRecord
         sender_public_key: new_txn["sender_public_key"],
         sender_signature: new_txn["sender_signature"],
         tx_fee: new_txn["tx_fee"],
-        status: "waiting",
+        status: status,
         nonce: new_txn["nonce"],
         transaction_index: new_txn["transaction_index"],
         block_id: new_block.id,
@@ -104,6 +106,8 @@ class Block < ApplicationRecord
 
     #append the new block with it's block hash to the chain with all transactions set to "waiting"
     parse_input["confirmed_transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
+      status = "waiting"
+      status = "cleared" if new_txn["sender"] == "0000000000000000000000000000000000000000000="
       OpenTransaction.create(
         amount: new_txn["amount"],
         destination: new_txn["destination"],
@@ -112,7 +116,7 @@ class Block < ApplicationRecord
         sender_public_key: new_txn["sender_public_key"],
         sender_signature: new_txn["sender_signature"],
         tx_fee: new_txn["tx_fee"],
-        status: "waiting",
+        status: status,
         nonce: new_txn["nonce"],
         transaction_index: new_txn["transaction_index"],
         open_block_id: new_open_block.id,
@@ -126,7 +130,7 @@ class Block < ApplicationRecord
     accounts_to_update = (replace_block.confirmed_transactions.pluck(:destination) + replace_block.confirmed_transactions.pluck(:sender)).uniq
     Account.update_balances_in_new_block(accounts_to_update)
     #broadcast the new blocks to all networks
-    transmit_new_blocks_to_network(replace_block, new_block)
+    Block.transmit_new_blocks_to_network(replace_block, new_block)
     #return message to sender
     return "Block accepted"
   end
@@ -134,13 +138,17 @@ class Block < ApplicationRecord
   def self.transmit_new_blocks_to_network(replace_block, new_block)
     payload = [replace_block, new_block].to_json(:include => :confirmed_transactions)
     #POST "/block" to other commit nodes
-    # Net::HTTP.post(URI("http://mining.stardust.finance/block"), payload, "Content-Type" => "application/json")
+    # Net::HTTP.post(URI("https://mining.stardust.finance/block"), payload, "Content-Type" => "application/json")
 
     #POST "/block" to mining.stardust.finance
-    Net::HTTP.post(URI("http://mining.stardust.finance/block"), payload, "Content-Type" => "application/json")
+    Thread.new {
+      Net::HTTP.post(URI("https://mining.stardust.finance/block"), payload, "Content-Type" => "application/json")
+    }
 
     #POST "/block" to clearing.stardust.finance
-    Net::HTTP.post(URI("http://clearing.stardust.finance/block"), payload, "Content-Type" => "application/json")
+    Thread.new {
+      Net::HTTP.post(URI("https://clearing.stardust.finance/block"), payload, "Content-Type" => "application/json")
+    }
   end
 
   def self.validate_new_cleared_block(json_input)
@@ -155,7 +163,7 @@ class Block < ApplicationRecord
     end
 
     #check to ensure block exists in memory and is open
-    current_block = OpenBlock.find_by(block_hash: json_input["block_hash"])
+    current_block = OpenBlock.find_by(block_hash: parse_input["block_hash"])
     if !current_block
       return "Could not locate open block with this block hash"
     end
@@ -165,7 +173,7 @@ class Block < ApplicationRecord
     return block_test if block_test
 
     #check transactions
-    if json_input["transactions"].length != current_block.open_transactions.length
+    if parse_input["confirmed_transactions"].length != current_block.open_transactions.length
       return "The posted block did not match the transactions of the "
     end
     txn_test = Block.block_unappended_transaction_test(json_input)
@@ -186,9 +194,9 @@ class Block < ApplicationRecord
 
     post_cleared_transactions = 0
 
-    json_input["transactions"].each { |txn|
-      if txn.transaction_index != 0
-        if txn.status == "Pre-Cleared"
+    parse_input["confirmed_transactions"].each { |txn|
+      if txn["transaction_index"] != 0
+        if txn["status"] == "pre-cleared"
           calculated_hash = Digest::SHA256.hexdigest(txn["amount"].to_s + txn["destination"].to_s + txn["nonce"].to_s + txn["sender"].to_s + txn["sender_public_key"].to_s + txn["tx_fee"].to_s)
           if calculated_hash != txn["transaction_hash"]
             return "A transaction hash did not match the SHA256 hex Hash of (amount + destination + nonce + sender + sender_public_key + tx_fee)"
@@ -201,18 +209,15 @@ class Block < ApplicationRecord
 
     #if yes, replace block
     if post_cleared_transactions > current_block.cleared_transactions
-      #delete the old block and the old transactions
-      current_block.destroy
 
       #Create a newly cleared blocks to verify future cleared blocks against.
       new_open_block = OpenBlock.create(block_hash: parse_input["block_hash"],
-                                        commit_hash: nil,
                                         merkle_hash: parse_input["merkle_hash"],
                                         solution_hash: parse_input["solution_hash"],
                                         prev_block_hash: parse_input["prev_block_hash"],
                                         nonce: parse_input["nonce"],
                                         difficulty: parse_input["difficulty"],
-                                        clear_transactions: post_cleared_transactions)
+                                        cleared_transactions: post_cleared_transactions)
 
       #append the new block with it's block hash to the chain with all transactions set to "waiting"
       parse_input["confirmed_transactions"].sort_by { |k| k["transaction_index"].to_i }.each { |new_txn|
@@ -226,10 +231,18 @@ class Block < ApplicationRecord
                                status: new_txn["status"],
                                nonce: new_txn["nonce"],
                                transaction_index: new_txn["transaction_index"],
-                               block_id: new_open_block.id)
+                               open_block_id: new_open_block.id)
       }
 
+      #delete the old block and the old transactions
+      if new_open_block
+        current_block.destroy
+        accounts_to_update = (new_open_block.open_transactions.pluck(:destination) + new_open_block.open_transactions.pluck(:sender)).uniq
+        Account.update_balances_in_new_block(accounts_to_update)
+      end
       return "Replaced cleared block"
+    else
+      return "Already have a more cleared block"
     end
   end
 
@@ -318,7 +331,7 @@ class Block < ApplicationRecord
 
     block_transactions.each { |txn|
       total_fees += txn["tx_fee"]
-      if txn["sender"] == "0000000000000000000000000000000000000000000000000000000000000000"
+      if txn["sender"] == "0000000000000000000000000000000000000000000="
         ConfirmedTransaction.coinbase_transaction_check(txn.to_json)
         coinbase_transaction_count += 1
         coinbase_amount_to_verify += txn["amount"]
@@ -362,20 +375,24 @@ class Block < ApplicationRecord
 
   def self.calculate_block_height
     Block.all.each { |block|
-      if !block.block_height
-        Block.find_height(block)
-      end
+      Block.find_height(block)
     }
   end
 
   def self.find_height(block)
     prev_block = Block.find_by(block_hash: block.prev_block_hash)
-    if prev_block.block_height
-      block_height = prev_block.block_height + 1
-      block.update(block_height: block_height)
-      return block_height
+    if prev_block
+      if prev_block.block_height
+        block_height = prev_block.block_height + 1
+        block.update(block_height: block_height)
+        return block_height
+      else
+        block_height = Block.find_height(prev_block) + 1
+        block.update(block_height: block_height)
+        return block_height
+      end
     else
-      block_height = Block.find_height(prev_block) + 1
+      block_height = 0
       block.update(block_height: block_height)
       return block_height
     end

@@ -25,12 +25,12 @@ class MainController < ApplicationController
         end
       }
     }
-    render json: open_transactions
+    render json: open_transactions.to_json
   end
 
   def append_information
     result = ConfirmedTransaction.verify_and_append_transaction(request.body.read)
-    render json: result
+    render json: result.to_json
   end
 
   def block

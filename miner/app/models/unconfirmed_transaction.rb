@@ -1,15 +1,15 @@
 class UnconfirmedTransaction < ApplicationRecord
-  def self.verify_transaction(json_input)
+  def self.verify_transaction(parse_input)
     #check to see if transaction is valid
-    if json_input.is_a?(String)
-      begin
-        parse_input = JSON.parse(json_input)
-      rescue
-        return "JSON is not Valid"
-      end
-    else
-      return "Transaction inputed was not a JSON String"
-    end
+    # if json_input.is_a?(String)
+    #   begin
+    #     parse_input = JSON.parse(json_input)
+    #   rescue
+    #     return "JSON is not Valid"
+    #   end
+    # else
+    #   return "Transaction inputed was not a JSON String"
+    # end
 
     if !parse_input["transaction_hash"] || parse_input["transaction_hash"].length != 64
       return "All transactions must have a valid SHA256 transaction hash"
@@ -47,6 +47,11 @@ class UnconfirmedTransaction < ApplicationRecord
     mempool_transaction_test = UnconfirmedTransaction.find_by(transaction_hash: parse_input["transaction_hash"])
     if mempool_transaction_test
       return "Transaction is already known and staged in the mempool for inclusion in a new block"
+    end
+
+    nonce_transaction_test = UnconfirmedTransaction.find_by(sender: parse_input["sender"], nonce: parse_input["nonce"])
+    if nonce_transaction_test
+      return "Nonce has already been used in the mempool"
     end
 
     confirmed_transaction_test = ConfirmedTransaction.find_by(transaction_hash: parse_input["transaction_hash"])

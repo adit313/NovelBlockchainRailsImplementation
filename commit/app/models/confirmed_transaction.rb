@@ -37,8 +37,8 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #otherwise transaction is valid and good to BROADCAST to other commit nodes/mining nodes
-    broadcast_transaction_to_other_commit_and_mining_nodes(json_input)
-    return json_input
+    result = broadcast_transaction_to_other_commit_and_mining_nodes(json_input)
+    return result
   end
 
   def self.broadcast_transaction_to_other_commit_and_mining_nodes(json_input)
@@ -46,7 +46,8 @@ class ConfirmedTransaction < ApplicationRecord
     # Net::HTTP.post(URI("http://other_commit_node_addresses/append_information"), payload, "Content-Type" => "application/json")
 
     #Broadcast POST "/new_transaction" to mining.stardust.finance
-    Net::HTTP.post(URI("http://mining.stardust.finance/new_transaction"), json_input, "Content-Type" => "application/json")
+    response = Net::HTTP.post(URI("https://mining.stardust.finance/new_transaction"), json_input, "Content-Type" => "application/json")
+    return response.body
   end
 
   def self.verify_and_append_transaction(json_input)
@@ -65,7 +66,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #verify that the transaction amount is greater than 0,
-    if parse_input["amount"] < 0
+    if parse_input["amount"].to_f < 0
       return "All transactions must have a positive amount "
     end
 
@@ -89,8 +90,8 @@ class ConfirmedTransaction < ApplicationRecord
       if !referenced_confirmed_transaction.destination || !referenced_confirmed_transaction.amount || !referenced_confirmed_transaction.nonce
         referenced_confirmed_transaction.update(destination: parse_input["destination"], amount: parse_input["amount"], nonce: parse_input["nonce"])
         #BROADCAST to other commit nodes/clearing nodes
-        broadcast_transaction_to_other_commit_and_clearing_nodes(json_input)
-        return "Transaction was found, appended and broadcast to other nodes"
+        result = broadcast_transaction_to_other_commit_and_clearing_nodes(json_input)
+        return result
       end
     else
       return "Transaction was not found on this commit nodes chain"
@@ -102,7 +103,8 @@ class ConfirmedTransaction < ApplicationRecord
     # Net::HTTP.post(URI("http://other_commit_node_addresses/append_information"), payload, "Content-Type" => "application/json")
 
     #POST "/append_information" to clearing.stardust.finance
-    Net::HTTP.post(URI("http://clearing.stardust.finance/append_information"), json_input, "Content-Type" => "application/json")
+    response = Net::HTTP.post(URI("https://clearing.stardust.finance/append_information"), json_input, "Content-Type" => "application/json")
+    return response.body
   end
 
   def self.generic_transaction_check(json_input)
@@ -178,7 +180,7 @@ class ConfirmedTransaction < ApplicationRecord
     end
 
     #   verify the senders public key matches the address
-    if parse_input["sender"] != "0000000000000000000000000000000000000000000000000000000000000000"
+    if parse_input["sender"] != "0000000000000000000000000000000000000000000="
       return "Coinbase transaction must have an all 0 sender address"
     end
 

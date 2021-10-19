@@ -7,9 +7,9 @@ class Mine < ApplicationRecord
       #if there are, select which ones to incorporate into a new block
       active_record_proposed_block_transactions = UnconfirmedTransaction.limit(MAX_BLOCK_TRANSACTIONS - 2).order(tx_fee: :desc, transaction_hash: :desc)
       #add up fees and append coinbase transation with all fees using miner public address key
-      total_fees = active_record_proposed_block_transactions.pluck(:tx_fee).sum / 2
+      total_fees = active_record_proposed_block_transactions.pluck(:tx_fee).sum
 
-      sender = "0000000000000000000000000000000000000000000000000000000000000000"
+      sender = "0000000000000000000000000000000000000000000="
       digest = OpenSSL::Digest::SHA256.new
       transaction_hash = Digest::SHA256.hexdigest(total_fees.to_s + COMMIT_NODE_ADDRESS.to_s + 1.to_s + sender.to_s + COMMIT_NODE_KEY.public_key.to_s.to_s + 0.to_f.to_s)
       signature = COMMIT_NODE_KEY.sign(digest, transaction_hash).unpack("H*").first
@@ -59,14 +59,12 @@ class Mine < ApplicationRecord
       #if successful
       broadcast_to_commit_node_network(payload)
       #received_block.save and delete those transactions from the pool
-    else
-      sleep(10) #wait 10 seconds to see if new transactions post
     end
   end
 
   def self.broadcast_to_commit_node_network(payload)
     #POST request to commit.stardust.finance
-    Net::HTTP.post(URI("http://commit.stardust.finance/commit"), payload, "Content-Type" => "application/json")
+    Net::HTTP.post(URI("https://commit.stardust.finance/commit"), payload, "Content-Type" => "application/json")
   end
 
   # a recursive function to find the merkle root of the transactions

@@ -1,6 +1,6 @@
 class Account < ApplicationRecord
   def self.update_all_account_balances
-    accounts = ConfirmedTransaction.pluck(destination).uniq!
+    accounts = ConfirmedTransaction.pluck(:destination).uniq
     accounts.each { |account|
       received_money = ConfirmedTransaction.where(status: "cleared", destination: account).sum(:amount)
       highest_nonce = 0
